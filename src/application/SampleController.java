@@ -5,7 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 public class SampleController {
-	 @FXML
+	 
+	@FXML
+    private Button create_cmpy_btn;
+	@FXML
 	 private Button sel;
 	
 	@FXML
@@ -13,4 +16,8 @@ public class SampleController {
 		System.out.print("Selected company");
 	}
 	
+    @FXML
+    void showCreateCmpy(ActionEvent event) {
+    	
+    }
 }
