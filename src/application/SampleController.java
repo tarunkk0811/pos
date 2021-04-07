@@ -19,9 +19,8 @@ public class SampleController {
 	 private Button sel;
 	
 	@FXML
-	void print(ActionEvent event) throws IOException {
-		
-		
+	void print(ActionEvent event) {
+		System.out.print("Selected");
 	}
 	
     @FXML
