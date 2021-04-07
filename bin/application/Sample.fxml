@@ -51,9 +51,9 @@
                         <Font size="10.0" />
                      </font>
                   </CheckBox>
-                  <Button layoutX="463.0" layoutY="269.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Button" />
+                  <Button layoutX="463.0" layoutY="269.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" />
                   <Button layoutX="463.0" layoutY="325.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Button" />
-                  <Button layoutX="463.0" layoutY="391.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Button" />
+                  <Button fx:id="create_cmpy_btn" layoutX="463.0" layoutY="391.0" mnemonicParsing="false" onAction="#showCreateCmpy" prefHeight="25.0" prefWidth="134.0" text="Create Company" />
                </children>
             </Pane>
          </children>
