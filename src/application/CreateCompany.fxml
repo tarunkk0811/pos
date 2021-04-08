@@ -50,6 +50,6 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="218.0" layoutY="478.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="173.0" text="Create Company" />
+      <Button fx:id="ccbtn" layoutX="218.0" layoutY="492.0" mnemonicParsing="false" onAction="#createCompany" prefHeight="26.0" prefWidth="173.0" text="Create Company" />
    </children>
 </AnchorPane>

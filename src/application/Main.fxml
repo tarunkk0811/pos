@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
    <children>
       <MenuBar>
         <menus>
@@ -53,7 +53,7 @@
                   </CheckBox>
                   <Button layoutX="463.0" layoutY="269.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" />
                   <Button layoutX="463.0" layoutY="325.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Button" />
-                  <Button fx:id="create_cmpy_btn" layoutX="463.0" layoutY="391.0" mnemonicParsing="false" onAction="#showCreateCmpy" prefHeight="25.0" prefWidth="134.0" text="Create Company" />
+                  <Button fx:id="create_cmpy_btn" layoutX="463.0" layoutY="391.0" mnemonicParsing="false" onAction="#createCompanyWindow" prefHeight="25.0" prefWidth="134.0" text="Create Company" />
                </children>
             </Pane>
          </children>

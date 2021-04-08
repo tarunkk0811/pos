@@ -1,18 +1,14 @@
 package application;
-
-import application.Main;
 import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.stage.*;
+
+
 
 public class DashboardController {
-	@FXML
-    private MenuItem open_cmpy_btn;
-
+	
     @FXML
     void showComapanies(ActionEvent event) {
     	try {
@@ -24,5 +20,11 @@ public class DashboardController {
     	}
     	
     }
+    
+    @FXML	
+    void createCompanyWindow(ActionEvent event) {
+    	new ApplicationController().createCompanyWindow(event);
+    }
+    
     
 }
