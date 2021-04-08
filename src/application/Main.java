@@ -9,19 +9,28 @@ import javafx.fxml.FXMLLoader;
 
 
 public class Main extends Application {
+	
+	private static Stage window;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			window = primaryStage;
 			Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
 			Scene scene = new Scene(root,1280,800);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.setMaximized(true);
-			primaryStage.setTitle("POS");
-			primaryStage.show();
+			window.setScene(scene);
+			window.setMaximized(true);
+			window.setTitle("POS");
+			window.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void changeSceneTo(Scene sc) {
+		window.setScene(sc);
+		window.setMaximized(true);
 	}
 	
 	public static void main(String[] args) {
