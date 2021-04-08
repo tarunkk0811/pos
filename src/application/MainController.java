@@ -11,7 +11,7 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class SampleController {
+public class MainController {
 	 
 	@FXML
     private Button create_cmpy_btn;
@@ -19,7 +19,7 @@ public class SampleController {
 	 private Button sel;
 	
 	@FXML
-	void print(ActionEvent event) {
+	void showDashboard(ActionEvent event) {
 		System.out.print("Selected");
 		try {
 			Stage primaryStage = (Stage)sel.getScene().getWindow();
