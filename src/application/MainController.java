@@ -25,9 +25,9 @@ public class MainController {
 			Stage primaryStage = (Stage)sel.getScene().getWindow();
 			Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
 			Scene sc = new Scene(root);
-			
+		
 			primaryStage.setScene(sc);
-			primaryStage.setMaximized(true);
+			
 			
 		}catch(Exception e) {
 			System.out.printf("Error occured: %s",e);
