@@ -1,4 +1,4 @@
-package application;
+package application.controllers;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import application.*;
 
 public class CreateCompanyController {
 	
@@ -21,7 +22,7 @@ public class CreateCompanyController {
 	    void createCompany(ActionEvent event) throws IOException {
 		   Stage cur_stage = (Stage)ccbtn.getScene().getWindow();
 		   
-		   Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+		   Parent root = FXMLLoader.load(getClass().getResource("/application/views/Main.fxml"));
    		   Scene scene = new Scene(root);
    		   Main.changeSceneTo(scene);
    		   cur_stage.close();

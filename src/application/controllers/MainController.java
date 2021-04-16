@@ -1,4 +1,4 @@
-package application;
+package application.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,12 +19,10 @@ public class MainController {
 
 		try {
 			Stage primaryStage = (Stage)sel.getScene().getWindow();
-			Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/application/views/Dashboard.fxml"));
 			Scene sc = new Scene(root);
 		
 			primaryStage.setScene(sc);
-			
-			
 		}catch(Exception e) {
 			System.out.printf("Error occured: %s",e);
 		}

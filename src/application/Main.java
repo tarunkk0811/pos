@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 
 
-
 public class Main extends Application {
 	
 	private static Stage window;
@@ -15,7 +14,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			window = primaryStage;
-			Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/application/views/Main.fxml"));
 			Scene scene = new Scene(root,1280,800);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			window.setScene(scene);
