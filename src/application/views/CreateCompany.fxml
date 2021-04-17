@@ -1,55 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="577.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.CreateCompanyController">
+<AnchorPane prefHeight="678.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.CreateCompanyController">
    <children>
-      <Label layoutX="193.0" layoutY="76.0" text="Name" AnchorPane.leftAnchor="193.0" AnchorPane.rightAnchor="126.0">
+      <Label layoutX="208.0" layoutY="474.0" text="From" AnchorPane.leftAnchor="208.0" AnchorPane.rightAnchor="111.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="260.0" layoutY="73.0" promptText="Company Name" />
+      <TextField fx:id="cname" layoutX="260.0" layoutY="73.0" promptText="Company Name" />
       <Label layoutX="193.0" layoutY="131.0" text="Address">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField accessibleRole="TEXT_AREA" layoutX="261.0" layoutY="125.0" prefHeight="79.0" prefWidth="226.0" promptText="Adress" />
+      <TextField fx:id="caddress" accessibleRole="TEXT_AREA" layoutX="261.0" layoutY="125.0" prefHeight="79.0" prefWidth="226.0" promptText="Adress" />
       <Label layoutX="197.0" layoutY="222.0" text="GSTIN">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="260.0" layoutY="219.0" promptText="GSTIN" />
-      <TextField layoutX="260.0" layoutY="277.0" promptText="Phone number" />
+      <TextField fx:id="cgstin" layoutX="260.0" layoutY="219.0" promptText="GSTIN" />
+      <TextField fx:id="cphone" layoutX="260.0" layoutY="277.0" promptText="Phone number" />
       <Label layoutX="203.0" layoutY="280.0" text="Phone">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="260.0" layoutY="330.0" promptText="Email Address" />
+      <TextField fx:id="cemail" layoutX="260.0" layoutY="330.0" promptText="Email Address" />
       <Label layoutX="206.0" layoutY="333.0" text="Email">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="260.0" layoutY="374.0" promptText="Password" />
+      <TextField fx:id="cpassword" layoutX="260.0" layoutY="374.0" promptText="Password" />
       <Label layoutX="125.0" layoutY="377.0" text="Company Password">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="260.0" layoutY="420.0" promptText="Confirm Password" />
+      <TextField fx:id="ccpassword" layoutX="260.0" layoutY="420.0" promptText="Confirm Password" />
       <Label layoutX="125.0" layoutY="423.0" text="Company Password">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="ccbtn" layoutX="218.0" layoutY="492.0" mnemonicParsing="false" onAction="#createCompany" prefHeight="26.0" prefWidth="173.0" text="Create Company" />
+      <Button fx:id="ccbtn" layoutX="217.0" layoutY="584.0" mnemonicParsing="false" onAction="#createCompany" prefHeight="26.0" prefWidth="173.0" text="Create Company" />
+      <DatePicker fx:id="fromdate" layoutX="261.0" layoutY="471.0" />
+      <DatePicker fx:id="todate" layoutX="261.0" layoutY="521.0" />
+      <Label layoutX="204.0" layoutY="76.0" text="Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="215.0" layoutY="524.0" text="To">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

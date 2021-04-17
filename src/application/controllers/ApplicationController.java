@@ -14,7 +14,7 @@ public class ApplicationController {
     		Parent root = FXMLLoader.load(getClass().getResource("/application/views/CreateCompany.fxml"));
 			Stage ccstage =new Stage();
 			ccstage.initModality(Modality.APPLICATION_MODAL);
-			Scene ccscene = new Scene(root,600,600);
+			Scene ccscene = new Scene(root,800,800);
 			ccstage.setScene(ccscene);
 			ccstage.setTitle("Create Company");
 			ccstage.setResizable(false);
