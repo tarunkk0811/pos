@@ -15,6 +15,7 @@ public class DashboardController {
     		Parent root = FXMLLoader.load(getClass().getResource("/application/views/Main.fxml"));
     		Scene scene = new Scene(root);
     		Main.changeSceneTo(scene);
+    		SessionController.setFid(0);
     	}catch(Exception e){
     		
     	}
