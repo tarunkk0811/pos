@@ -1,26 +1,34 @@
 package application.controllers;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import DAO.GetCompaniesDao;
+import DAO.SetCompanyDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import application.custom_properties.*;
 
 public class MainController {
 
+	// fxml instance variables
 	@FXML
-	private Button create_cmpy_btn,newFY;
+	private Button create_cmpy_btn, newFY;
 	@FXML
-	private Button sel;
+	private Button sel, submitfy;
 	@FXML
-	private TreeView<?> tv;
+	public TreeView<?> tv;
+	
+	// variables
+	public int fid;
 
+	// fxml methods
 	@FXML
 	public void initialize() throws SQLException {
 		CustomTreeItem root = new CustomTreeItem("Companies list");
@@ -64,27 +72,39 @@ public class MainController {
 				System.out.printf("Error occured: %s", e);
 			}
 		}
-		System.out.println(selecteddFinYear.getParent());
 
 	}
 
 	@FXML
 	void createCompanyWindow(ActionEvent event) {
-		Object object = null;
-
 		new ApplicationController().createCompanyWindow(event);
+	}
 
-		TreeItem ti = tv.getSelectionModel().getSelectedItem();
-		if (ti != null) {
-			object = ti.getValue();
-			ti.setValue(null);
-			ti.setValue(object);
+	@FXML
+	void newFinancialYear(ActionEvent event) {
+		CustomTreeItem selectedItem = (CustomTreeItem) tv.getSelectionModel().getSelectedItem();
+		if (selectedItem != null) {
+			if (selectedItem.getParent().getValue() == "Companies list") {
+				selectedItem = (CustomTreeItem) selectedItem.getChildren().get(0);
+			}
+			
+			fid = selectedItem.getId();
+			NewFYController.InjectMainController(this);
+			
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("/application/views/NewFinYear.fxml"));
+				Stage ccstage = new Stage();
+				ccstage.initModality(Modality.APPLICATION_MODAL);
+				Scene ccscene = new Scene(root, 500, 500);
+				ccstage.setScene(ccscene);
+				ccstage.setTitle("New Financial Year");
+				ccstage.setResizable(false);
+				ccstage.showAndWait();
+			} catch (IOException e) {
+				System.out.printf("Error occured: %s", e);
+			}
 		}
 	}
 	
-	@FXML
-    void newFinancialYear(ActionEvent event) {
-		
-    }
 
-}
+	}

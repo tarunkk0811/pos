@@ -23,6 +23,14 @@ public class GetCompaniesDao {
 		return rs;
 	}
 	
+	public int getCid(int fid) throws SQLException {
+		Statement stmt = con.createStatement();
+		String query = "select cid from financial_year where fid=" + fid;
+		ResultSet rs = stmt.executeQuery(query);
+		rs.next();
+		return rs.getInt(1);
+	}
+	
 	
 	
 }
