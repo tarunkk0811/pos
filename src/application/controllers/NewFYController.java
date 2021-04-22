@@ -23,7 +23,7 @@ public class NewFYController {
 	private DatePicker newfromdt, newtodt;
 	@FXML
 	private Button submitfy;
-	@FXML
+	
 	private static MainController main;
 	
 	

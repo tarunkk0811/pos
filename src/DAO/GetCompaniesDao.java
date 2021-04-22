@@ -11,21 +11,21 @@ public class GetCompaniesDao {
 	
 	public ResultSet getCompanies() throws SQLException {
 		Statement listcompanies = con.createStatement();
-		String query="select cid,name from company";
+		String query="select cid,name from company where visibility=true";
 		ResultSet rs = listcompanies.executeQuery(query);
 		return rs;
 	}
 	
 	public ResultSet getFinYears(int cid) throws SQLException{
 		Statement listfinyears = con.createStatement();
-		String query = "select * from financial_year where cid ="+cid;
+		String query = "select * from financial_year where visibility=true and cid ="+cid;
 		ResultSet rs = listfinyears.executeQuery(query);
 		return rs;
 	}
 	
 	public int getCid(int fid) throws SQLException {
 		Statement stmt = con.createStatement();
-		String query = "select cid from financial_year where fid=" + fid;
+		String query = "select cid from financial_year where visibility=true and fid=" + fid;
 		ResultSet rs = stmt.executeQuery(query);
 		rs.next();
 		return rs.getInt(1);

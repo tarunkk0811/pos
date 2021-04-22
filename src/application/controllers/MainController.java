@@ -3,6 +3,8 @@ package application.controllers;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import DAO.DeleteDao;
 import DAO.GetCompaniesDao;
 import DAO.SetCompanyDao;
 import javafx.event.ActionEvent;
@@ -13,24 +15,29 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import application.Main;
 import application.custom_properties.*;
 
 public class MainController {
 
 	// fxml instance variables
 	@FXML
-	private Button create_cmpy_btn, newFY;
+	private Button create_cmpy_btn, newFY, delete_btn;
 	@FXML
 	private Button sel, submitfy;
 	@FXML
 	public TreeView<?> tv;
-	
+
 	// variables
 	public int fid;
 
 	// fxml methods
 	@FXML
 	public void initialize() throws SQLException {
+		// injecting the main controller object
+		NewFYController.InjectMainController(this);
+		
+		
 		CustomTreeItem root = new CustomTreeItem("Companies list");
 		ResultSet rs = new GetCompaniesDao().getCompanies();
 
@@ -87,9 +94,8 @@ public class MainController {
 			if (selectedItem.getParent().getValue() == "Companies list") {
 				selectedItem = (CustomTreeItem) selectedItem.getChildren().get(0);
 			}
-			
+
 			fid = selectedItem.getId();
-			NewFYController.InjectMainController(this);
 			
 			try {
 				Parent root = FXMLLoader.load(getClass().getResource("/application/views/NewFinYear.fxml"));
@@ -105,6 +111,29 @@ public class MainController {
 			}
 		}
 	}
-	
 
+	@FXML
+	void delete(ActionEvent event) throws SQLException, IOException {
+		
+		CustomTreeItem selectedItem = (CustomTreeItem) tv.getSelectionModel().getSelectedItem();
+		if (selectedItem != null) {
+			boolean status;
+			fid = selectedItem.getId();
+			if (selectedItem.getParent().getValue() == "Companies list") {
+				selectedItem = (CustomTreeItem) selectedItem.getChildren().get(0);
+				fid = selectedItem.getId();
+				int cid = new GetCompaniesDao().getCid(fid);
+				status = new DeleteDao().hideCompany(cid);
+			}else {
+				status = new DeleteDao().hideFinancialYear(fid);
+			}
+			System.out.print(status);
+			
+			Parent root = FXMLLoader.load(getClass().getResource("/application/views/Main.fxml"));
+			Scene scene = new Scene(root);
+			Main.changeSceneTo(scene);
+		}
+		
 	}
+
+}

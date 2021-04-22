@@ -52,7 +52,7 @@
                      </font>
                   </CheckBox>
                   <Button fx:id="newFY" layoutX="463.0" layoutY="269.0" mnemonicParsing="false" onAction="#newFinancialYear" prefHeight="25.0" prefWidth="134.0" text="New Financial Year" />
-                  <Button layoutX="463.0" layoutY="325.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Button" />
+                  <Button fx:id="delete_btn" layoutX="463.0" layoutY="318.0" mnemonicParsing="false" onAction="#delete" prefHeight="25.0" prefWidth="134.0" text="Delete" />
                   <Button fx:id="create_cmpy_btn" layoutX="463.0" layoutY="391.0" mnemonicParsing="false" onAction="#createCompanyWindow" prefHeight="25.0" prefWidth="134.0" text="Create Company" />
                </children>
             </Pane>
