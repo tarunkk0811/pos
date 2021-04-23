@@ -36,8 +36,7 @@ public class MainController {
 	public void initialize() throws SQLException {
 		// injecting the main controller object
 		NewFYController.InjectMainController(this);
-		
-		
+
 		CustomTreeItem root = new CustomTreeItem("Companies list");
 		ResultSet rs = new GetCompaniesDao().getCompanies();
 
@@ -96,7 +95,7 @@ public class MainController {
 			}
 
 			fid = selectedItem.getId();
-			
+
 			try {
 				Parent root = FXMLLoader.load(getClass().getResource("/application/views/NewFinYear.fxml"));
 				Stage ccstage = new Stage();
@@ -114,26 +113,28 @@ public class MainController {
 
 	@FXML
 	void delete(ActionEvent event) throws SQLException, IOException {
-		
-		CustomTreeItem selectedItem = (CustomTreeItem) tv.getSelectionModel().getSelectedItem();
-		if (selectedItem != null) {
-			boolean status;
-			fid = selectedItem.getId();
-			if (selectedItem.getParent().getValue() == "Companies list") {
-				selectedItem = (CustomTreeItem) selectedItem.getChildren().get(0);
+		ApplicationController app = new ApplicationController();
+		if (app.confirmationDialog("Are you sure to delete?", null)) {
+			CustomTreeItem selectedItem = (CustomTreeItem) tv.getSelectionModel().getSelectedItem();
+			if (selectedItem != null) {
+				boolean status;
 				fid = selectedItem.getId();
-				int cid = new GetCompaniesDao().getCid(fid);
-				status = new DeleteDao().hideCompany(cid);
-			}else {
-				status = new DeleteDao().hideFinancialYear(fid);
+				if (selectedItem.getParent().getValue() == "Companies list") {
+					selectedItem = (CustomTreeItem) selectedItem.getChildren().get(0);
+					fid = selectedItem.getId();
+					int cid = new GetCompaniesDao().getCid(fid);
+					status = new DeleteDao().hideCompany(cid);
+				} else {
+					status = new DeleteDao().hideFinancialYear(fid);
+				}
+				System.out.print(status);
+
+				Parent root = FXMLLoader.load(getClass().getResource("/application/views/Main.fxml"));
+				Scene scene = new Scene(root);
+				Main.changeSceneTo(scene);
 			}
-			System.out.print(status);
-			
-			Parent root = FXMLLoader.load(getClass().getResource("/application/views/Main.fxml"));
-			Scene scene = new Scene(root);
-			Main.changeSceneTo(scene);
+			app.informationDialog("Deleted Successfully", null);
 		}
-		
 	}
 
 }
