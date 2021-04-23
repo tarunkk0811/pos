@@ -37,7 +37,7 @@ public class NewFYController {
 		
 		java.sql.Date fromdt = java.sql.Date.valueOf(newfromdt.getValue());
 		java.sql.Date todt = java.sql.Date.valueOf(newtodt.getValue());
-		int cid = new GetCompaniesDao().getCid(main.fid);
+		int cid = main.cid;
 		new SetCompanyDao().setFinYear(cid, fromdt, todt);
 		Stage fin = (Stage) submitfy.getScene().getWindow();
 		fin.close();

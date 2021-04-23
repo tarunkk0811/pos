@@ -29,7 +29,7 @@ public class MainController {
 	public TreeView<?> tv;
 
 	// variables
-	public int fid;
+	public int fid, cid;
 
 	// fxml methods
 	@FXML
@@ -44,7 +44,7 @@ public class MainController {
 			int cid = rs.getInt(1);
 			String name = rs.getString(2);
 			CustomTreeItem company = new CustomTreeItem(name);
-			// company.setId(cid);
+			company.setId(cid);
 
 			ResultSet finres = new GetCompaniesDao().getFinYears(cid);
 
@@ -91,11 +91,11 @@ public class MainController {
 		CustomTreeItem selectedItem = (CustomTreeItem) tv.getSelectionModel().getSelectedItem();
 		if (selectedItem != null) {
 			if (selectedItem.getParent().getValue() == "Companies list") {
-				selectedItem = (CustomTreeItem) selectedItem.getChildren().get(0);
+				cid = selectedItem.getId();
+			} else {
+				selectedItem = (CustomTreeItem) selectedItem.getParent();
+				cid = selectedItem.getId();
 			}
-
-			fid = selectedItem.getId();
-
 			try {
 				Parent root = FXMLLoader.load(getClass().getResource("/application/views/NewFinYear.fxml"));
 				Stage ccstage = new Stage();
@@ -118,16 +118,13 @@ public class MainController {
 			CustomTreeItem selectedItem = (CustomTreeItem) tv.getSelectionModel().getSelectedItem();
 			if (selectedItem != null) {
 				boolean status;
-				fid = selectedItem.getId();
 				if (selectedItem.getParent().getValue() == "Companies list") {
-					selectedItem = (CustomTreeItem) selectedItem.getChildren().get(0);
-					fid = selectedItem.getId();
-					int cid = new GetCompaniesDao().getCid(fid);
+					cid = selectedItem.getId();
 					status = new DeleteDao().hideCompany(cid);
 				} else {
+					fid = selectedItem.getId();
 					status = new DeleteDao().hideFinancialYear(fid);
 				}
-				System.out.print(status);
 
 				Parent root = FXMLLoader.load(getClass().getResource("/application/views/Main.fxml"));
 				Scene scene = new Scene(root);
