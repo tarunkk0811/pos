@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="859.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TabPane prefHeight="502.0" prefWidth="859.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Accounts">
+               <content>
+                  <AnchorPane prefHeight="514.0" prefWidth="859.0">
+                     <children>
+                        <Text layoutX="60.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+                        <TextField fx:id="name" layoutX="115.0" layoutY="32.0" prefHeight="20.0" prefWidth="226.0" />
+                        <Text layoutX="59.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone" />
+                        <TextField fx:id="phone" layoutX="116.0" layoutY="101.0" prefHeight="20.0" prefWidth="228.0" />
+                        <Text layoutX="47.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" />
+                        <TextArea fx:id="address" accessibleRole="TEXT_FIELD" layoutX="113.0" layoutY="161.0" prefHeight="78.0" prefWidth="231.0" />
+                        <Text layoutX="47.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country" />
+                        <ChoiceBox fx:id="country" layoutX="113.0" layoutY="271.0" prefHeight="26.0" prefWidth="230.0" />
+                        <Text layoutX="62.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="State" />
+                        <ChoiceBox fx:id="state" layoutX="114.0" layoutY="332.0" prefHeight="26.0" prefWidth="231.0" />
+                        <Text layoutX="65.0" layoutY="407.0" strokeType="OUTSIDE" strokeWidth="0.0" text="City" />
+                        <ChoiceBox fx:id="city" layoutX="115.0" layoutY="389.0" prefHeight="26.0" prefWidth="229.0" />
+                        <Text layoutX="447.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Type" wrappingWidth="93.8167724609375" />
+                        <ChoiceBox fx:id="account_type" layoutX="556.0" layoutY="32.0" prefHeight="26.0" prefWidth="228.0" />
+                        <Text layoutX="482.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adhaar" />
+                        <Text layoutX="486.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+                        <TextField fx:id="adhaar" layoutX="555.0" layoutY="93.0" prefHeight="20.0" prefWidth="230.0" />
+                        <TextField fx:id="email" layoutX="556.0" layoutY="157.0" prefHeight="26.0" prefWidth="230.0" />
+                        <Text layoutX="463.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Credit Days" />
+                        <TextField fx:id="cdays" layoutX="557.0" layoutY="233.0" prefHeight="26.0" prefWidth="230.0" />
+                        <Button layoutX="699.0" layoutY="411.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="88.0" text="Next" />
+                     </children>
+                  </AnchorPane>
+               </content>
+          </Tab>
+          <Tab text="GST">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="57.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GSTIN" />
+                        <TextField fx:id="gstin" layoutX="112.0" layoutY="40.0" prefHeight="26.0" prefWidth="227.0" />
+                        <Text layoutX="20.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Business Type" />
+                        <ChoiceBox fx:id="btype" layoutX="112.0" layoutY="107.0" prefHeight="28.0" prefWidth="227.0" />
+                        <Button layoutX="339.0" layoutY="356.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="123.0" text="Submit" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
