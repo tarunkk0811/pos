@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Products">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="366.0" prefWidth="589.0">
+                     <children>
+                        <Label layoutX="96.0" layoutY="55.0" text="Name" />
+                        <TextField layoutX="151.0" layoutY="51.0" />
+                        <TextField layoutX="150.0" layoutY="97.0" />
+                        <Label layoutX="103.0" layoutY="101.0" text="Alias" />
+                        <Label layoutX="344.0" layoutY="55.0" text="Description" />
+                        <TextArea layoutX="429.0" layoutY="26.0" prefHeight="82.0" prefWidth="153.0" />
+                        <TextField layoutX="150.0" layoutY="149.0" />
+                        <Label layoutX="50.0" layoutY="153.0" text="Re-order Level" />
+                        <Label layoutX="334.0" layoutY="153.0" text="Product Type" />
+                        <ComboBox layoutX="431.0" layoutY="149.0" prefWidth="150.0" />
+                        <TextField layoutX="150.0" layoutY="202.0" />
+                        <Label layoutX="80.0" layoutY="206.0" text="Quantity" />
+                        <TextField layoutX="150.0" layoutY="253.0" />
+                        <Label layoutX="63.0" layoutY="257.0" text="Buying Price" />
+                        <TextField layoutX="434.0" layoutY="253.0" />
+                        <Label layoutX="342.0" layoutY="257.0" text="Selling Price" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="GST">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <CheckBox layoutX="239.0" layoutY="21.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="122.0" text="Inclusive GST">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </CheckBox>
+                        <Label layoutX="72.0" layoutY="68.0" text="HSN Code" />
+                        <TextField layoutX="151.0" layoutY="64.0" />
+                        <Label layoutX="76.0" layoutY="124.0" text="GST Type" />
+                        <ComboBox layoutX="150.0" layoutY="120.0" prefWidth="150.0" />
+                        <Label layoutX="371.0" layoutY="124.0" text="GST %" />
+                        <TextField layoutX="425.0" layoutY="120.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Others">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="366.0" prefWidth="589.0">
+                     <children>
+                        
+                        <Label layoutX="64.0" layoutY="53.0" text="Units" />
+                        <ComboBox layoutX="141.0" layoutY="49.0" prefWidth="150.0" />
+                        <Label layoutX="28.0" layoutY="117.0" text="Opening Stock" />
+                        <TextField layoutX="141.0" layoutY="113.0" />
+                        
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
