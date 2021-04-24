@@ -31,6 +31,22 @@ public class GetCompaniesDao {
 		return rs.getInt(1);
 	}
 	
+	public String getComapanyName(int cid) throws SQLException {
+		Statement stmt = con.createStatement();
+		String query = "select name from company where cid=" + cid;
+		ResultSet rs = stmt.executeQuery(query);
+		rs.next();
+		return rs.getString(1);
+	}
+	
+	public String getFinancialYearString(int fid) throws SQLException {
+		Statement stmt = con.createStatement();
+		String query = "select from_year,to_year from financial_year where fid=" + fid;
+		ResultSet rs = stmt.executeQuery(query);
+		rs.next();
+		return rs.getString(1) + " - " + rs.getString(2);
+	}
+	
 	
 	
 }

@@ -70,9 +70,8 @@ public class MainController {
 			try {
 				Stage primaryStage = (Stage) sel.getScene().getWindow();
 				Parent root = FXMLLoader.load(getClass().getResource("/application/views/Dashboard.fxml"));
-				SessionController.fid = selecteddFinYear.getId();
+				SessionController.setSession(selecteddFinYear.getId(),primaryStage);
 				Scene sc = new Scene(root);
-
 				primaryStage.setScene(sc);
 			} catch (Exception e) {
 				System.out.printf("Error occured: %s", e);
@@ -129,8 +128,12 @@ public class MainController {
 				Parent root = FXMLLoader.load(getClass().getResource("/application/views/Main.fxml"));
 				Scene scene = new Scene(root);
 				Main.changeSceneTo(scene);
+				if(status)
+					app.informationDialog("Deleted Successfully", null);
+				else
+					app.errorDialog("Deletion unsuccessfull", null);
 			}
-			app.informationDialog("Deleted Successfully", null);
+			
 		}
 	}
 

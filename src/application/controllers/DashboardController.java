@@ -4,11 +4,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuItem;
+import javafx.scene.layout.Border;
 import application.*;
 
 
 public class DashboardController {
 	
+	@FXML
+    private Border BorderPane;
+
+	 @FXML
+	 private MenuItem open_cmpy_btn, createcompanytb;
+
     @FXML
     void showComapanies(ActionEvent event) {
     	try {
