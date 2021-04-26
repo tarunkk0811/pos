@@ -74,7 +74,6 @@ public class ApplicationController {
     		ob.remove(0);
     		else 
     		break;
-    		
     	
     	if(ob.size()!=0 ) {
     	cb.getItems().clear();
