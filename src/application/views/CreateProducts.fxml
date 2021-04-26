@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="639.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="465.0" prefWidth="639.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Products">
             <content>
@@ -30,10 +30,16 @@
                         <ComboBox layoutX="431.0" layoutY="149.0" prefWidth="150.0" />
                         <TextField layoutX="150.0" layoutY="202.0" />
                         <Label layoutX="80.0" layoutY="206.0" text="Quantity" />
-                        <TextField layoutX="150.0" layoutY="253.0" />
-                        <Label layoutX="63.0" layoutY="257.0" text="Buying Price" />
-                        <TextField layoutX="434.0" layoutY="253.0" />
-                        <Label layoutX="342.0" layoutY="257.0" text="Selling Price" />
+                        <TextField layoutX="161.0" layoutY="320.0" />
+                        <Label layoutX="55.0" layoutY="322.0" text="Buying Price">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Label>
+                        <TextField layoutX="445.0" layoutY="320.0" />
+                        <Label layoutX="337.0" layoutY="324.0" text="Selling Price">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Label>
                      </children>
                   </AnchorPane>
             </content>
