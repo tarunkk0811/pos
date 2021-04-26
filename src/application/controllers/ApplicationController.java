@@ -1,14 +1,18 @@
 package application.controllers;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Optional;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -56,6 +60,27 @@ public class ApplicationController {
 		error.showAndWait();
 	}
 
-	
+	ComboBox<String> searchComboBox(Event event,ComboBox<String> cb,ObservableList<String> ob) {
+		Collections.sort(ob);
+		String inp = cb.getEditor().getText();
+    	String nameCapitalized = inp.toUpperCase();
+    	if(inp.length()>=2) {
+    	 String s1 = inp.substring(0, 1).toUpperCase();
+    	 nameCapitalized = s1 + inp.substring(1).toLowerCase();
+    	}
+    	
+    	while(true) 
+    		if(ob.size()!=0 && !ob.get(0).startsWith(nameCapitalized)) 
+    		ob.remove(0);
+    		else 
+    		break;
+    		
+    	
+    	if(ob.size()!=0 ) {
+    	cb.getItems().clear();
+    	cb.getItems().addAll(ob);
+    	}
+    	return cb;
+	}
 	
 }
