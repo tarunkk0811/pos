@@ -11,13 +11,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="493.0" prefWidth="769.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.CreateProductController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="813.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.CreateProductController">
    <children>
-      <TabPane fx:id="tabPane" prefHeight="493.0" prefWidth="769.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" prefHeight="539.0" prefWidth="813.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="products_tab" text="Products">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="455.0" prefWidth="739.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="462.0" prefWidth="776.0">
                      <children>
                         <Label layoutX="73.0" layoutY="48.0" text="Name">
                            <font>
@@ -45,22 +45,35 @@
                               <Font size="15.0" />
                            </font></Label>
                         <TextField fx:id="selling_price" layoutX="138.0" layoutY="333.0" prefHeight="26.0" prefWidth="232.0" />
-                        <Label layoutX="424.0" layoutY="137.0" text="Product Type">
+                        <Label layoutX="417.0" layoutY="182.0" text="Product Type">
                            <font>
                               <Font size="15.0" />
                            </font></Label>
-                        <ComboBox fx:id="product_type" layoutX="537.0" layoutY="135.0" prefHeight="26.0" prefWidth="190.0" />
+                        <TextField fx:id="discount" layoutX="138.0" layoutY="391.0" prefHeight="26.0" prefWidth="232.0" />
+                        <Label layoutX="51.0" layoutY="393.0" text="Discount">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label> 
+                        <Label layoutX="450.0" layoutY="121.0" text="Account">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="account" layoutX="537.0" layoutY="119.0" onKeyPressed="#showItems" prefHeight="26.0" prefWidth="190.0" />
+                        <ComboBox fx:id="product_type" layoutX="537.0" layoutY="180.0" prefHeight="26.0" prefWidth="190.0" />
                         <Label layoutX="40.0" layoutY="335.0" text="Selling Price">
                            <font>
                               <Font size="15.0" />
                            </font></Label>
-                         <Label layoutX="430.0" layoutY="227.0" text="Description">
+                         <Label layoutX="430.0" layoutY="269.0" text="Description">
                            <font>
                               <Font size="15.0" />
                            </font></Label>
-                        <TextArea fx:id="desc" layoutX="537.0" layoutY="197.0" prefHeight="82.0" prefWidth="190.0" />
+                        <TextArea fx:id="desc" layoutX="537.0" layoutY="238.0" onKeyPressed="#moveToNext" prefHeight="82.0" prefWidth="190.0" />
                         
                         <Button fx:id="next_to_gst" layoutX="581.0" layoutY="391.0" mnemonicParsing="false" onAction="#goToGSTtab" prefHeight="26.0" prefWidth="102.0" text="Next" />
+                        
                      </children>
                   </AnchorPane>
             </content>
