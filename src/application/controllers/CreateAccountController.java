@@ -19,8 +19,12 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class CreateAccountController {
+	@FXML
+	private AnchorPane ap;
 	@FXML
 	private Tab accountstab, gsttab;
 
@@ -158,7 +162,10 @@ public class CreateAccountController {
 		String Abtype = btype.getSelectionModel().getSelectedItem();
 		new SetAccountsDao().setAccount(Aname, Aphone, Aadhaar, Aemail, Acdays, Agstin, Aaddress, Acountry, Astate,
 				Acity, Aatype, Abtype);
-
+		
+		new ApplicationController().informationDialog("Account Created Successfully !", null);
+		Stage window = (Stage)ap.getScene().getWindow();
+		window.close();
 	}
 
 	@FXML

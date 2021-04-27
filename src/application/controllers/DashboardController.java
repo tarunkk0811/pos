@@ -20,12 +20,12 @@ public class DashboardController {
     @FXML
     void createAccount(ActionEvent event) {
     	try {
-			Parent root = FXMLLoader.load(getClass().getResource("/application/views/CreateAccount.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/application/views/ShowAccounts.fxml"));
 			Stage ccstage = new Stage();
 			ccstage.initModality(Modality.APPLICATION_MODAL);
 			Scene ccscene = new Scene(root, 820, 500);
 			ccstage.setScene(ccscene);
-			ccstage.setTitle("Create Account");
+			ccstage.setTitle("Accounts");
 			ccstage.setResizable(false);
 			ccstage.showAndWait();
 		} catch (IOException e) {
