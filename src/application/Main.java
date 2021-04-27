@@ -20,7 +20,7 @@ public class Main extends Application {
 			window.setScene(scene);
 			window.setMaximized(true);
 			window.setTitle("POS");
-			window.show();
+			window.show();	
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
