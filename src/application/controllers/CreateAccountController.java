@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Locale;
 
 import DAO.GetAccountsDao;
+import DAO.SetAccountsDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -44,10 +45,10 @@ public class CreateAccountController {
 	ObservableList<String> states = FXCollections.observableArrayList();
 
 	ObservableList<String> cities = FXCollections.observableArrayList();
-	
+
 	@FXML
 	public void initialize() throws SQLException {
-		
+
 		String[] locales = Locale.getISOCountries();
 		for (String countryCode : locales) {
 			Locale obj = new Locale("", countryCode);
@@ -125,24 +126,24 @@ public class CreateAccountController {
 				city = new ApplicationController().searchComboBox(event, city, citiescopy);
 				city.show();
 			}
-		});	
-		
+		});
+
 		atype.getItems().add("Customer");
 		atype.getItems().add("Vendor");
-		atype.focusedProperty().addListener((e)->{
+		atype.focusedProperty().addListener((e) -> {
 			atype.show();
 		});
 		btype.getItems().add("B2B");
 		btype.getItems().add("B2C");
 		btype.getItems().add("EXP");
 		btype.getItems().add("IMP");
-		btype.focusedProperty().addListener((e)->{
+		btype.focusedProperty().addListener((e) -> {
 			btype.show();
 		});
 	}
 
 	@FXML
-	void createAccount(ActionEvent event) {
+	void createAccount(ActionEvent event) throws SQLException {
 		String Aname = name.getText();
 		String Aphone = phone.getText();
 		String Aadhaar = adhaar.getText();
@@ -150,13 +151,14 @@ public class CreateAccountController {
 		String Acdays = cdays.getText();
 		String Agstin = gstin.getText();
 		String Aaddress = address.getText();
-		String Acountry=country.getSelectionModel().getSelectedItem();
+		String Acountry = country.getSelectionModel().getSelectedItem();
 		String Astate = state.getSelectionModel().getSelectedItem();
 		String Acity = city.getSelectionModel().getSelectedItem();
-		String Aatype= atype.getSelectionModel().getSelectedItem();
+		String Aatype = atype.getSelectionModel().getSelectedItem();
 		String Abtype = btype.getSelectionModel().getSelectedItem();
-		
-		
+		new SetAccountsDao().setAccount(Aname, Aphone, Aadhaar, Aemail, Acdays, Agstin, Aaddress, Acountry, Astate,
+				Acity, Aatype, Abtype);
+
 	}
 
 	@FXML

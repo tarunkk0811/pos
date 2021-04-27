@@ -44,8 +44,8 @@ public class MainController {
 			int cid = rs.getInt(1);
 			String name = rs.getString(2);
 			CustomTreeItem company = new CustomTreeItem(name);
-			// company.setId(cid);
-
+			company.setId(cid);
+			
 			ResultSet finres = new GetCompaniesDao().getFinYears(cid);
 
 			while (finres.next()) {
@@ -65,12 +65,14 @@ public class MainController {
 	@FXML
 	void showDashboard(ActionEvent event) {
 		CustomTreeItem selecteddFinYear = (CustomTreeItem) tv.getSelectionModel().getSelectedItem();
-
+		
 		if (selecteddFinYear != null && selecteddFinYear.getId() != 0) {
 			try {
 				Stage primaryStage = (Stage) sel.getScene().getWindow();
 				Parent root = FXMLLoader.load(getClass().getResource("/application/views/Dashboard.fxml"));
 				SessionController.fid = selecteddFinYear.getId();
+				CustomTreeItem selectedcompany = (CustomTreeItem) selecteddFinYear.getParent();
+				SessionController.cid = selectedcompany.getId();
 				Scene sc = new Scene(root);
 
 				primaryStage.setScene(sc);
