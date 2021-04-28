@@ -36,6 +36,7 @@ public class DashboardController {
 			Stage ccstage = new Stage();
 			ccstage.initModality(Modality.APPLICATION_MODAL);
 			Scene ccscene = new Scene(root, 820, 500);
+			ccscene.getStylesheets().add(Main.class.getResource("/application/application.css").toExternalForm());
 			ccstage.setScene(ccscene);
 			ccstage.setTitle("Accounts");
 			ccstage.setResizable(false);

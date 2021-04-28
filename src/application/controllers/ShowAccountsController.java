@@ -6,7 +6,9 @@ import java.sql.SQLException;
 
 import DAO.GetAccountsDao;
 import DAO.GetCompaniesDao;
+import application.Main;
 import application.custom_properties.CustomTreeItem;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,15 +34,15 @@ public class ShowAccountsController {
 
 		while (rs.next()) {
 			int aid = rs.getInt(1);
-			String name ="";
-			
-			name=String.format("%-30s%-25s%-6s",rs.getString(3),rs.getString(13),rs.getString(14));
-			
+			String name = "";
+
+			name = String.format("%-30s%-25s%-6s", rs.getString(3), rs.getString(13), rs.getString(14));
+
 			CustomTreeItem account = new CustomTreeItem(name);
 			account.setId(aid);
 			if (rs.getString(9).equals("Customer")) {
 				customers.getChildren().add(account);
-				//System.out.print("in cus");
+				// System.out.print("in cus");
 			} else {
 				vendors.getChildren().add(account);
 			}
@@ -54,8 +56,7 @@ public class ShowAccountsController {
 	}
 
 	@FXML
-	public void newAccount(){
-	try {
+	public void newAccount() throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/views/CreateAccount.fxml"));
 		Stage ccstage = new Stage();
 		ccstage.initModality(Modality.APPLICATION_MODAL);
@@ -64,8 +65,21 @@ public class ShowAccountsController {
 		ccstage.setTitle("Create New Account");
 		ccstage.setResizable(false);
 		ccstage.showAndWait();
-	} catch (IOException e) {
-		System.out.printf("Error occured: %s", e);
 	}
+
+	@FXML
+	public void editAccount(ActionEvent event) throws IOException {
+		CustomTreeItem item = (CustomTreeItem) showaccountstv.getSelectionModel().getSelectedItem();
+		int aid = item.getId();
+		SessionController.editaid = aid;
+		Parent root = FXMLLoader.load(getClass().getResource("/application/views/CreateAccount.fxml"));
+		Stage ccstage = new Stage();
+		ccstage.initModality(Modality.APPLICATION_MODAL);
+		Scene ccscene = new Scene(root, 820, 500);
+		ccstage.setScene(ccscene);
+		ccstage.setTitle("Edit Account");
+		ccstage.setResizable(false);
+		ccstage.showAndWait();
 	}
+
 }

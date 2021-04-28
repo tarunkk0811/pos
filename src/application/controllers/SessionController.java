@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 public class SessionController {
 	public static int cid;
 	public static int fid;
-
+	public static int editaid;
 	public static int getCid() {
 		return cid;
 	}

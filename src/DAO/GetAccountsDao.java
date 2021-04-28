@@ -30,5 +30,11 @@ public class GetAccountsDao {
 		ResultSet res=stmt.executeQuery("select *from account where cid="+cid);
 		return res;
 		}
+	public ResultSet getAccountDetails(int aid) throws SQLException{
+		ResultSet rs=null;
+		Statement stmt = con.createStatement();
+		rs=stmt.executeQuery("select * from account where aid ="+aid);
+		return rs;
+	}
 
 }

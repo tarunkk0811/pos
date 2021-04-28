@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import DAO.GetAccountsDao;
 import DAO.SetAccountsDao;
+import application.custom_properties.CustomTreeItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -144,6 +145,17 @@ public class CreateAccountController {
 		btype.focusedProperty().addListener((e) -> {
 			btype.show();
 		});
+
+		// edit module
+		if (SessionController.editaid != 0) {
+			ResultSet res = new GetAccountsDao().getAccountDetails(SessionController.editaid);
+			while (res.next()) {
+				edit(res.getString(3), res.getString(4), res.getString(11), res.getString(12), res.getInt(10),
+						res.getString(13), res.getString(5), res.getString(8), res.getString(7), res.getString(6),
+						res.getString(9), res.getString(14));
+				System.out.print("cdays" + res.getInt(10));
+			}
+		}
 	}
 
 	@FXML
@@ -160,17 +172,42 @@ public class CreateAccountController {
 		String Acity = city.getSelectionModel().getSelectedItem();
 		String Aatype = atype.getSelectionModel().getSelectedItem();
 		String Abtype = btype.getSelectionModel().getSelectedItem();
-		new SetAccountsDao().setAccount(Aname, Aphone, Aadhaar, Aemail, Acdays, Agstin, Aaddress, Acountry, Astate,
-				Acity, Aatype, Abtype);
-		
-		new ApplicationController().informationDialog("Account Created Successfully !", null);
-		Stage window = (Stage)ap.getScene().getWindow();
+		if (SessionController.editaid == 0)
+			new SetAccountsDao().setAccount(Aname, Aphone, Aadhaar, Aemail, Acdays, Agstin, Aaddress, Acountry, Astate,
+					Acity, Aatype, Abtype);
+		else {
+
+			new SetAccountsDao().updateAccount(Aname, Aphone, Aadhaar, Aemail, Acdays, Agstin, Aaddress, Acountry,
+					Astate, Acity, Aatype, Abtype);
+
+		}
+
+		new ApplicationController().informationDialog("Operation Success !", null);
+		Stage window = (Stage) ap.getScene().getWindow();
 		window.close();
 	}
 
 	@FXML
 	void goToGsttab(ActionEvent event) {
 		tabpane.getSelectionModel().select(gsttab);
+	}
+
+	void edit(String ename, String ephone, String eadhaar, String eemail, int ecdays, String egstin, String eaddress,
+			String ecountry, String estate, String ecity, String eatype, String ebtype) {
+		if (ename != null || ename != "") {
+			name.setText(ename);
+			phone.setText(ephone);
+			adhaar.setText(eadhaar);
+			email.setText(eemail);
+			cdays.setText("" + ecdays);
+			gstin.setText(egstin);
+			address.setText(eaddress);
+			country.getSelectionModel().select(ecountry);
+			state.getSelectionModel().select(estate);
+			city.getSelectionModel().select(ecity);
+			atype.getSelectionModel().select(eatype);
+			btype.getSelectionModel().select(ebtype);
+		}
 	}
 
 }
