@@ -21,9 +21,9 @@ import javafx.stage.Stage;
 
 public class CreateProductController {
 	
-	ObservableList<String> product_types = FXCollections.observableArrayList("PType 1","PType 2");
-	ObservableList<String> gst_types = FXCollections.observableArrayList("GSTType 1","GSTType 2");
-	ObservableList<String> units_types = FXCollections.observableArrayList("UNITType 1","UNITType 2");
+	ObservableList<String> product_types = FXCollections.observableArrayList("Finished Goods","Intermediate Product","Raw Material","Service");
+	ObservableList<String> gst_types = FXCollections.observableArrayList("Capital goods","Exempted","Nil","Non-GST","Normal","Reverse Charge");
+	ObservableList<String> units_types = FXCollections.observableArrayList("Kgs","Li","Ton","Bun");
 
 	@FXML
 	private AnchorPane anchorPane;
