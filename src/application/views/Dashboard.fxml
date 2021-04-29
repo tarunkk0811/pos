@@ -25,6 +25,9 @@
                     <items>
                       <MenuItem fx:id="accounts" mnemonicParsing="false" onAction="#showAccounts" text="Accounts" />
                         <MenuItem mnemonicParsing="false" text="Products" />
+                      <MenuItem mnemonicParsing="false" text="Accounts" />
+                        <MenuItem fx:id="products" mnemonicParsing="false" onAction="#createProduct" text="Products" />
+
                         <MenuItem mnemonicParsing="false" text="Extra item" />
                     </items>
                   </Menu>

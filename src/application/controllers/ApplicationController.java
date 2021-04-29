@@ -11,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Modality;
@@ -81,5 +83,12 @@ public class ApplicationController {
     	}
     	return cb;
 	}
+
+	public void showComboBoxItems(ComboBox<String> cbox,KeyEvent event) {
+		if(event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.DOWN) {
+			cbox.show();
+		}
+	}
+	
 	
 }
