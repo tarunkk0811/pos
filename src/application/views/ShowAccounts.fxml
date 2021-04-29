@@ -9,7 +9,7 @@
       <TreeView fx:id="showaccountstv" layoutX="-1.0" prefHeight="524.0" prefWidth="581.0" />
       <Button fx:id="newbtn" layoutX="698.0" layoutY="118.0" mnemonicParsing="false" onAction="#newAccount" prefHeight="26.0" prefWidth="60.0" text="New" />
       <Button fx:id="editbtn" layoutX="698.0" layoutY="190.0" mnemonicParsing="false" onAction="#editAccount" prefHeight="26.0" prefWidth="60.0" text="Edit" />
-      <Button fx:id="deletebtn" layoutX="698.0" layoutY="262.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" text="Delete" />
+      <Button fx:id="deletebtn" layoutX="698.0" layoutY="262.0" mnemonicParsing="false" onAction="#deleteAccount" prefHeight="26.0" prefWidth="60.0" text="Delete" />
       <Button fx:id="searchbtn" layoutX="698.0" layoutY="332.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" text="Search" />
    </children>
 </AnchorPane>

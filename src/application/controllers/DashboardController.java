@@ -69,7 +69,6 @@ public class DashboardController {
     public static void changeSceneTo(Scene sc) {
 		ccstage.setScene(sc);
 		ccstage.setResizable(false);
-		ccstage.showAndWait();
 	}
     
     

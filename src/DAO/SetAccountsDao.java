@@ -3,6 +3,7 @@ package DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import application.controllers.SessionController;
 
@@ -66,5 +67,10 @@ public class SetAccountsDao {
 		stmt.executeUpdate();
 		SessionController.editaid = 0;
 	}
-
+	public void deleteAccount(int aid) throws SQLException{
+		String query="DELETE FROM `pos`.`account`\r\n"
+				+ "WHERE aid="+aid;
+		Statement stmt = con.createStatement();
+		stmt.executeUpdate(query);
+	}
 }

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import DAO.GetAccountsDao;
 import DAO.GetCompaniesDao;
+import DAO.SetAccountsDao;
 import application.Main;
 import application.custom_properties.CustomTreeItem;
 import javafx.event.ActionEvent;
@@ -89,12 +90,24 @@ public class ShowAccountsController {
 		ccstage.setTitle("Edit Account");
 		ccstage.setResizable(false);
 		ccstage.showAndWait();
-		editbtn.getScene().getWindow().setWidth(editbtn.getScene().getWidth()+0.001);
+		//editbtn.getScene().getWindow().setWidth(editbtn.getScene().getWidth()+0.001);
 		
 		Parent root2 = FXMLLoader.load(getClass().getResource("/application/views/ShowAccounts.fxml"));
 		Scene scene = new Scene(root2);
+		scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 		DashboardController.changeSceneTo(scene);
 	}
 	
-	
+	@FXML
+	public void deleteAccount(ActionEvent event) throws SQLException, IOException{
+		CustomTreeItem itemtodel = (CustomTreeItem)showaccountstv.getSelectionModel().getSelectedItem();
+		if(itemtodel!=null) {
+		new SetAccountsDao().deleteAccount(itemtodel.getId());
+		}
+		Parent root2 = FXMLLoader.load(getClass().getResource("/application/views/ShowAccounts.fxml"));
+		Scene scene = new Scene(root2);
+		scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+		DashboardController.changeSceneTo(scene);
+	}
+
 }
