@@ -19,6 +19,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ShowAccountsController {
+	
+	
 	@FXML
 	private TreeView<String> showaccountstv;
 
@@ -56,7 +58,7 @@ public class ShowAccountsController {
 	}
 
 	@FXML
-	public void newAccount() throws IOException {
+	public void newAccount(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/views/CreateAccount.fxml"));
 		Stage ccstage = new Stage();
 		ccstage.initModality(Modality.APPLICATION_MODAL);
@@ -65,6 +67,13 @@ public class ShowAccountsController {
 		ccstage.setTitle("Create New Account");
 		ccstage.setResizable(false);
 		ccstage.showAndWait();
+		//event.getScene().getWindow().setWidth(event.getScene().getWidth() + 0.001);
+		//newbtn.getScene().getWindow().setWidth(newbtn.getScene().getWidth()+0.001);
+		
+		Parent root2 = FXMLLoader.load(getClass().getResource("/application/views/ShowAccounts.fxml"));
+		Scene scene = new Scene(root2);
+		scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+		DashboardController.changeSceneTo(scene);
 	}
 
 	@FXML
@@ -80,6 +89,12 @@ public class ShowAccountsController {
 		ccstage.setTitle("Edit Account");
 		ccstage.setResizable(false);
 		ccstage.showAndWait();
+		editbtn.getScene().getWindow().setWidth(editbtn.getScene().getWidth()+0.001);
+		
+		Parent root2 = FXMLLoader.load(getClass().getResource("/application/views/ShowAccounts.fxml"));
+		Scene scene = new Scene(root2);
+		DashboardController.changeSceneTo(scene);
 	}
-
+	
+	
 }

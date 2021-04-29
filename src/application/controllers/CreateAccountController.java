@@ -185,6 +185,8 @@ public class CreateAccountController {
 		new ApplicationController().informationDialog("Operation Success !", null);
 		Stage window = (Stage) ap.getScene().getWindow();
 		window.close();
+		
+		
 	}
 
 	@FXML

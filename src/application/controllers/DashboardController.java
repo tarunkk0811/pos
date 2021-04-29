@@ -18,7 +18,8 @@ import application.*;
 
 
 public class DashboardController {
-
+	private static Stage ccstage;
+	private static Scene ccscene;
 	
 	@FXML
     private Border BorderPane;
@@ -30,13 +31,13 @@ public class DashboardController {
     private MenuItem accounts;
 
     @FXML
-    void createAccount(ActionEvent event) {
+    void showAccounts(ActionEvent event) {
     	try {
 			Parent root = FXMLLoader.load(getClass().getResource("/application/views/ShowAccounts.fxml"));
-			Stage ccstage = new Stage();
+			ccstage=new Stage();
 			ccstage.initModality(Modality.APPLICATION_MODAL);
-			Scene ccscene = new Scene(root, 820, 500);
-			ccscene.getStylesheets().add(Main.class.getResource("/application/application.css").toExternalForm());
+		    ccscene = new Scene(root, 820, 500);
+			ccscene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 			ccstage.setScene(ccscene);
 			ccstage.setTitle("Accounts");
 			ccstage.setResizable(false);
@@ -64,6 +65,12 @@ public class DashboardController {
     void createCompanyWindow(ActionEvent event) {
     	new ApplicationController().createCompanyWindow(event);
     }
+    
+    public static void changeSceneTo(Scene sc) {
+		ccstage.setScene(sc);
+		ccstage.setResizable(false);
+		ccstage.showAndWait();
+	}
     
     
 }
