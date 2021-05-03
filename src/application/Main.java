@@ -9,7 +9,7 @@
 	public class Main extends Application {
 		
 		private static Stage window;
-		
+
 		@Override
 		public void start(Stage primaryStage) {
 			try {

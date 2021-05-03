@@ -30,6 +30,13 @@ public class GetAccountsDao {
 		ResultSet res=stmt.executeQuery("select *from account where cid="+cid);
 		return res;
 		}
+
+	public ResultSet getAllAccounts() throws SQLException {
+		Statement stmt = con.createStatement();
+		ResultSet res = stmt.executeQuery("select AID, NAME from account");
+		return res;
+	}
+
 	public ResultSet getAccountDetails(int aid) throws SQLException{
 		ResultSet rs=null;
 		Statement stmt = con.createStatement();

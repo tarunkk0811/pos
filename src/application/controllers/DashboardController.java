@@ -25,7 +25,7 @@ public class DashboardController {
 	 private MenuItem open_cmpy_btn, createcompanytb;
 
 	@FXML
-    private MenuItem accounts,products;
+    private MenuItem accounts,products, bank;
 
 
     @FXML
@@ -86,5 +86,20 @@ public class DashboardController {
 		}
 	}
 
+	@FXML
+	void createBank(ActionEvent event) {
 
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/application/views/CreateBank.fxml"));
+			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			Scene scene = new Scene(root, 820, 500);
+			stage.setScene(scene);
+			stage.setTitle("Create Bank");
+			stage.setResizable(false);
+			stage.showAndWait();
+		} catch (IOException e) {
+			System.out.printf("Error occured: %s", e);
+		}
+	}
 }
