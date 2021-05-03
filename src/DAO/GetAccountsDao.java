@@ -12,8 +12,8 @@ public class GetAccountsDao {
 	
 	public ResultSet getStates() throws SQLException {
 		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("select distinct city_state from cities");
-		return rs;
+		ResultSet get_states = stmt.executeQuery("select distinct city_state from cities");
+		return get_states;
 	}
 
 	public ResultSet getCities(String state) throws SQLException {
@@ -21,27 +21,27 @@ public class GetAccountsDao {
 		String query="select distinct city_name from cities where city_state=?";
 		PreparedStatement stmt = con.prepareStatement(query);
 		stmt.setString(1, state);
-		ResultSet rs=stmt.executeQuery();
-		return rs;
+		ResultSet get_cities=stmt.executeQuery();
+		return get_cities;
 	}
 	
 	public ResultSet getAccounts(int cid) throws SQLException {
 		Statement stmt = con.createStatement();
-		ResultSet res=stmt.executeQuery("select *from account where cid="+cid);
-		return res;
+		ResultSet get_accounts=stmt.executeQuery("select *from account where cid="+cid);
+		return get_accounts;
 		}
 
 	public ResultSet getAllAccounts() throws SQLException {
 		Statement stmt = con.createStatement();
-		ResultSet res = stmt.executeQuery("select AID, NAME from account");
-		return res;
+		ResultSet get_all_accounts = stmt.executeQuery("select AID, NAME from account");
+		return get_all_accounts;
 	}
 
 	public ResultSet getAccountDetails(int aid) throws SQLException{
-		ResultSet rs=null;
+		ResultSet get_account_details = null;
 		Statement stmt = con.createStatement();
-		rs=stmt.executeQuery("select * from account where aid ="+aid);
-		return rs;
+		get_account_details=stmt.executeQuery("select * from account where aid ="+aid);
+		return get_account_details;
 	}
 
 }

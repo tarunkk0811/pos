@@ -99,7 +99,7 @@ public class DashboardController {
 			stage.setResizable(false);
 			stage.showAndWait();
 		} catch (IOException e) {
-			System.out.printf("Error occured: %s", e);
+			System.out.printf("Error occurred: %s", e);
 		}
 	}
 }

@@ -28,27 +28,27 @@ public class CreateBankController {
     private ComboBox<String> account, bank;
 
     @FXML
-    private TextField accountNumber, ifscCode, balance;
+    private TextField account_number, ifsc_code, balance;
 
     @FXML
-    private Button createBank;
+    private Button create_bank;
 
     ObservableList<String> accounts = FXCollections.observableArrayList();
 
     ObservableList<String> banks = FXCollections.observableArrayList();
 
-    HashMap<String, Integer> accountDetails = new HashMap<String, Integer>();
-    HashMap<String, Integer> bankDetails = new HashMap<String, Integer>();
+    HashMap<String, Integer> account_details = new HashMap<String, Integer>();
+    HashMap<String, Integer> bank_details = new HashMap<String, Integer>();
     @FXML
     public void initialize() throws SQLException {
 
 
         ResultSet rs = new GetAccountsDao().getAllAccounts();
         while (rs.next()) {
-            int accountId = rs.getInt(1);
-            String accountName = rs.getString(2);
-            accountDetails.put(accountName, accountId);
-            accounts.add(accountName);
+            int account_id = rs.getInt(1);
+            String account_name = rs.getString(2);
+            account_details.put(account_name, account_id);
+            accounts.add(account_name);
         }
         Collections.sort(accounts);
         account.setEditable(true);
@@ -56,7 +56,7 @@ public class CreateBankController {
         account.getItems().addAll(accounts);
 
         account.addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
-            ObservableList<String> accountCopy = FXCollections.observableArrayList(accounts);
+            ObservableList<String> account_copy = FXCollections.observableArrayList(accounts);
             String inp = account.getEditor().getText();
             int ascii = 0;
             try {
@@ -67,9 +67,9 @@ public class CreateBankController {
             }
             if (ascii != 99 && inp == "") {
                 account.getItems().clear();
-                account.getItems().addAll(accountCopy);
+                account.getItems().addAll(account_copy);
             } else if (ascii >= 65 && ascii <= 122) {
-                account = new ApplicationController().searchComboBox(event, account, accountCopy);
+                account = new ApplicationController().searchComboBox(event, account, account_copy);
                 account.show();
             }
         });
@@ -77,10 +77,10 @@ public class CreateBankController {
 
         ResultSet res = new GetBanksDao().getAllBanks();
         while (res.next()) {
-            int bankId = res.getInt(1);
-            String bankName = res.getString(2);
-            bankDetails.put(bankName, bankId);
-            banks.add(bankName);
+            int bank_id = res.getInt(1);
+            String bank_name = res.getString(2);
+            bank_details.put(bank_name, bank_id);
+            banks.add(bank_name);
         }
         Collections.sort(banks);
         bank.setEditable(true);
@@ -88,7 +88,7 @@ public class CreateBankController {
         bank.getItems().addAll(banks);
 
         bank.addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
-            ObservableList<String> bankCopy = FXCollections.observableArrayList(banks);
+            ObservableList<String> bank_copy = FXCollections.observableArrayList(banks);
             String inp = bank.getEditor().getText();
             int ascii = 0;
             try {
@@ -99,9 +99,9 @@ public class CreateBankController {
             }
             if (ascii != 99 && inp == "") {
                 bank.getItems().clear();
-                bank.getItems().addAll(bankCopy);
+                bank.getItems().addAll(bank_copy);
             } else if (ascii >= 65 && ascii <= 122) {
-                bank = new ApplicationController().searchComboBox(event, bank, bankCopy);
+                bank = new ApplicationController().searchComboBox(event, bank, bank_copy);
                 bank.show();
             }
         });
@@ -117,11 +117,11 @@ public class CreateBankController {
 
     @FXML
     void createBank(ActionEvent event) throws SQLException{
-        String accNumber = accountNumber.getText();
-        String accIfsc = ifscCode.getText();
+        String accNumber = account_number.getText();
+        String accIfsc = ifsc_code.getText();
         String accBalance = balance.getText();
-        Integer accountID = accountDetails.get(account.getSelectionModel().getSelectedItem());
-        Integer bankId = bankDetails.get(bank.getSelectionModel().getSelectedItem());
+        Integer accountID = account_details.get(account.getSelectionModel().getSelectedItem());
+        Integer bankId = bank_details.get(bank.getSelectionModel().getSelectedItem());
         new SetBankAccountDao().addBankAccount(accNumber, accIfsc, accBalance, accountID, bankId);
 
         new ApplicationController().informationDialog("Operation Success !", null);

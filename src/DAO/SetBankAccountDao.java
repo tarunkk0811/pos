@@ -5,13 +5,12 @@ import application.controllers.SessionController;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class SetBankAccountDao {
     Connection con = new DBConnection().connect();
 
-    public void addBankAccount(String accountNumber, String ifscCode, String accountBalance,
-                               Integer accountId, Integer bankId) throws SQLException
+    public void addBankAccount(String account_number, String ifsc_code, String account_balance,
+                               Integer account_id, Integer bank_id) throws SQLException
     {
         Integer cid = SessionController.cid;
         System.out.println(cid);
@@ -26,12 +25,12 @@ public class SetBankAccountDao {
                 "`DATE_UPDATED`)" +
                 "VALUES\n" + "(?,?,?,?,?,?,CURRENT_TIMESTAMP);";
         PreparedStatement stmt = con.prepareStatement(query);
-        stmt.setInt(1,accountId);
+        stmt.setInt(1,account_id);
         stmt.setInt(2,cid);
-        stmt.setInt(3,bankId);
-        stmt.setString(4,accountNumber);
-        stmt.setString(5,ifscCode);
-        stmt.setString(6,accountBalance);
+        stmt.setInt(3,bank_id);
+        stmt.setString(4,account_number);
+        stmt.setString(5,ifsc_code);
+        stmt.setString(6,account_balance);
 
         stmt.execute();
     }

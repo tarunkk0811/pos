@@ -12,7 +12,7 @@ public class GetBanksDao {
 
     public ResultSet getAllBanks() throws SQLException {
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("select BANK_ID, BANK_NAME from bank");
-        return rs;
+        ResultSet bank_names_rs = stmt.executeQuery("select BANK_ID, BANK_NAME from bank");
+        return bank_names_rs;
     }
 }

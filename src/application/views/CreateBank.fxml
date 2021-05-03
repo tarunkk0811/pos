@@ -6,18 +6,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.CreateBankController">
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.CreateBankController">
    <children>
-      <Text layoutX="124.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account" />
-      <ComboBox fx:id="account" layoutX="208.0" layoutY="70.0" prefHeight="26.0" prefWidth="270.0" />
-      <Text layoutX="141.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bank" />
-      <ComboBox fx:id="bank" layoutX="208.0" layoutY="120.0" prefHeight="26.0" prefWidth="270.0" />
-      <Text layoutX="78.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Number" />
-      <TextField fx:id="accountNumber" layoutX="209.0" layoutY="181.0" prefHeight="26.0" prefWidth="270.0" />
-      <Text layoutX="114.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IFSC Code" />
-      <TextField fx:id="ifscCode" layoutX="208.0" layoutY="239.0" prefHeight="26.0" prefWidth="270.0" />
-      <Text layoutX="88.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Balance" />
-      <TextField fx:id="balance" layoutX="207.0" layoutY="291.0" prefHeight="26.0" prefWidth="270.0" />
-      <Button fx:id="createBank" layoutX="280.0" layoutY="377.0" mnemonicParsing="false" onAction="#createBank" text="Create Bank" />
+      <Text layoutX="179.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account" />
+      <ComboBox fx:id="account" layoutX="300.0" layoutY="69.0" prefWidth="150.0" />
+      <Text layoutX="177.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Number" />
+      <TextField fx:id="account_number" layoutX="301.0" layoutY="154.0" />
+      <TextField fx:id="ifsc_code" layoutX="300.0" layoutY="200.0" />
+      <Text layoutX="179.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IFSC Code" />
+      <Text layoutX="181.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Balance" />
+      <TextField fx:id="balance" layoutX="301.0" layoutY="240.0" />
+      <Text layoutX="179.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bank" />
+      <ComboBox fx:id="bank" layoutX="301.0" layoutY="108.0" prefWidth="150.0" />
+      <Button fx:id="create_bank" layoutX="268.0" layoutY="311.0" mnemonicParsing="false" onAction="#createBank" text="Create Bank" />
    </children>
 </AnchorPane>
