@@ -105,6 +105,14 @@ public class CreateBankController {
                 bank.show();
             }
         });
+        
+        account.focusedProperty().addListener((event)->{
+        	account.show();
+        });
+        bank.focusedProperty().addListener((event)->{
+        	bank.show();
+        });
+        
     }
 
     @FXML
@@ -120,5 +128,7 @@ public class CreateBankController {
         Stage window = (Stage) ap.getScene().getWindow();
         window.close();
     }
+    
+    
 
 }

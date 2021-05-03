@@ -93,7 +93,7 @@ public class DashboardController {
 			Parent root = FXMLLoader.load(getClass().getResource("/application/views/CreateBank.fxml"));
 			Stage stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
-			Scene scene = new Scene(root, 820, 500);
+			Scene scene = new Scene(root,620,500);
 			stage.setScene(scene);
 			stage.setTitle("Create Bank");
 			stage.setResizable(false);

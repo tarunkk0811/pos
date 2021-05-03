@@ -21,7 +21,7 @@ public class SetBankAccountDao {
                 "`CID`,\n" +
                 "`BANK_ID`,\n" +
                 "`ACCOUNT_NUMBER`,\n" +
-                "`ISFC`,\n" +
+                "`IFSC`,\n" +
                 "`BALANCE`,\n" +
                 "`DATE_UPDATED`)" +
                 "VALUES\n" + "(?,?,?,?,?,?,CURRENT_TIMESTAMP);";
