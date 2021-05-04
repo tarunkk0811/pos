@@ -24,8 +24,9 @@
                   <Menu mnemonicParsing="false" text="Create Masters">
                     <items>
                       <MenuItem fx:id="accounts" mnemonicParsing="false" onAction="#showAccounts" text="Accounts" />
-                        <MenuItem fx:id="products" mnemonicParsing="false" onAction="#createProduct" text="Products" />
                         <MenuItem fx:id="bank" mnemonicParsing="false" onAction="#showBanks" text="Bank" />
+
+                      <MenuItem fx:id="products" mnemonicParsing="false" onAction="#showProducts" text="Products" />
                     </items>
                   </Menu>
                   <SeparatorMenuItem mnemonicParsing="false" />

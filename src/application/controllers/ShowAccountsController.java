@@ -102,10 +102,12 @@ public class ShowAccountsController {
 	public void deleteAccount(ActionEvent event) throws SQLException, IOException{
 		CustomTreeItem itemtodel = (CustomTreeItem)showaccountstv.getSelectionModel().getSelectedItem();
 		if(itemtodel!=null) {
-		new SetAccountsDao().deleteAccount(itemtodel.getId());
+			if(new ApplicationController().confirmationDialog("Are you sure, you want to delete ?", null))
+				new SetAccountsDao().deleteAccount(itemtodel.getId());
 		}
 		Parent root2 = FXMLLoader.load(getClass().getResource("/application/views/ShowAccounts.fxml"));
 		Scene scene = new Scene(root2);
+		
 		scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 		DashboardController.changeSceneTo(scene);
 	}
