@@ -101,8 +101,9 @@
                            <font>
                               <Font size="15.0" />
                            </font></Label>
-                        <TextField fx:id="gst_per" layoutX="354.0" layoutY="276.0" />
+                        <ComboBox fx:id="gst_per" layoutX="353.0" layoutY="276.0" prefWidth="150.0" />
                         <Button fx:id="next_to_others" layoutX="377.0" layoutY="328.0" mnemonicParsing="false" onAction="#goToOtherstab" prefHeight="26.0" prefWidth="102.0" text="Next" />
+                        
                      </children>
                   </AnchorPane>
             </content>

@@ -11,30 +11,28 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
 
-
 import application.*;
 
 public class DashboardController {
-	private static Stage ccstage;
-	private static Scene ccscene;
-	
-	@FXML
-    private Border BorderPane;
-
-	 @FXML
-	 private MenuItem open_cmpy_btn, createcompanytb;
+	private static Stage ccstage, products_stage;
+	private static Scene ccscene, products_scene;
 
 	@FXML
-    private MenuItem accounts,products;
+	private Border BorderPane;
 
+	@FXML
+	private MenuItem open_cmpy_btn, createcompanytb;
 
-    @FXML
-    void showAccounts(ActionEvent event) {
-    	try {
+	@FXML
+	private MenuItem accounts, products;
+
+	@FXML
+	void showAccounts(ActionEvent event) {
+		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/application/views/ShowAccounts.fxml"));
-			ccstage=new Stage();
+			ccstage = new Stage();
 			ccstage.initModality(Modality.APPLICATION_MODAL);
-		    ccscene = new Scene(root, 820, 500);
+			ccscene = new Scene(root, 820, 500);
 			ccscene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 			ccstage.setScene(ccscene);
 			ccstage.setTitle("Accounts");
@@ -43,32 +41,47 @@ public class DashboardController {
 		} catch (IOException e) {
 			System.out.printf("Error occured: %s", e);
 		}
-    }
+	}
 
+	@FXML
+	void showComapanies(ActionEvent event) {
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/application/views/Main.fxml"));
+			Scene scene = new Scene(root);
+			Main.changeSceneTo(scene);
+			SessionController.setFid(0);
+		} catch (Exception e) {
 
-    @FXML
-    void showComapanies(ActionEvent event) {
-    	try {
-    		Parent root = FXMLLoader.load(getClass().getResource("/application/views/Main.fxml"));
-    		Scene scene = new Scene(root);
-    		Main.changeSceneTo(scene);
-    		SessionController.setFid(0);
-    	}catch(Exception e){
-    		
-    	}
-    	
-    }
-    
-    @FXML	
-    void createCompanyWindow(ActionEvent event) {
-    	new ApplicationController().createCompanyWindow(event);
-    }
-    
-    public static void changeSceneTo(Scene sc) {
+		}
+
+	}
+
+	@FXML
+	void createCompanyWindow(ActionEvent event) {
+		new ApplicationController().createCompanyWindow(event);
+	}
+
+	public static void changeSceneTo(Scene sc) {
 		ccstage.setScene(sc);
 		ccstage.setResizable(false);
 	}
-    
+
+	@FXML
+	void showProducts(ActionEvent event) {
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/application/views/ShowProducts.fxml"));
+			ccstage = new Stage();
+			ccstage.initModality(Modality.APPLICATION_MODAL);
+			ccscene = new Scene(root, 820, 500);
+			ccstage.setScene(ccscene);
+			ccscene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+			ccstage.setTitle("Products");
+			ccstage.setResizable(false);
+			ccstage.showAndWait();
+		} catch (IOException e) {
+			System.out.printf("Error occured: %s", e);
+		}
+	}
 
 	@FXML
 	void createProduct(ActionEvent event) {
@@ -85,6 +98,5 @@ public class DashboardController {
 			System.out.printf("Error occured: %s", e);
 		}
 	}
-
 
 }
