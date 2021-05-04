@@ -19,7 +19,7 @@ public class GetBanksDao {
     {
         Statement stmt = con.createStatement();
         ResultSet existing_banks = stmt.executeQuery("select ba.BANK_NAME, bac.BID, bac.ACCOUNT_NUMBER, bac.BALANCE " +
-                        "from bank_account bac left join bank ba on bac.BANK_ID = ba.BANK_ID where bac.CID = "+1);
+                        "from bank_account bac left join bank ba on bac.BANK_ID = ba.BANK_ID where bac.CID = "+cid);
         return existing_banks;
     }
 
@@ -31,4 +31,5 @@ public class GetBanksDao {
                 "left join account as ac on bac.AID = ac.AID; ");
         return bank_details;
     }
+   
 }
