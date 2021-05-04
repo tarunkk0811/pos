@@ -9,6 +9,7 @@ public class SessionController {
 	public static int cid;
 	public static int fid;
 	public static int editaid;
+	public static int bid;
 	public static int getCid() {
 		return cid;
 	}

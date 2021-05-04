@@ -87,17 +87,18 @@ public class DashboardController {
 	}
 
 	@FXML
-	void createBank(ActionEvent event) {
+	void showBanks(ActionEvent event) {
 
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/application/views/CreateBank.fxml"));
-			Stage stage = new Stage();
-			stage.initModality(Modality.APPLICATION_MODAL);
-			Scene scene = new Scene(root,620,500);
-			stage.setScene(scene);
-			stage.setTitle("Create Bank");
-			stage.setResizable(false);
-			stage.showAndWait();
+			Parent root = FXMLLoader.load(getClass().getResource("/application/views/ShowBanks.fxml"));
+			ccstage = new Stage();
+			ccstage.initModality(Modality.APPLICATION_MODAL);
+			ccscene = new Scene(root,820,500);
+			ccscene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+			ccstage.setScene(ccscene);
+			ccstage.setTitle("Banks");
+			ccstage.setResizable(false);
+			ccstage.showAndWait();
 		} catch (IOException e) {
 			System.out.printf("Error occurred: %s", e);
 		}

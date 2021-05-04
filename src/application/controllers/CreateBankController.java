@@ -105,14 +105,25 @@ public class CreateBankController {
                 bank.show();
             }
         });
-        
-        account.focusedProperty().addListener((event)->{
-        	account.show();
-        });
+
+        if(SessionController.bid == 0) {
+            account.focusedProperty().addListener((event) -> {
+                account.show();
+            });
+        }
         bank.focusedProperty().addListener((event)->{
         	bank.show();
         });
-        
+
+        //Edit Bank
+        if (SessionController.bid != 0) {
+            ResultSet account_details = new GetBanksDao().getBankDetails(SessionController.editaid);
+            while (account_details.next()) {
+                edit(account_details.getString(1), account_details.getString(2), account_details.getString(3),
+                account_details.getString(4), account_details.getString(5));
+                System.out.print("cdays");
+            }
+        }
     }
 
     @FXML
@@ -122,13 +133,21 @@ public class CreateBankController {
         String accBalance = balance.getText();
         Integer accountID = account_details.get(account.getSelectionModel().getSelectedItem());
         Integer bankId = bank_details.get(bank.getSelectionModel().getSelectedItem());
-        new SetBankAccountDao().addBankAccount(accNumber, accIfsc, accBalance, accountID, bankId);
-
+        if (SessionController.bid == 0) {
+            new SetBankAccountDao().addBankAccount(accNumber, accIfsc, accBalance, accountID, bankId);
+        }
+        else
+            new SetBankAccountDao().updateBankDetails(accNumber, accIfsc, accBalance, accountID, bankId);
         new ApplicationController().informationDialog("Operation Success !", null);
         Stage window = (Stage) ap.getScene().getWindow();
         window.close();
     }
-    
-    
 
+    void edit(String account_name, String bank_name, String account_num, String IFSC, String cur_balance) {
+            account.getSelectionModel().select(account_name);
+            bank.getSelectionModel().select(bank_name);
+            account_number.setText(account_num);
+            ifsc_code.setText(IFSC);
+            balance.setText(cur_balance);
+    }
 }
