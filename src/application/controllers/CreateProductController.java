@@ -110,6 +110,7 @@ public class CreateProductController {
 
 	@FXML
 	void createProduct(ActionEvent event) throws SQLException {
+		int p_opening_stock=0;
 		String p_name = name.getText();
 		String p_alias = alias.getText();
 		int p_reorder = Integer.parseInt(reorder.getText());
@@ -131,8 +132,9 @@ public class CreateProductController {
 
 		int p_gst_per = gst_per.getSelectionModel().getSelectedItem();
 		float p_disc = Float.parseFloat(discount.getText());
-
-		int p_opening_stock = Integer.parseInt(opening_stock.getText());
+		String opn_stk=opening_stock.getText();
+		if (opn_stk!="")
+		p_opening_stock = Integer.parseInt(opn_stk);
 
 		if (SessionController.editpid == 0) {
 			new SetProductsDao().setProduct(aid, SessionController.cid, SessionController.fid, p_name, p_alias, p_hsn,
