@@ -30,10 +30,13 @@ public class ShowBanksController {
 
     @FXML
     public void initialize() throws SQLException {
+    	
         CustomTreeItem root = new CustomTreeItem("Banks");
+        System.out.println(SessionController.cid);
         ResultSet rs =  new GetBanksDao().getCreatedBanks(SessionController.cid);
         while(rs.next())
         {
+        	System.out.print("results are "+ rs.getString(1)+ rs.getString(3)+ rs.getString(4));
             int bid = rs.getInt(2);
             String name = "";
             name = String.format("%-30s%-25s%-6s", rs.getString(1), rs.getString(3), rs.getString(4));
