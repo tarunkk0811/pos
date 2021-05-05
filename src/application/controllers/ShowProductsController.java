@@ -10,12 +10,15 @@ import DAO.SetAccountsDao;
 import DAO.SetProductsDao;
 import application.custom_properties.CustomTreeItem;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -43,6 +46,8 @@ public class ShowProductsController {
 			name = String.format("%-30s%-10s%-6s", rs.getString(2), rs.getString(9), rs.getString(11));
 			
 			CustomTreeItem product = new CustomTreeItem(name);
+			
+			// on doubule click edit method is called
 			product.setId(pid);
 			root.getChildren().add(product);
 		}
