@@ -76,6 +76,7 @@ public class CreateProductController {
 		discount.setText("0");
 		opening_stock.setText("0");
 		gst_type.getSelectionModel().select("Normal");
+		reorder.setText("0");
 
 		// listeners
 		product_type.focusedProperty().addListener(e -> {
@@ -110,7 +111,6 @@ public class CreateProductController {
 
 	@FXML
 	void createProduct(ActionEvent event) throws SQLException {
-		int p_opening_stock=0;
 		String p_name = name.getText();
 		String p_alias = alias.getText();
 		int p_reorder = Integer.parseInt(reorder.getText());
@@ -132,10 +132,8 @@ public class CreateProductController {
 
 		int p_gst_per = gst_per.getSelectionModel().getSelectedItem();
 		float p_disc = Float.parseFloat(discount.getText());
-		String opn_stk=opening_stock.getText();
-		if (opn_stk!="")
-		p_opening_stock = Integer.parseInt(opn_stk);
-
+		int p_opening_stock = Integer.parseInt(opening_stock.getText());
+		
 		if (SessionController.editpid == 0) {
 			new SetProductsDao().setProduct(aid, SessionController.cid, SessionController.fid, p_name, p_alias, p_hsn,
 					p_desc, p_quantity, p_buying_price, p_selling_price, p_gst_type, p_gst_per, p_units,
@@ -204,5 +202,25 @@ public class CreateProductController {
 			create_product.setText("Update Product");
 
 		}
+	}
+	
+	public void clearFields() {
+		System.out.println("clearin fields");
+		name.clear();
+		alias.clear();
+		reorder.setText("0");
+		qunatity.clear();
+		buying_price.clear();
+		selling_price.clear();
+		opening_stock.setText("0");
+		discount.setText("0");
+		hsn.clear();
+		desc.clear();
+		inclusive_gst.setSelected(false);
+		gst_type.getSelectionModel().select("Normal");
+		gst_per.getSelectionModel().select(null);
+		units.getSelectionModel().select(null);
+		product_type.getSelectionModel().select(null);
+		account.getSelectionModel().select(null);
 	}
 }

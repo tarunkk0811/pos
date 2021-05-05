@@ -91,7 +91,7 @@ public class ShowAccountsController {
 		ccstage.setResizable(false);
 		ccstage.showAndWait();
 		//editbtn.getScene().getWindow().setWidth(editbtn.getScene().getWidth()+0.001);
-		
+		SessionController.editaid = 0;
 		Parent root2 = FXMLLoader.load(getClass().getResource("/application/views/ShowAccounts.fxml"));
 		Scene scene = new Scene(root2);
 		scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());

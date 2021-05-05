@@ -83,22 +83,6 @@ public class DashboardController {
 		}
 	}
 
-	@FXML
-	void createProduct(ActionEvent event) {
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/application/views/CreateProduct.fxml"));
-			Stage stage = new Stage();
-			stage.initModality(Modality.APPLICATION_MODAL);
-			Scene scene = new Scene(root, 820, 500);
-			stage.setScene(scene);
-			stage.setTitle("Create Account");
-			stage.setResizable(false);
-			stage.showAndWait();
-		} catch (IOException e) {
-			System.out.printf("Error occured: %s", e);
-		}
-	}
-
 
 	@FXML
 	void showBanks(ActionEvent event) {

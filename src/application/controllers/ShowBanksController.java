@@ -71,7 +71,8 @@ public class ShowBanksController {
         ccstage.setTitle("Edit Account");
         ccstage.setResizable(false);
         ccstage.showAndWait();
-        //editbtn.getScene().getWindow().setWidth(editbtn.getScene().getWidth()+0.001);
+        
+        SessionController.bid = 0;
 
         Parent root2 = FXMLLoader.load(getClass().getResource("/application/views/ShowBanks.fxml"));
         Scene scene = new Scene(root2);

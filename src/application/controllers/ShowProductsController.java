@@ -55,7 +55,8 @@ public class ShowProductsController {
 	@FXML
 	void createProduct(ActionEvent event) throws IOException {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/application/views/CreateProduct.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/views/CreateProduct.fxml"));
+			Parent root = loader.load();
 			Stage stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
 			Scene scene = new Scene(root, 820, 500);
@@ -99,7 +100,7 @@ public class ShowProductsController {
 		ccstage.setTitle("Edit Product");
 		ccstage.setResizable(false);
 		ccstage.showAndWait();
-
+		SessionController.editpid = 0;
 		Parent root2 = FXMLLoader.load(getClass().getResource("/application/views/ShowProducts.fxml"));
 		Scene scene = new Scene(root2);
 		scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
