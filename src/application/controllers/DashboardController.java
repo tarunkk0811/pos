@@ -98,5 +98,17 @@ public class DashboardController {
 			System.out.printf("Error occured: %s", e);
 		}
 	}
+	
+	@FXML
+	void createPurchaseVoucher(ActionEvent event) throws IOException{
+		Parent root = FXMLLoader.load(getClass().getResource("/application/views/PurchaseVoucher.fxml"));
+		Stage stage = new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
+		Scene scene = new Scene(root, 1280, 800);
+		stage.setScene(scene);
+		stage.setTitle("Purchase Voucher");
+		stage.setResizable(false);
+		stage.showAndWait();
+	}
 
 }

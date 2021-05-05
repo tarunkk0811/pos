@@ -15,19 +15,19 @@
    <children>
       <TableView fx:id="purchasetv" editable="true" layoutY="180.0" prefHeight="513.0" prefWidth="1279.0">
         <columns>
-          <TableColumn fx:id="sno" prefWidth="47.19998908042908" text="S no" />
-          <TableColumn fx:id="item" prefWidth="178.13331604003906" text="Item" />
-            <TableColumn fx:id="qty" prefWidth="80.80000305175781" text="Quantity" />
-            <TableColumn fx:id="rate" prefWidth="97.86672973632812" text="Rate" />
-            <TableColumn fx:id="gross" prefWidth="105.33331298828125" text="Gross" />
-            <TableColumn fx:id="disc" prefWidth="96.26675415039062" text="Discount %" />
-            <TableColumn fx:id="cgst" prefWidth="87.7332763671875" text="CGST" />
-            <TableColumn fx:id="sgst" prefWidth="76.53338623046875" text="SGST" />
-            <TableColumn fx:id="igst" prefWidth="86.6666259765625" text="IGST" />
-            <TableColumn fx:id="ocharges" prefWidth="85.333251953125" text="Other charges" />
-            <TableColumn fx:id="cess" prefWidth="74.66668701171875" text="Cess" />
-            <TableColumn fx:id="taxable_value" prefWidth="110.9334716796875" text="Taxable Value" />
-            <TableColumn fx:id="type_of_purchase" prefWidth="137.599853515625" text="Type of Purchase" />
+          <TableColumn fx:id="sno_col" prefWidth="47.19998908042908" text="S no" />
+          <TableColumn fx:id="item_col" prefWidth="178.13331604003906" text="Item" />
+            <TableColumn fx:id="qty_col" prefWidth="80.80000305175781" text="Quantity" />
+            <TableColumn fx:id="rate_col" prefWidth="97.86672973632812" text="Rate" />
+            <TableColumn fx:id="gross_col" prefWidth="105.33331298828125" text="Gross" />
+            <TableColumn fx:id="disc_col" prefWidth="96.26675415039062" text="Discount %" />
+            <TableColumn fx:id="cgst_col" prefWidth="87.7332763671875" text="CGST" />
+            <TableColumn fx:id="sgst_col" prefWidth="76.53338623046875" text="SGST" />
+            <TableColumn fx:id="igst_col" prefWidth="86.6666259765625" text="IGST" />
+            <TableColumn fx:id="ocharges_col" prefWidth="85.333251953125" text="Other charges" />
+            <TableColumn fx:id="cess_col" prefWidth="74.66668701171875" text="Cess" />
+            <TableColumn fx:id="taxable_value_col" prefWidth="110.9334716796875" text="Taxable Value" />
+            <TableColumn fx:id="type_of_purchase_col" prefWidth="137.599853515625" text="Type of Purchase" />
         </columns>
       </TableView>
       <Text layoutX="41.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VOUCHER NO :">
@@ -159,5 +159,6 @@
             <Font size="16.0" />
          </font>
       </Text>
+      <Line endX="14.5001220703125" endY="13.49993896484375" layoutX="1266.0" layoutY="713.0" startX="14.5001220703125" startY="-18.0" />
    </children>
 </AnchorPane>
