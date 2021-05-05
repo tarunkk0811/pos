@@ -46,8 +46,6 @@ public class ShowProductsController {
 			name = String.format("%-30s%-10s%-6s", rs.getString(2), rs.getString(9), rs.getString(11));
 			
 			CustomTreeItem product = new CustomTreeItem(name);
-			
-			// on doubule click edit method is called
 			product.setId(pid);
 			root.getChildren().add(product);
 		}

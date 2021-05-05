@@ -6,7 +6,7 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.DashboardController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.DashboardController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -60,7 +60,7 @@
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <Menu mnemonicParsing="false" text="Purchases">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Purchase Vouchers" />
+                        <MenuItem fx:id="purchase_voucher_btn" mnemonicParsing="false" onAction="#createPurchaseVoucher" text="Purchase Vouchers" />
                         <MenuItem mnemonicParsing="false" text="Purchase Returns" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" text="Purchase order" />
