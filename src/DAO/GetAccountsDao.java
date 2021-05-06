@@ -53,4 +53,18 @@ public class GetAccountsDao {
 		rs.next();
 		return rs.getInt(1);
 	}
+	
+	public ResultSet getVendors(int cid) throws SQLException {
+		ResultSet rs = null;
+		Statement stmt = con.createStatement();
+		rs = stmt.executeQuery("select aid,name from account where ACCOUNT_TYPE='Vendor' AND cid =" + cid);
+		return rs;
+	}
+	
+	public ResultSet getCustomers(int cid) throws SQLException {
+		ResultSet rs = null;
+		Statement stmt = con.createStatement();
+		rs = stmt.executeQuery("select aid,name from account where ACCOUNT_TYPE='Customer' AND cid =" + cid);
+		return rs;
+	}
 }

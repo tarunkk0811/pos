@@ -1,5 +1,6 @@
 package application.custom_properties;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -14,7 +15,8 @@ public class PurchaseItem {
 			String cess, String taxable_value) {
 		super();
 		this.sno = String.valueOf(sno);
-		this.items = new ComboBox<String>(items);
+		ObservableList<String> itemscopy = FXCollections.observableList(items);
+		this.items = new ComboBox<String>(itemscopy);
 		this.type_of_purchase = new ComboBox(type_of_purchase);
 
 		this.quantity = new TextField(quantity);
@@ -28,6 +30,16 @@ public class PurchaseItem {
 		this.cess = new TextField(cess);
 		this.taxable_value = new TextField(taxable_value);
 		this.items.setEditable(true);
+		
+		// focus
+		this.items.focusedProperty().addListener(e -> {
+			this.items.show();
+		});
+		
+		this.type_of_purchase.focusedProperty().addListener(e -> {
+			this.type_of_purchase.show();
+		});
+		
 	}
 
 	public String getSno() {

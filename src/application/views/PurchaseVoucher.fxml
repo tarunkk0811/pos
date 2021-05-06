@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PurchaseVoucherController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PurchaseVoucherController">
    <children>
       <TableView fx:id="purchasetv" editable="true" layoutY="180.0" prefHeight="513.0" prefWidth="1279.0">
         <columns>
@@ -35,7 +36,7 @@
             <Font size="17.0" />
          </font>
       </Text>
-      <Text layoutX="162.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
+      <Text fx:id="vno" layoutX="162.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
          <font>
             <Font size="16.0" />
          </font>
@@ -45,8 +46,8 @@
             <Font size="17.0" />
          </font>
       </Text>
-      <ChoiceBox layoutX="398.0" layoutY="48.0" prefHeight="26.0" prefWidth="216.0" />
-      <DatePicker layoutX="749.0" layoutY="50.0" prefHeight="26.0" prefWidth="162.0" />
+      <ChoiceBox fx:id="purchase_account" layoutX="398.0" layoutY="48.0" prefHeight="26.0" prefWidth="216.0" />
+      <DatePicker fx:id="purchasedt" layoutX="749.0" layoutY="50.0" prefHeight="26.0" prefWidth="162.0" />
       <Text layoutX="685.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date :" wrappingWidth="60.907470703125">
          <font>
             <Font size="17.0" />
@@ -57,20 +58,20 @@
             <Font size="17.0" />
          </font>
       </Text>
-      <ChoiceBox layoutX="115.0" layoutY="114.0" prefHeight="33.0" prefWidth="325.0" />
+      <ComboBox fx:id="vendor" layoutX="115.0" layoutY="114.0" prefHeight="33.0" prefWidth="325.0" />
       <Text layoutX="508.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bill No :">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <TextField layoutX="588.0" layoutY="118.0" prefHeight="26.0" prefWidth="86.0" />
-      <DatePicker layoutX="822.0" layoutY="119.0" prefHeight="26.0" prefWidth="162.0" />
+      <TextField fx:id="billno" layoutX="588.0" layoutY="118.0" prefHeight="26.0" prefWidth="86.0" />
+      <DatePicker fx:id="billdt" layoutX="822.0" layoutY="119.0" prefHeight="26.0" prefWidth="162.0" />
       <Text layoutX="739.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bill Date :" wrappingWidth="79.04083251953125">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <CheckBox layoutX="1078.0" layoutY="118.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="109.0" text="  IS IGST">
+      <CheckBox fx:id="isigst" layoutX="1078.0" layoutY="118.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="109.0" text="  IS IGST">
          <font>
             <Font size="17.0" />
          </font>
@@ -80,7 +81,6 @@
             <Font size="17.0" />
          </font>
       </Text>
-      <ChoiceBox layoutX="1028.0" layoutY="51.0" prefHeight="26.0" prefWidth="225.0" />
       <Text layoutX="136.0" layoutY="718.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total :">
          <font>
             <Font size="17.0" />
@@ -160,5 +160,7 @@
          </font>
       </Text>
       <Line endX="14.5001220703125" endY="13.49993896484375" layoutX="1266.0" layoutY="713.0" startX="14.5001220703125" startY="-18.0" />
+      <CheckBox fx:id="show_customers" layoutX="331.0" layoutY="155.0" mnemonicParsing="false" text="Show customers" />
+      <ComboBox fx:id="place" layoutX="1021.0" layoutY="50.0" prefHeight="26.0" prefWidth="230.0" />
    </children>
 </AnchorPane>
