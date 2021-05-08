@@ -6,7 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class GetProductsDao {
-	Connection con = new DBConnection().connect();
+	DBConnection dao = new DBConnection();
+	Connection con = dao.connect();
 
 	
 	public ResultSet getProducts(int cid) throws SQLException {

@@ -8,7 +8,8 @@ import java.sql.Statement;
 
 public class GetAccountsDao {
 
-	Connection con = new DBConnection().connect();
+	DBConnection dao = new DBConnection();
+	Connection con = dao.connect();
 
 	public ResultSet getStates() throws SQLException {
 		Statement stmt = con.createStatement();

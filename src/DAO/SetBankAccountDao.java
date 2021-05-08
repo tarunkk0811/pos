@@ -8,7 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class SetBankAccountDao {
-    Connection con = new DBConnection().connect();
+    DBConnection dao = new DBConnection();
+    Connection con = dao.connect();
 
     public void addBankAccount(String account_number, String ifsc_code, String account_balance,
                                Integer account_id, Integer bank_id) throws SQLException

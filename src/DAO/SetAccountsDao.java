@@ -9,7 +9,8 @@ import application.controllers.SessionController;
 
 public class SetAccountsDao {
 
-	Connection con = new DBConnection().connect();
+	DBConnection dao = new DBConnection();
+	Connection con = dao.connect();
 
 	public void setAccount(String Aname, String Aphone, String Aadhaar, String Aemail, String Acdays, String Agstin,
 			String Aaddress, String Acountry, String Astate, String Acity, String Aatype, String Abtype)
@@ -24,12 +25,12 @@ public class SetAccountsDao {
 		int cid = SessionController.cid;
 		System.out.println(cid);
 		stmt.setInt(1, cid);
-		stmt.setString(2, Aname);
+		stmt.setString(2, dao.capitalize(Aname));
 		stmt.setString(3, Aphone);
 		stmt.setString(4, Aaddress);
-		stmt.setString(5, Acity);
-		stmt.setString(6, Astate);
-		stmt.setString(7, Acountry);
+		stmt.setString(5, dao.capitalize(Acity));
+		stmt.setString(6, dao.capitalize(Astate));
+		stmt.setString(7, dao.capitalize(Acountry));
 		stmt.setString(8, Aatype);
 		stmt.setString(9, Acdays);
 		stmt.setString(10, Aadhaar);
@@ -50,12 +51,12 @@ public class SetAccountsDao {
 				+ "`GSTIN` = ?,\r\n" + "`BUSINESS_TYPE` = ?,\r\n" + "`DATE_UPDATED` = CURRENT_TIMESTAMP \r\n"
 				+ "WHERE `AID` = ?";
 		PreparedStatement stmt = con.prepareStatement(query);
-		stmt.setString(1, Aname);
+		stmt.setString(1, dao.capitalize(Aname));
 		stmt.setString(2, Aphone);
 		stmt.setString(3, Aaddress);
-		stmt.setString(4, Acity);
-		stmt.setString(5, Astate);
-		stmt.setString(6, Acountry);
+		stmt.setString(4, dao.capitalize(Acity));
+		stmt.setString(5, dao.capitalize(Astate));
+		stmt.setString(6, dao.capitalize(Acountry));
 		stmt.setString(7, Aatype);
 		stmt.setString(8, Acdays);
 		stmt.setString(9, Aadhaar);

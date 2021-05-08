@@ -64,7 +64,8 @@ public class ApplicationController {
 	}
 
 	ComboBox<String> searchComboBox(Event event, ComboBox<String> cb, ObservableList<String> ob) {
-		Collections.sort(ob);
+		ObservableList<String> templist= FXCollections.observableArrayList(ob);
+		Collections.sort(templist);
 		String inp = cb.getEditor().getText();
 		String nameCapitalized = inp.toUpperCase();
 		if (inp.length() >= 2) {
@@ -73,20 +74,22 @@ public class ApplicationController {
 		}
 
 		while (true)
-			if (ob.size() != 0 && !ob.get(0).startsWith(nameCapitalized))
-				ob.remove(0);
+			if (templist.size() != 0 && !templist.get(0).startsWith(nameCapitalized))
+				templist.remove(0);
 			else
 				break;
 
-		if (ob.size() != 0) {
+		if (templist.size() != 0) {
 			cb.getItems().clear();
-			cb.getItems().addAll(ob);
+			cb.getItems().addAll(templist);
 		}
 		return cb;
 	}
 	
 	public void filter(ComboBox<String> cbox,ObservableList<String> list,KeyEvent event) {
+
     	ObservableList<String> listcopy = FXCollections.observableArrayList(list);
+
 		String inp = cbox.getEditor().getText();
 		int ascii = 0;
 		try {

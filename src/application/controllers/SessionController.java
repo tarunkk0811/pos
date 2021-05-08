@@ -41,4 +41,5 @@ public class SessionController {
 		setCid(0);
 		stage.setTitle("POS");
 	}
+
 }

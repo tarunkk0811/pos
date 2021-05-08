@@ -6,7 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class SetCompanyDao {
-	Connection con = new DBConnection().connect();
+	DBConnection dao = new DBConnection();
+	Connection con = dao.connect();
 
 	public void setCompany(String name, String address, String gstin, String phone, String email, String password,
 			String cpassword) throws SQLException {

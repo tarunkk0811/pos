@@ -15,8 +15,7 @@ public class PurchaseItem {
 			String cess, String taxable_value) {
 		super();
 		this.sno = String.valueOf(sno);
-		ObservableList<String> itemscopy = FXCollections.observableList(items);
-		this.items = new ComboBox<String>(itemscopy);
+		this.items = new ComboBox<String>(items);
 		this.type_of_purchase = new ComboBox(type_of_purchase);
 
 		this.quantity = new TextField(quantity);

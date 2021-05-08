@@ -6,7 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class SetProductsDao {
-	Connection con = new DBConnection().connect();
+	DBConnection dao = new DBConnection();
+	Connection con = dao.connect();
 	public void setProduct(int aid,int cid,int fid, String name, String alias, String hsn, String desc, int qty, float buying_cost,
 			float selling_cost,String gtype,float gper,String units,int opening_stock,
 			float disc,boolean incl_gst,int reorder,String ptype) throws SQLException {
@@ -23,8 +24,8 @@ public class SetProductsDao {
 		stmt.setInt(1, aid);
 		stmt.setInt(2, cid);
 		stmt.setInt(3, fid);
-		stmt.setString(4, name);
-		stmt.setString(5, alias);
+		stmt.setString(4, dao.capitalize(name));
+		stmt.setString(5, dao.capitalize(alias));
 		stmt.setString(6, hsn);
 		stmt.setString(7, desc);
 		stmt.setInt(8, qty);
@@ -55,9 +56,9 @@ public class SetProductsDao {
 
 		PreparedStatement stmt = con.prepareStatement(query);
 
-		stmt.setString(1, name);
+		stmt.setString(1, dao.capitalize(name));
 		stmt.setString(2, hsn);
-		stmt.setString(3, alias);
+		stmt.setString(3, dao.capitalize(alias));
 		stmt.setString(4, desc);
 		stmt.setInt(5, qty);
 		stmt.setFloat(6, buying_cost);

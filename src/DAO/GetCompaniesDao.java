@@ -6,8 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class GetCompaniesDao {
-	
-	Connection con = new DBConnection().connect();
+
+	DBConnection dao = new DBConnection();
+	Connection con = dao.connect();
 	
 	public ResultSet getCompanies() throws SQLException {
 		Statement listcompanies = con.createStatement();

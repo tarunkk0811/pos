@@ -5,7 +5,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DeleteDao {
-	Connection con = new DBConnection().connect();
+	DBConnection dao = new DBConnection();
+	Connection con = dao.connect();
 	
 	public boolean hideCompany(int cid) throws SQLException {
 		Statement stmt = con.createStatement();
