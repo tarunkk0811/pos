@@ -2,11 +2,13 @@ package application.controllers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import DAO.GetVoucherDao;
 import com.mysql.cj.conf.StringProperty;
 
 import DAO.GetAccountsDao;
@@ -71,8 +73,8 @@ public class PurchaseVoucherController {
 	ObservableList<String> states = FXCollections.observableArrayList();
 
 
-	HashMap<Integer, String> items_with_ids = new HashMap<Integer, String>();
-	HashMap<Integer, String> Accounts_with_ids = new HashMap<Integer, String>();
+	HashMap<String, Integer> items_with_ids = new HashMap<String, Integer>();
+	HashMap<String, Integer> Accounts_with_ids = new HashMap<String, Integer>();
 	final ObservableList<String> temp_items = getAllItems();
 
 	public PurchaseVoucherController() throws SQLException {
@@ -84,7 +86,7 @@ public class PurchaseVoucherController {
 
 		ResultSet vendors_rs = new GetAccountsDao().getVendors(SessionController.cid);
 		while (vendors_rs.next()) {
-			Accounts_with_ids.put(vendors_rs.getInt(1), vendors_rs.getString(2));
+			Accounts_with_ids.put(vendors_rs.getString(2), vendors_rs.getInt(1));
 			accounts.add(vendors_rs.getString(2));
 		}
 		Collections.sort(accounts);
@@ -144,8 +146,46 @@ public class PurchaseVoucherController {
 
 		for (PurchaseItem item : itemlist) {
 			ObservableList<String> items = FXCollections.observableArrayList(temp_items);
+			item.getItems().getEditor().focusedProperty().addListener((event,wasFocused, isNowFocused) -> {
+				if (! isNowFocused) {
+					if (item.getItems().getEditor().getText() != "") {
+						try {
+							ResultSet res = new GetVoucherDao().getProductDetails(items_with_ids.get(item.getItems().getSelectionModel().getSelectedItem()));
+							if(res.next()){
+								item.getRate().setText(String.valueOf(res.getFloat(1)));
+								int gst = res.getInt(2);
+								item.getDiscount().setText(String.valueOf(res.getFloat(3)));
+								if(isigst.isSelected()) {
+									item.getIgst().setText(String.valueOf(gst));
+									item.getCgst().setText("");
+									item.getSgst().setText("");
+								}
+								else{
+									item.getCgst().setText(String.valueOf(gst/2));
+									item.getSgst().setText(String.valueOf(gst/2));
+									item.getIgst().setText("");
+								}
+							}
+
+						} catch (SQLException throwables) {
+							throwables.printStackTrace();
+						}
+						//item.getItems().setValue(item.getItems().getEditor().getText());
+					}
+				}
+			});
 			item.getItems().addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
 				new ApplicationController().filter(item.getItems(), items, event);
+			});
+			item.getQuantity().focusedProperty().addListener((event,wasFocused, isNowFocused) -> {
+				if (! isNowFocused && item.getQuantity().getText()!="") {
+							item.getGross().setText(String.valueOf(Float.parseFloat(item.getQuantity().getText())*
+									Float.parseFloat(item.getRate().getText())));
+							//float taxable_value = Float.parseFloat(item.getGross().getText())+(Float.parseFloat(item.getGross().getText())
+									//*Float.parseFloat(item.getDiscount().getText()))/100;
+							item.getTaxable_value().setText(String.valueOf(Float.parseFloat(item.getGross().getText())+(Float.parseFloat(item.getGross().getText())
+									*Float.parseFloat(item.getDiscount().getText()))/100));
+				}
 			});
 		}
 
@@ -158,9 +198,14 @@ public class PurchaseVoucherController {
 			place.show();
 		});
 
-		purchase_account.focusedProperty().addListener(e -> {
+		/*purchase_account.focusedProperty().addListener(e -> {
 			purchase_account.show();
-		});
+		});*/
+
+		//purchase_account.getSelectionModel().select(0);
+
+		purchasedt.setValue(LocalDate.now());
+
 
 
 	}
@@ -169,7 +214,7 @@ public class PurchaseVoucherController {
 		ObservableList<String> items = FXCollections.observableArrayList();
 		ResultSet res = new GetProductsDao().getProducts(SessionController.cid);
 		while (res.next()) {
-			items_with_ids.put(res.getInt(1), res.getString(2));
+			items_with_ids.put(res.getString(2), res.getInt(1));
 			items.add(res.getString(2));
 		}
 		Collections.sort(items);

@@ -21,6 +21,14 @@ public class GetProductsDao {
 		ResultSet res = stmt.executeQuery("select *from inventory where pid=" + pid);
 		return res;
 	}
-	
+
+	public boolean checkItemExists(String product) throws SQLException {
+		//String query = "Select pid from inventory where name = ?";
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery("select pid from inventory where name = '"+product+"'");
+		if(rs.next())
+			return true;
+		return false;
+	}
 	
 }
