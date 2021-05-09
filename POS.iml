@@ -14,17 +14,16 @@
     </content>
     <orderEntry type="jdk" jdkName="JavaSE-1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="javaFx" level="project" />
-    <orderEntry type="library" name="JavaFx" level="project" />
-    <orderEntry type="library" name="lib" level="project" />
-    <orderEntry type="module-library">
+    <orderEntry type="library" exported="" name="lib" level="project" />
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://D:/virtusa/mysql-connector-java-8.0.20/mysql-connector-java-8.0.20.jar!/" />
+          <root url="jar://C:/Program Files/Java/mysql-connector-java-8.0.23/mysql-connector-java-8.0.23.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" exported="" name="javafx" level="project" />
   </component>
 </module>

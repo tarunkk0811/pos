@@ -14,23 +14,6 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PurchaseVoucherController">
    <children>
-      <TableView fx:id="purchasetv" editable="true" layoutY="180.0" prefHeight="513.0" prefWidth="1279.0">
-        <columns>
-          <TableColumn fx:id="sno_col" prefWidth="47.19998908042908" text="S no" />
-          <TableColumn fx:id="item_col" prefWidth="178.13331604003906" text="Item" />
-            <TableColumn fx:id="qty_col" prefWidth="80.80000305175781" text="Quantity" />
-            <TableColumn fx:id="rate_col" prefWidth="97.86672973632812" text="Rate" />
-            <TableColumn fx:id="gross_col" prefWidth="105.33331298828125" text="Gross" />
-            <TableColumn fx:id="disc_col" prefWidth="96.26675415039062" text="Discount %" />
-            <TableColumn fx:id="cgst_col" prefWidth="87.7332763671875" text="CGST" />
-            <TableColumn fx:id="sgst_col" prefWidth="76.53338623046875" text="SGST" />
-            <TableColumn fx:id="igst_col" prefWidth="86.6666259765625" text="IGST" />
-            <TableColumn fx:id="ocharges_col" prefWidth="85.333251953125" text="Other charges" />
-            <TableColumn fx:id="cess_col" prefWidth="74.66668701171875" text="Cess" />
-            <TableColumn fx:id="taxable_value_col" prefWidth="110.9334716796875" text="Taxable Value" />
-            <TableColumn fx:id="type_of_purchase_col" prefWidth="137.599853515625" text="Type of Purchase" />
-        </columns>
-      </TableView>
       <Text layoutX="41.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VOUCHER NO :">
          <font>
             <Font size="17.0" />
@@ -53,12 +36,14 @@
             <Font size="17.0" />
          </font>
       </Text>
+      <ComboBox fx:id="place" layoutX="1021.0" layoutY="50.0" prefHeight="26.0" prefWidth="230.0" />
       <Text layoutX="37.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vendor :" wrappingWidth="145.2099609375">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
       <ComboBox fx:id="vendor" layoutX="115.0" layoutY="114.0" prefHeight="33.0" prefWidth="325.0" />
+      <CheckBox fx:id="show_customers" layoutX="331.0" layoutY="155.0" mnemonicParsing="false" text="Show customers" />
       <Text layoutX="508.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bill No :">
          <font>
             <Font size="17.0" />
@@ -81,11 +66,29 @@
             <Font size="17.0" />
          </font>
       </Text>
+      <TableView fx:id="purchasetv" editable="true" layoutY="180.0" prefHeight="513.0" prefWidth="1279.0">
+         <columns>
+            <TableColumn fx:id="sno_col" editable="false" prefWidth="47.19998908042908" sortable="false" text="S no" />
+            <TableColumn fx:id="item_col" prefWidth="178.13331604003906" sortable="false" text="Item" />
+            <TableColumn fx:id="qty_col" prefWidth="80.80000305175781" sortable="false" text="Quantity" />
+            <TableColumn fx:id="rate_col" prefWidth="97.86672973632812" sortable="false" text="Rate" />
+            <TableColumn fx:id="gross_col" prefWidth="105.33331298828125" sortable="false" text="Gross" />
+            <TableColumn fx:id="disc_col" prefWidth="96.26675415039062" sortable="false" text="Discount %" />
+            <TableColumn fx:id="cgst_col" prefWidth="87.7332763671875" sortable="false" text="CGST" />
+            <TableColumn fx:id="sgst_col" prefWidth="76.53338623046875" sortable="false" text="SGST" />
+            <TableColumn fx:id="igst_col" prefWidth="86.6666259765625" sortable="false" text="IGST" />
+            <TableColumn fx:id="ocharges_col" prefWidth="85.333251953125" sortable="false" text="Other charges" />
+            <TableColumn fx:id="cess_col" prefWidth="74.66668701171875" sortable="false" text="Cess" />
+            <TableColumn fx:id="taxable_value_col" prefWidth="110.9334716796875" sortable="false" text="Taxable Value" />
+            <TableColumn fx:id="type_of_purchase_col" prefWidth="137.599853515625" sortable="false" text="Type of Purchase" />
+         </columns>
+      </TableView>
       <Text layoutX="136.0" layoutY="718.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total :">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
+
       <Text layoutX="242.0" layoutY="717.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10">
          <font>
             <Font size="17.0" />
@@ -160,7 +163,5 @@
          </font>
       </Text>
       <Line endX="14.5001220703125" endY="13.49993896484375" layoutX="1266.0" layoutY="713.0" startX="14.5001220703125" startY="-18.0" />
-      <CheckBox fx:id="show_customers" layoutX="331.0" layoutY="155.0" mnemonicParsing="false" text="Show customers" />
-      <ComboBox fx:id="place" layoutX="1021.0" layoutY="50.0" prefHeight="26.0" prefWidth="230.0" />
    </children>
 </AnchorPane>
