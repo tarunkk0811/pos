@@ -159,7 +159,7 @@ public class CreateProductController {
 
 	@FXML
 	void goToGSTtab(ActionEvent event) throws SQLException {
-		if(get_products_dao.checkItemExists(name.getText()))
+		if(get_products_dao.checkItemExists(name.getText()) && SessionController.editpid==0)
 		{
 			app_controller.informationDialog("Product "+name.getText()+" already exists", null);
 			name.setText("");

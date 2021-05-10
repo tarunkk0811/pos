@@ -129,7 +129,7 @@ public class PurchaseVoucherController {
 		type_of_purchase.add("Ineligible Credit Section");
 		type_of_purchase.add("CR Not available");
 
-		for (int i = 0; i < 500; i++) {
+		for (int i = 0; i < 50; i++) {
 			ObservableList<String> items = FXCollections.observableArrayList(temp_items);
 			itemlist.add(new PurchaseItem(i + 1, items, type_of_purchase, "", "", "", "", "", "", "", "", "", ""));
 		}
@@ -217,7 +217,7 @@ public class PurchaseVoucherController {
 
 	private ObservableList<String> getAllItems() throws SQLException {
 		ObservableList<String> items = FXCollections.observableArrayList();
-		ResultSet res = get_products_dao.getProducts(SessionController.cid);
+		ResultSet res =new GetProductsDao().getProducts(SessionController.cid);
 		while (res.next()) {
 			items_with_ids.put(res.getString(2), res.getInt(1));
 			items.add(res.getString(2));

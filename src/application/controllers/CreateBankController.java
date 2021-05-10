@@ -111,17 +111,17 @@ public class CreateBankController {
             }
         });
 
-        if(SessionController.bid == 0) {
+
             account.focusedProperty().addListener((event) -> {
                 account.show();
             });
-        }
+
         bank.focusedProperty().addListener((event)->{
         	bank.show();
         });
 
         //Edit Bank
-        if (SessionController.bid != 0) {
+        if (SessionController.editbid != 0) {
             ResultSet account_details = get_banks_dao.getBankDetails(SessionController.editaid);
             while (account_details.next()) {
                 edit(account_details.getString(1), account_details.getString(2), account_details.getString(3),
@@ -138,7 +138,7 @@ public class CreateBankController {
         String accBalance = balance.getText();
         Integer accountID = account_details.get(account.getSelectionModel().getSelectedItem());
         Integer bankId = bank_details.get(bank.getSelectionModel().getSelectedItem());
-        if (SessionController.bid == 0) {
+        if (SessionController.editbid == 0) {
             set_banks_dao.addBankAccount(accNumber, accIfsc, accBalance, accountID, bankId);
         }
         else

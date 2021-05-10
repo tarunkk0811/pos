@@ -39,7 +39,7 @@ public class SetBankAccountDao {
                                   Integer account_id, Integer bank_id) throws SQLException
     {
         Integer cid = SessionController.cid;
-        Integer bid = SessionController.bid;
+        Integer bid = SessionController.editbid;
         String query = "UPDATE `pos`.`bank_account`\n" +
                 "SET\n" +
                 "`AID` = ?,\n" +
@@ -60,7 +60,7 @@ public class SetBankAccountDao {
         stmt.setInt(7,bid);
 
         stmt.execute();
-        SessionController.bid = 0;
+        SessionController.editbid = 0;
     }
 
     public void deleteBank(int bid) throws SQLException

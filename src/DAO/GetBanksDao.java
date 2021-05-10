@@ -19,8 +19,7 @@ public class GetBanksDao {
     public ResultSet getCreatedBanks(int cid) throws SQLException
     {
         Statement stmt = con.createStatement();
-        ResultSet existing_banks = stmt.executeQuery("select ba.BANK_NAME, bac.BID, bac.ACCOUNT_NUMBER, bac.BALANCE " +
-                        "from bank_account bac left join bank ba on bac.BANK_ID = ba.BANK_ID where bac.CID = "+cid);
+        ResultSet existing_banks = stmt.executeQuery("select ba.BANK_NAME, bac.BID, bac.ACCOUNT_NUMBER, bac.BALANCE,acc.name from account acc,bank_account bac left join bank ba on bac.BANK_ID = ba.BANK_ID where bac.CID = "+cid+" and acc.aid=bac.aid");
         return existing_banks;
     }
 

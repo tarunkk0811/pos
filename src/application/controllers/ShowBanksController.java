@@ -35,7 +35,7 @@ public class ShowBanksController {
         {
             int bid = rs.getInt(2);
             String name = "";
-            name = String.format("%-30s%-25s%-6s", rs.getString(1), rs.getString(3), rs.getString(4));
+            name = String.format("%-45s%-25s%-6s", rs.getString(1), rs.getString(5), rs.getString(4));
             CustomTreeItem account = new CustomTreeItem(name);
             account.setId(bid);
             root.getChildren().add(account);
@@ -60,7 +60,7 @@ public class ShowBanksController {
     void editBank(ActionEvent event) throws IOException{
         CustomTreeItem item = (CustomTreeItem) showbankstv.getSelectionModel().getSelectedItem();
         int bid = item.getId();
-        SessionController.bid = bid;
+        SessionController.editbid = bid;
         Parent root = FXMLLoader.load(getClass().getResource("/application/views/CreateBank.fxml"));
         Stage ccstage = new Stage();
         ccstage.initModality(Modality.APPLICATION_MODAL);
@@ -71,7 +71,7 @@ public class ShowBanksController {
         ccstage.setResizable(false);
         ccstage.showAndWait();
         
-        SessionController.bid = 0;
+        SessionController.editbid = 0;
 
         Parent root2 = FXMLLoader.load(getClass().getResource("/application/views/ShowBanks.fxml"));
         Scene scene = new Scene(root2);
