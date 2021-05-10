@@ -131,7 +131,7 @@ public class CreateProductController {
 
 		boolean inclusive = inclusive_gst.isSelected();
 
-		int p_quantity = Integer.parseInt(qunatity.getText());
+		float p_quantity = Float.parseFloat(qunatity.getText());
 		float p_buying_price = Float.parseFloat(buying_price.getText());
 		float p_selling_price = Float.parseFloat(selling_price.getText());
 

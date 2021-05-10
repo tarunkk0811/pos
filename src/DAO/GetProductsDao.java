@@ -30,5 +30,9 @@ public class GetProductsDao {
 			return true;
 		return false;
 	}
-	
+	public ResultSet getProductDetails(int pid) throws SQLException {
+		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery("select selling_cost, gst_per, discount from inventory where pid = "+pid);
+		return rs;
+	}
 }

@@ -1,5 +1,6 @@
 package application.controllers;
 
+import java.awt.event.ActionEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -18,13 +19,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
@@ -37,6 +32,10 @@ public class PurchaseVoucherController {
 	private TableView purchasetv;
 
 	@FXML
+	private Text qty_total,gross_total,rate_total,discount_total,cgst_total, sgst_total, igst_total, oc_total,cess_total, taxable_total,net_amount,vno;
+
+	static double total_qty,total_gross,total_rate,total_discount,total_cgst,total_sgst,total_igst,total_oc,total_cess,total_taxable,total_net_amount;
+	@FXML
 	private TableColumn<PurchaseItem, String> sno_col;
 
 	@FXML
@@ -44,9 +43,6 @@ public class PurchaseVoucherController {
 
 	@FXML
 	private TableColumn<PurchaseItem, ComboBox> item_col, type_of_purchase_col;
-
-	@FXML
-	private Text vno;
 
 	@FXML
 	private ChoiceBox<String> purchase_account;
@@ -62,6 +58,10 @@ public class PurchaseVoucherController {
 
 	@FXML
 	private CheckBox isigst, show_customers;
+
+	@FXML
+	private Button add_rows;
+
 
 
 	ObservableList<PurchaseItem> itemlist = FXCollections.observableArrayList();
@@ -79,12 +79,12 @@ public class PurchaseVoucherController {
 
 	GetAccountsDao get_acc_dao = new GetAccountsDao();
 	GetProductsDao get_products_dao = new GetProductsDao();
-	GetVoucherDao get_voucher_dao = new GetVoucherDao();
 	ApplicationController app_controller = new ApplicationController();
+	GetVoucherDao get_voucher_dao = new GetVoucherDao();
 
 	public PurchaseVoucherController() throws SQLException {
 	}
-
+	 int sno;
 
 	@FXML
 	public void initialize() throws Exception {
@@ -109,6 +109,9 @@ public class PurchaseVoucherController {
 		place.setEditable(true);
 		place.getItems().addAll(states);
 
+		//get vno
+		int vnumber = get_voucher_dao.getVno();
+		vno.setText(String.valueOf(vnumber+1));
 		place.addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
 			app_controller.filter(place, states, event);
 		});
@@ -129,9 +132,10 @@ public class PurchaseVoucherController {
 		type_of_purchase.add("Ineligible Credit Section");
 		type_of_purchase.add("CR Not available");
 
-		for (int i = 0; i < 50; i++) {
+
+		for (sno= 1; sno <= 50;sno++) {
 			ObservableList<String> items = FXCollections.observableArrayList(temp_items);
-			itemlist.add(new PurchaseItem(i + 1, items, type_of_purchase, "", "", "", "", "", "", "", "", "", ""));
+			itemlist.add(new PurchaseItem(sno, items, type_of_purchase, "", "", "", "", "", "", "", "", "", ""));
 		}
 		sno_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("sno"));
 		item_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, ComboBox>("items"));
@@ -148,6 +152,29 @@ public class PurchaseVoucherController {
 		type_of_purchase_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, ComboBox>("type_of_purchase"));
 		purchasetv.setItems(itemlist);
 
+		linkEventListeners(itemlist);
+		// appyling focus property
+		vendor.focusedProperty().addListener(e -> {
+			vendor.show();
+		});
+
+		place.focusedProperty().addListener(e -> {
+			place.show();
+		});
+
+		/*purchase_account.focusedProperty().addListener(e -> {
+			purchase_account.show();
+		});*/
+
+		//purchase_account.getSelectionModel().select(0);
+
+		purchasedt.setValue(LocalDate.now());
+
+
+
+	}
+
+	private void linkEventListeners(ObservableList<PurchaseItem> itemlist) {
 
 		for (PurchaseItem item : itemlist) {
 			ObservableList<String> items = FXCollections.observableArrayList(temp_items);
@@ -155,7 +182,7 @@ public class PurchaseVoucherController {
 				if (! isNowFocused) {
 					if (item.getItems().getEditor().getText() != "") {
 						try {
-							ResultSet res = get_voucher_dao.getProductDetails(items_with_ids.get(item.getItems().getSelectionModel().getSelectedItem()));
+							ResultSet res = get_products_dao.getProductDetails(items_with_ids.get(item.getItems().getSelectionModel().getSelectedItem()));
 							if(res.next()){
 								item.getRate().setText(String.valueOf(res.getFloat(1)));
 								int gst = res.getInt(2);
@@ -182,36 +209,41 @@ public class PurchaseVoucherController {
 			item.getItems().addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
 				app_controller.filter(item.getItems(), items, event);
 			});
+
+
 			item.getQuantity().focusedProperty().addListener((event,wasFocused, isNowFocused) -> {
 				if (! isNowFocused && item.getQuantity().getText()!="") {
-							item.getGross().setText(String.valueOf(Float.parseFloat(item.getQuantity().getText())*
-									Float.parseFloat(item.getRate().getText())));
-							//float taxable_value = Float.parseFloat(item.getGross().getText())+(Float.parseFloat(item.getGross().getText())
-									//*Float.parseFloat(item.getDiscount().getText()))/100;
-							item.getTaxable_value().setText(String.valueOf(Float.parseFloat(item.getGross().getText())+(Float.parseFloat(item.getGross().getText())
-									*Float.parseFloat(item.getDiscount().getText()))/100));
+					double q = Double.parseDouble(item.getQuantity().getText());
+					total_qty+=q;
+					qty_total.setText(String.valueOf(total_qty));
+
+					item.getGross().setText(String.valueOf(Double.parseDouble(item.getQuantity().getText())*
+							Double.parseDouble(item.getRate().getText())));
+					//float taxable_value = Float.parseFloat(item.getGross().getText())+(Float.parseFloat(item.getGross().getText())
+					//*Float.parseFloat(item.getDiscount().getText()))/100;
+					item.getTaxable_value().setText(String.valueOf(Double.parseDouble(item.getGross().getText())+(Float.parseFloat(item.getGross().getText())
+							*Double.parseDouble(item.getDiscount().getText()))/100));
+				}
+				else if(isNowFocused && item.getQuantity().getText()!="") {
+					total_qty = total_qty - Double.parseDouble(item.getQuantity().getText());
+					qty_total.setText(String.valueOf(total_qty));
 				}
 			});
-		}
 
-		// appyling focus property
-		vendor.focusedProperty().addListener(e -> {
-			vendor.show();
-		});
+			item.getRate().focusedProperty().addListener((event,wasFocused, isNowFocused) -> {
+//				if (! isNowFocused && item.getRate().getText()!="") {
+//					double q = Double.parseDouble(item.getRate().getText());
+//					total_rate+=q;
+//					rate_total.setText(String.valueOf(total_rate));
+//				}
+//				else
+				if(!isNowFocused && item.getRate().getText()!="") {
+					total_rate = total_rate + Double.parseDouble(item.getRate().getText());
+					rate_total.setText(String.valueOf(total_rate));
+				}
+			});
 
-		place.focusedProperty().addListener(e -> {
-			place.show();
-		});
-
-		/*purchase_account.focusedProperty().addListener(e -> {
-			purchase_account.show();
-		});*/
-
-		//purchase_account.getSelectionModel().select(0);
-
-		purchasedt.setValue(LocalDate.now());
-
-
+				}
 
 	}
 
@@ -224,5 +256,21 @@ public class PurchaseVoucherController {
 		}
 		Collections.sort(items);
 		return items;
+	}
+
+
+
+	public void addRows(javafx.event.ActionEvent actionEvent) {
+		int temp;
+		ObservableList<PurchaseItem> extrarowslist = FXCollections.observableArrayList();
+
+		for(temp=sno;temp<sno+10;temp++) {
+			ObservableList<String> items = FXCollections.observableArrayList(temp_items);
+			extrarowslist.add(new PurchaseItem(temp, items, type_of_purchase, "", "", "", "", "", "", "", "", "", ""));
+		}
+		purchasetv.getItems().addAll(extrarowslist);
+		linkEventListeners(extrarowslist);
+		purchasetv.refresh();
+		sno=temp;
 	}
 }

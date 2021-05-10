@@ -37,13 +37,13 @@ public class ShowProductsController {
 
 	@FXML
 	public void initialize() throws SQLException {
-		CustomTreeItem root = new CustomTreeItem("Products");
+		CustomTreeItem root = new CustomTreeItem(String.format("%-40s%-25s%-6s","Product Name","Quantity","Selling Cost"));
 		ResultSet rs = new GetProductsDao().getProducts(SessionController.cid);
 		while (rs.next()) {
 			int pid = rs.getInt(1);
 			String name = "";
 
-			name = String.format("%-30s%-10s%-6s", rs.getString(2), rs.getString(9), rs.getString(11));
+			name = String.format("%-40s%-25s%-6s", rs.getString(2), rs.getString(9), rs.getString(11));
 			
 			CustomTreeItem product = new CustomTreeItem(name);
 			product.setId(pid);
@@ -51,7 +51,7 @@ public class ShowProductsController {
 		}
 		root.setExpanded(true);
 		showproductstv.setRoot(root);
-		showproductstv.setShowRoot(false);
+		//showproductstv.setShowRoot(false);
 
 	}
 

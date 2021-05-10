@@ -29,7 +29,7 @@ public class ShowBanksController {
     @FXML
     public void initialize() throws SQLException {
     	
-        CustomTreeItem root = new CustomTreeItem("Banks");
+        CustomTreeItem root = new CustomTreeItem(String.format("%-40s%-25s%-6s","Bank Name","Customer/Vendor","Balance"));
         ResultSet rs =  new GetBanksDao().getCreatedBanks(SessionController.cid);
         while(rs.next())
         {

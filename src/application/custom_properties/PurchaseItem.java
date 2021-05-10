@@ -38,6 +38,7 @@ public class PurchaseItem {
 		this.type_of_purchase.focusedProperty().addListener(e -> {
 			this.type_of_purchase.show();
 		});
+		this.type_of_purchase.getSelectionModel().select(0);
 		
 	}
 

@@ -9,9 +9,14 @@ public class GetVoucherDao {
     DBConnection dao = new DBConnection();
     Connection con = dao.connect();
 
-    public ResultSet getProductDetails(int pid) throws SQLException {
-        Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery("select selling_cost, gst_per, discount from inventory where pid = "+pid);
-        return rs;
+    public int getVno() throws SQLException {
+        int vno = 0;
+        Statement stmt = con.createStatement();
+        ResultSet res = stmt.executeQuery("select count(purchase_voucher_id) from purchase_voucher");
+        if(res.next())
+            vno=res.getInt(1);
+        return vno;
     }
+
+
 }

@@ -8,9 +8,9 @@ import java.sql.Statement;
 public class SetProductsDao {
 	DBConnection dao = new DBConnection();
 	Connection con = dao.connect();
-	public void setProduct(int aid,int cid,int fid, String name, String alias, String hsn, String desc, int qty, float buying_cost,
-			float selling_cost,String gtype,float gper,String units,int opening_stock,
-			float disc,boolean incl_gst,int reorder,String ptype) throws SQLException {
+	public void setProduct(int aid, int cid, int fid, String name, String alias, String hsn, String desc, float qty, float buying_cost,
+                           float selling_cost, String gtype, float gper, String units, int opening_stock,
+                           float disc, boolean incl_gst, int reorder, String ptype) throws SQLException {
 			
 			String query = "INSERT INTO `pos`.`inventory`"
 					+ "(`AID`,`CID`,`FID`,`NAME`,`ALIAS`,`HSN`,`DESCRIPTION`,`QUANTITY`,"
@@ -28,7 +28,7 @@ public class SetProductsDao {
 		stmt.setString(5, dao.capitalize(alias));
 		stmt.setString(6, hsn);
 		stmt.setString(7, desc);
-		stmt.setInt(8, qty);
+		stmt.setFloat(8, qty);
 		stmt.setFloat(9, buying_cost);
 		stmt.setFloat(10, selling_cost);
 		stmt.setString(11, gtype);
@@ -45,9 +45,9 @@ public class SetProductsDao {
 
 	}
 	
-	public void updateProduct(int aid,int pid,String name, String alias, String hsn, String desc, int qty, float buying_cost,
-								float selling_cost,String gtype,float gper,String units,int opening_stock,
-								float disc,boolean incl_gst,int reorder,String ptype) throws SQLException {
+	public void updateProduct(int aid, int pid, String name, String alias, String hsn, String desc, float qty, float buying_cost,
+							  float selling_cost, String gtype, float gper, String units, int opening_stock,
+							  float disc, boolean incl_gst, int reorder, String ptype) throws SQLException {
 		String query = "UPDATE `pos`.`inventory` SET `NAME` = ?,`HSN` = ?,"
 				+ "`ALIAS` = ?,`DESCRIPTION` = ?,`QUANTITY` = ?,`BUYING_COST` = ?,`SELLING_COST` = ?,"
 				+ "`GST_TYPE` = ?,`GST_PER` = ?,`UNITS` = ?,`OPENING_STOCK` = ?,`INCLUSIVE_GST` = ?,`DISCOUNT` = ?,"
@@ -60,7 +60,7 @@ public class SetProductsDao {
 		stmt.setString(2, hsn);
 		stmt.setString(3, dao.capitalize(alias));
 		stmt.setString(4, desc);
-		stmt.setInt(5, qty);
+		stmt.setFloat(5, qty);
 		stmt.setFloat(6, buying_cost);
 		stmt.setFloat(7, selling_cost);
 		stmt.setString(8, gtype);
