@@ -39,11 +39,16 @@ public class CreateBankController {
 
     HashMap<String, Integer> account_details = new HashMap<String, Integer>();
     HashMap<String, Integer> bank_details = new HashMap<String, Integer>();
+
+    GetAccountsDao get_acc_dao = new GetAccountsDao();
+    GetBanksDao get_banks_dao = new GetBanksDao();
+    SetBankAccountDao set_banks_dao = new SetBankAccountDao();
+    ApplicationController app_controller = new ApplicationController();
     @FXML
     public void initialize() throws SQLException {
 
 
-        ResultSet rs = new GetAccountsDao().getAllAccounts();
+        ResultSet rs = get_acc_dao.getAllAccounts();
         while (rs.next()) {
             int account_id = rs.getInt(1);
             String account_name = rs.getString(2);
@@ -69,13 +74,13 @@ public class CreateBankController {
                 account.getItems().clear();
                 account.getItems().addAll(account_copy);
             } else if (ascii >= 65 && ascii <= 122) {
-                account = new ApplicationController().searchComboBox(event, account, account_copy);
+                account = app_controller.searchComboBox(event, account, account_copy);
                 account.show();
             }
         });
 
 
-        ResultSet res = new GetBanksDao().getAllBanks();
+        ResultSet res = get_banks_dao.getAllBanks();
         while (res.next()) {
             int bank_id = res.getInt(1);
             String bank_name = res.getString(2);
@@ -101,7 +106,7 @@ public class CreateBankController {
                 bank.getItems().clear();
                 bank.getItems().addAll(bank_copy);
             } else if (ascii >= 65 && ascii <= 122) {
-                bank = new ApplicationController().searchComboBox(event, bank, bank_copy);
+                bank = app_controller.searchComboBox(event, bank, bank_copy);
                 bank.show();
             }
         });
@@ -117,7 +122,7 @@ public class CreateBankController {
 
         //Edit Bank
         if (SessionController.bid != 0) {
-            ResultSet account_details = new GetBanksDao().getBankDetails(SessionController.editaid);
+            ResultSet account_details = get_banks_dao.getBankDetails(SessionController.editaid);
             while (account_details.next()) {
                 edit(account_details.getString(1), account_details.getString(2), account_details.getString(3),
                 account_details.getString(4), account_details.getString(5));
@@ -134,11 +139,11 @@ public class CreateBankController {
         Integer accountID = account_details.get(account.getSelectionModel().getSelectedItem());
         Integer bankId = bank_details.get(bank.getSelectionModel().getSelectedItem());
         if (SessionController.bid == 0) {
-            new SetBankAccountDao().addBankAccount(accNumber, accIfsc, accBalance, accountID, bankId);
+            set_banks_dao.addBankAccount(accNumber, accIfsc, accBalance, accountID, bankId);
         }
         else
-            new SetBankAccountDao().updateBankDetails(accNumber, accIfsc, accBalance, accountID, bankId);
-        new ApplicationController().informationDialog("Operation Success !", null);
+            set_banks_dao.updateBankDetails(accNumber, accIfsc, accBalance, accountID, bankId);
+        app_controller.informationDialog("Operation Success !", null);
         Stage window = (Stage) ap.getScene().getWindow();
         window.close();
     }

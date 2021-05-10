@@ -23,6 +23,8 @@ public class CreateCompanyController {
 
 	int cid;
 
+	SetCompanyDao set_company_dao = new SetCompanyDao();
+
 	@FXML
 	void createCompany(ActionEvent event) throws IOException, SQLException {
 		Stage cur_stage = (Stage) ccbtn.getScene().getWindow();
@@ -36,15 +38,15 @@ public class CreateCompanyController {
 		java.sql.Date fromdt = java.sql.Date.valueOf(fromdate.getValue());
 		java.sql.Date todt = java.sql.Date.valueOf(todate.getValue());
 
-		new SetCompanyDao().setCompany(name, address, gstin, phone, email, password, cpassword);
+		set_company_dao.setCompany(name, address, gstin, phone, email, password, cpassword);
 		
-		ResultSet rs = new SetCompanyDao().getLastid();
+		ResultSet rs = set_company_dao.getLastid();
 
 		while (rs.next()) {
 			cid = rs.getInt(1);
 		}
 
-		new SetCompanyDao().setFinYear(cid, fromdt, todt);
+		set_company_dao.setFinYear(cid, fromdt, todt);
 
 		cur_stage.close();
 

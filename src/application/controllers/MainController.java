@@ -31,6 +31,10 @@ public class MainController {
 	// variables
 	public int fid, cid;
 
+	ApplicationController app_controller = new ApplicationController();
+	DeleteDao delete_dao = new DeleteDao();
+	GetCompaniesDao get_companies_dao = new GetCompaniesDao();
+
 	// fxml methods
 	@FXML
 	public void initialize() throws SQLException {
@@ -38,14 +42,14 @@ public class MainController {
 		NewFYController.InjectMainController(this);
 
 		CustomTreeItem root = new CustomTreeItem("Companies list");
-		ResultSet rs = new GetCompaniesDao().getCompanies();
+		ResultSet rs = get_companies_dao.getCompanies();
 
 		while (rs.next()) {
 			int cid = rs.getInt(1);
 			String name = rs.getString(2);
 			CustomTreeItem company = new CustomTreeItem(name);
 			company.setId(cid);
-			ResultSet finres = new GetCompaniesDao().getFinYears(cid);
+			ResultSet finres = get_companies_dao.getFinYears(cid);
 			while (finres.next()) {
 				CustomTreeItem fyear = new CustomTreeItem(
 						finres.getDate(3).toString() + "   To   " + finres.getDate(4).toString());
@@ -83,7 +87,7 @@ public class MainController {
 
 	@FXML
 	void createCompanyWindow(ActionEvent event) {
-		new ApplicationController().createCompanyWindow(event);
+		app_controller.createCompanyWindow(event);
 	}
 
 	@FXML
@@ -113,28 +117,26 @@ public class MainController {
 
 	@FXML
 	void delete(ActionEvent event) throws SQLException, IOException {
-		ApplicationController app = new ApplicationController();
-		if (app.confirmationDialog("Are you sure to delete?", null)) {
+
+		if (app_controller.confirmationDialog("Are you sure to delete?", null)) {
 			CustomTreeItem selectedItem = (CustomTreeItem) tv.getSelectionModel().getSelectedItem();
 			if (selectedItem != null) {
 				boolean status;
 				if (selectedItem.getParent().getValue() == "Companies list") {
 					cid = selectedItem.getId();
-					status = new DeleteDao().hideCompany(cid);
+					status = delete_dao.hideCompany(cid);
 				} else {
 					fid = selectedItem.getId();
-					status = new DeleteDao().hideFinancialYear(fid);
+					status = delete_dao.hideFinancialYear(fid);
 				}
-
 				Parent root = FXMLLoader.load(getClass().getResource("/application/views/Main.fxml"));
 				Scene scene = new Scene(root);
 				Main.changeSceneTo(scene);
 				if(status)
-					app.informationDialog("Deleted Successfully", null);
+					app_controller.informationDialog("Deleted Successfully", null);
 				else
-					app.errorDialog("Deletion unsuccessfull", null);
+					app_controller.errorDialog("Deletion unsuccessfull", null);
 			}
-			
 		}
 	}
 

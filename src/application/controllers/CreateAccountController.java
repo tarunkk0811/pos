@@ -51,6 +51,10 @@ public class CreateAccountController {
 
 	ObservableList<String> cities = FXCollections.observableArrayList();
 
+	GetAccountsDao get_acc_dao = new GetAccountsDao();
+	SetAccountsDao set_acc_dao = new SetAccountsDao();
+	ApplicationController app_controller = new ApplicationController();
+
 	@FXML
 	public void initialize() throws SQLException {
 
@@ -60,7 +64,7 @@ public class CreateAccountController {
 			countries.add(obj.getDisplayCountry());
 		}
 
-		ResultSet rs = new GetAccountsDao().getStates();
+		ResultSet rs = get_acc_dao.getStates();
 
 		while (rs.next()) {
 			String statename = rs.getString(1);
@@ -91,7 +95,7 @@ public class CreateAccountController {
 				state.getItems().clear();
 				state.getItems().addAll(statescopy);
 			} else if (ascii >= 65 && ascii <= 122) {
-				state = new ApplicationController().searchComboBox(event, state, statescopy);
+				state = app_controller.searchComboBox(event, state, statescopy);
 				state.show();
 			}
 		});
@@ -100,7 +104,7 @@ public class CreateAccountController {
 			String statechoosen = state.getSelectionModel().getSelectedItem();
 			if (statechoosen != null || statechoosen != "")
 				try {
-					ResultSet res = new GetAccountsDao().getCities(statechoosen);
+					ResultSet res = get_acc_dao.getCities(statechoosen);
 					while (res.next()) {
 						String city = res.getString(1);
 						// System.out.println(city);
@@ -128,7 +132,7 @@ public class CreateAccountController {
 				city.getItems().clear();
 				city.getItems().addAll(citiescopy);
 			} else if (ascii >= 65 && ascii <= 122) {
-				city = new ApplicationController().searchComboBox(event, city, citiescopy);
+				city = app_controller.searchComboBox(event, city, citiescopy);
 				city.show();
 			}
 		});
@@ -148,7 +152,7 @@ public class CreateAccountController {
 
 		// edit module
 		if (SessionController.editaid != 0) {
-			ResultSet res = new GetAccountsDao().getAccountDetails(SessionController.editaid);
+			ResultSet res = get_acc_dao.getAccountDetails(SessionController.editaid);
 			while (res.next()) {
 				edit(res.getString(3), res.getString(4), res.getString(11), res.getString(12), res.getInt(10),
 						res.getString(13), res.getString(5), res.getString(8), res.getString(7), res.getString(6),
@@ -173,20 +177,17 @@ public class CreateAccountController {
 		String Aatype = atype.getSelectionModel().getSelectedItem();
 		String Abtype = btype.getSelectionModel().getSelectedItem();
 		if (SessionController.editaid == 0)
-			new SetAccountsDao().setAccount(Aname, Aphone, Aadhaar, Aemail, Acdays, Agstin, Aaddress, Acountry, Astate,
+			set_acc_dao.setAccount(Aname, Aphone, Aadhaar, Aemail, Acdays, Agstin, Aaddress, Acountry, Astate,
 					Acity, Aatype, Abtype);
 		else {
 
-			new SetAccountsDao().updateAccount(Aname, Aphone, Aadhaar, Aemail, Acdays, Agstin, Aaddress, Acountry,
+			set_acc_dao.updateAccount(Aname, Aphone, Aadhaar, Aemail, Acdays, Agstin, Aaddress, Acountry,
 					Astate, Acity, Aatype, Abtype);
-
 		}
 
-		new ApplicationController().informationDialog("Operation Success !", null);
+		app_controller.informationDialog("Operation Success !", null);
 		Stage window = (Stage) ap.getScene().getWindow();
 		window.close();
-		
-		
 	}
 
 	@FXML
@@ -211,5 +212,4 @@ public class CreateAccountController {
 			btype.getSelectionModel().select(ebtype);
 		}
 	}
-
 }

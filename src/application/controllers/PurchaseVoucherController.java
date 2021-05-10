@@ -77,6 +77,11 @@ public class PurchaseVoucherController {
 	HashMap<String, Integer> Accounts_with_ids = new HashMap<String, Integer>();
 	final ObservableList<String> temp_items = getAllItems();
 
+	GetAccountsDao get_acc_dao = new GetAccountsDao();
+	GetProductsDao get_products_dao = new GetProductsDao();
+	GetVoucherDao get_voucher_dao = new GetVoucherDao();
+	ApplicationController app_controller = new ApplicationController();
+
 	public PurchaseVoucherController() throws SQLException {
 	}
 
@@ -84,7 +89,7 @@ public class PurchaseVoucherController {
 	@FXML
 	public void initialize() throws Exception {
 
-		ResultSet vendors_rs = new GetAccountsDao().getVendors(SessionController.cid);
+		ResultSet vendors_rs = get_acc_dao.getVendors(SessionController.cid);
 		while (vendors_rs.next()) {
 			Accounts_with_ids.put(vendors_rs.getString(2), vendors_rs.getInt(1));
 			accounts.add(vendors_rs.getString(2));
@@ -94,7 +99,7 @@ public class PurchaseVoucherController {
 		vendor.getItems().addAll(accounts);
 
 		// adding place of supply
-		ResultSet rs = new GetAccountsDao().getStates();
+		ResultSet rs = get_acc_dao.getStates();
 
 		while (rs.next()) {
 			String statename = rs.getString(1);
@@ -105,11 +110,11 @@ public class PurchaseVoucherController {
 		place.getItems().addAll(states);
 
 		place.addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
-			new ApplicationController().filter(place, states, event);
+			app_controller.filter(place, states, event);
 		});
 
 		vendor.addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
-			new ApplicationController().filter(vendor, accounts, event);
+			app_controller.filter(vendor, accounts, event);
 		});
 
 		purchase_account.getItems().addAll(purchase_account_list);
@@ -150,7 +155,7 @@ public class PurchaseVoucherController {
 				if (! isNowFocused) {
 					if (item.getItems().getEditor().getText() != "") {
 						try {
-							ResultSet res = new GetVoucherDao().getProductDetails(items_with_ids.get(item.getItems().getSelectionModel().getSelectedItem()));
+							ResultSet res = get_voucher_dao.getProductDetails(items_with_ids.get(item.getItems().getSelectionModel().getSelectedItem()));
 							if(res.next()){
 								item.getRate().setText(String.valueOf(res.getFloat(1)));
 								int gst = res.getInt(2);
@@ -175,7 +180,7 @@ public class PurchaseVoucherController {
 				}
 			});
 			item.getItems().addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
-				new ApplicationController().filter(item.getItems(), items, event);
+				app_controller.filter(item.getItems(), items, event);
 			});
 			item.getQuantity().focusedProperty().addListener((event,wasFocused, isNowFocused) -> {
 				if (! isNowFocused && item.getQuantity().getText()!="") {
@@ -212,7 +217,7 @@ public class PurchaseVoucherController {
 
 	private ObservableList<String> getAllItems() throws SQLException {
 		ObservableList<String> items = FXCollections.observableArrayList();
-		ResultSet res = new GetProductsDao().getProducts(SessionController.cid);
+		ResultSet res = get_products_dao.getProducts(SessionController.cid);
 		while (res.next()) {
 			items_with_ids.put(res.getString(2), res.getInt(1));
 			items.add(res.getString(2));

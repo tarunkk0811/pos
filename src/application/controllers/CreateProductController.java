@@ -59,9 +59,14 @@ public class CreateProductController {
 	@FXML
 	private CheckBox inclusive_gst;
 
+	GetProductsDao get_products_dao = new GetProductsDao();
+	GetAccountsDao get_acc_dao = new GetAccountsDao();
+	SetProductsDao set_product_dao = new SetProductsDao();
+	ApplicationController app_controller = new ApplicationController();
+
 	@FXML
 	public void initialize() throws SQLException {
-		ResultSet res = new GetAccountsDao().getAccounts(SessionController.cid);
+		ResultSet res = get_acc_dao.getAccounts(SessionController.cid);
 		while (res.next()) {
 			accounts.add(res.getString(3));
 		}
@@ -97,7 +102,7 @@ public class CreateProductController {
 
 		// edit product
 		if (SessionController.editpid != 0) {
-			ResultSet rs = new GetProductsDao().getProduct(SessionController.editpid);
+			ResultSet rs = get_products_dao.getProduct(SessionController.editpid);
 			while (rs.next()) {
 				edit(rs.getString(2), rs.getString(7), rs.getString(18), rs.getString(9), rs.getString(11),
 						rs.getString(10), rs.getString(17), rs.getString(8), rs.getString(6), rs.getInt(16),
@@ -117,7 +122,7 @@ public class CreateProductController {
 		String p_products_type = product_types.get(product_type.getSelectionModel().getSelectedIndex());
 		String p_desc = desc.getText();
 
-		int aid = new GetAccountsDao().getAccount(accounts.get(account.getSelectionModel().getSelectedIndex()));
+		int aid = get_acc_dao.getAccount(accounts.get(account.getSelectionModel().getSelectedIndex()));
 
 		String p_hsn = hsn.getText();
 		String p_gst_type = gst_types.get(gst_type.getSelectionModel().getSelectedIndex());
@@ -135,16 +140,16 @@ public class CreateProductController {
 		int p_opening_stock = Integer.parseInt(opening_stock.getText());
 		
 		if (SessionController.editpid == 0) {
-			new SetProductsDao().setProduct(aid, SessionController.cid, SessionController.fid, p_name, p_alias, p_hsn,
+			set_product_dao.setProduct(aid, SessionController.cid, SessionController.fid, p_name, p_alias, p_hsn,
 					p_desc, p_quantity, p_buying_price, p_selling_price, p_gst_type, p_gst_per, p_units,
 					p_opening_stock, p_disc, inclusive, p_reorder, p_products_type);
-			new ApplicationController().informationDialog("Product Added Successfully !", null);
+			app_controller.informationDialog("Product Added Successfully !", null);
 		} else {
-			new SetProductsDao().updateProduct(aid, SessionController.editpid, p_name, p_alias, p_hsn, p_desc, p_quantity, 
+			set_product_dao.updateProduct(aid, SessionController.editpid, p_name, p_alias, p_hsn, p_desc, p_quantity,
 					p_buying_price, p_selling_price,p_gst_type, p_gst_per, p_units, p_opening_stock,
 					p_disc, inclusive, p_reorder, p_products_type);
 			SessionController.editpid = 0;
-			new ApplicationController().informationDialog("Product Updated Successfully !", null);
+			app_controller.informationDialog("Product Updated Successfully !", null);
 		}
 	
 
@@ -154,9 +159,9 @@ public class CreateProductController {
 
 	@FXML
 	void goToGSTtab(ActionEvent event) throws SQLException {
-		if(new GetProductsDao().checkItemExists(name.getText()))
+		if(get_products_dao.checkItemExists(name.getText()))
 		{
-			new ApplicationController().informationDialog("Product "+name.getText()+" already exists", null);
+			app_controller.informationDialog("Product "+name.getText()+" already exists", null);
 			name.setText("");
 		}
 		else
@@ -179,7 +184,7 @@ public class CreateProductController {
 	@FXML
 	void showItems(KeyEvent event) {
 		ComboBox<String> cbox = (ComboBox<String>) event.getSource();
-		new ApplicationController().showComboBoxItems(cbox, event);
+		app_controller.showComboBoxItems(cbox, event);
 	}
 
 	void edit(String ename, String ealias, String ereorder, String equantity, String eselling, String ebuying,
@@ -197,7 +202,7 @@ public class CreateProductController {
 			hsn.setText(ehsn);
 			inclusive_gst.setSelected(1 == eincl);
 			opening_stock.setText(eopening);
-			ResultSet rs = new GetAccountsDao().getAccountDetails(eaccount);
+			ResultSet rs = get_acc_dao.getAccountDetails(eaccount);
 			rs.next();
 			account.getSelectionModel().select(rs.getString(3));
 			product_type.getSelectionModel().select(eproduct_type);
