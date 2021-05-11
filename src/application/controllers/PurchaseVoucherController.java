@@ -76,7 +76,7 @@ public class PurchaseVoucherController {
 	HashMap<String, Integer> items_with_ids = new HashMap<String, Integer>();
 	HashMap<String, Integer> Accounts_with_ids = new HashMap<String, Integer>();
 	final ObservableList<String> temp_items = getAllItems();
-
+	double prev ;
 	GetAccountsDao get_acc_dao = new GetAccountsDao();
 	GetProductsDao get_products_dao = new GetProductsDao();
 	ApplicationController app_controller = new ApplicationController();
@@ -88,7 +88,8 @@ public class PurchaseVoucherController {
 
 	@FXML
 	public void initialize() throws Exception {
-
+		prev = 0.0;
+		total_qty=0;total_gross=0;total_rate=0;total_discount=0;total_cgst=0;total_sgst=0;total_igst=0;total_oc=0;total_cess=0;total_taxable=0;total_net_amount=0;
 		ResultSet vendors_rs = get_acc_dao.getVendors(SessionController.cid);
 		while (vendors_rs.next()) {
 			Accounts_with_ids.put(vendors_rs.getString(2), vendors_rs.getInt(1));
@@ -212,38 +213,24 @@ public class PurchaseVoucherController {
 
 
 			item.getQuantity().focusedProperty().addListener((event,wasFocused, isNowFocused) -> {
-				if (! isNowFocused && item.getQuantity().getText()!="") {
-					double q = Double.parseDouble(item.getQuantity().getText());
-					total_qty+=q;
-					qty_total.setText(String.valueOf(total_qty));
+				total_qty=calculateTotal(item, PurchaseVoucherController.total_qty,isNowFocused,item.getQuantity());
+				qty_total.setText(String.valueOf(total_qty));
 
-					item.getGross().setText(String.valueOf(Double.parseDouble(item.getQuantity().getText())*
+				if(item.getQuantity().getText()!="") {
+					item.getGross().setText(String.valueOf(Double.parseDouble(item.getQuantity().getText()) *
 							Double.parseDouble(item.getRate().getText())));
-					//float taxable_value = Float.parseFloat(item.getGross().getText())+(Float.parseFloat(item.getGross().getText())
-					//*Float.parseFloat(item.getDiscount().getText()))/100;
-					item.getTaxable_value().setText(String.valueOf(Double.parseDouble(item.getGross().getText())+(Float.parseFloat(item.getGross().getText())
-							*Double.parseDouble(item.getDiscount().getText()))/100));
+					item.getTaxable_value().setText(String.valueOf(Double.parseDouble(item.getGross().getText()) + (Float.parseFloat(item.getGross().getText())
+							* Double.parseDouble(item.getDiscount().getText())) / 100));
 				}
-				else if(isNowFocused && item.getQuantity().getText()!="") {
-					total_qty = total_qty - Double.parseDouble(item.getQuantity().getText());
-					qty_total.setText(String.valueOf(total_qty));
-				}
+
 			});
 
-			item.getRate().focusedProperty().addListener((event,wasFocused, isNowFocused) -> {
-//				if (! isNowFocused && item.getRate().getText()!="") {
-//					double q = Double.parseDouble(item.getRate().getText());
-//					total_rate+=q;
-//					rate_total.setText(String.valueOf(total_rate));
-//				}
-//				else
-				if(!isNowFocused && item.getRate().getText()!="") {
-					total_rate = total_rate + Double.parseDouble(item.getRate().getText());
-					rate_total.setText(String.valueOf(total_rate));
-				}
+			item.getRate().focusedProperty().addListener((event,wasFocused,isNowFocused)->{
+				total_rate=calculateTotal(item,PurchaseVoucherController.total_rate,isNowFocused,item.getRate());
+				rate_total.setText(String.valueOf(total_rate));
 			});
 
-				}
+	}
 
 	}
 
@@ -272,5 +259,24 @@ public class PurchaseVoucherController {
 		linkEventListeners(extrarowslist);
 		purchasetv.refresh();
 		sno=temp;
+	}
+
+
+	public double calculateTotal(PurchaseItem item, double total, boolean isNowFocused,TextField field){
+		//focus lost
+		if (! isNowFocused && field.getText()!="") {
+				double q = Double.parseDouble(field.getText());
+				if(q != prev) {
+					total = (total - prev) + q;
+					//totaltxt.setText(String.valueOf(total));
+				}
+			}
+			else if(isNowFocused && field.getText()!="") {
+				prev = Double.parseDouble(field.getText());
+			}
+			else{
+				prev=0.0;
+			}
+			return total;
 	}
 }

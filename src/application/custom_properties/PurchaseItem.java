@@ -9,10 +9,99 @@ public class PurchaseItem {
 	private String sno;
 	private ComboBox<String> items, type_of_purchase;
 	private TextField quantity, rate, gross, discount, cgst, sgst, igst, other_charges, cess, taxable_value;
-	
+	static double total_qty,total_gross,total_rate,total_discount,total_cgst,total_sgst,total_igst,total_oc,total_cess,total_taxable,total_net_amount;
+
+	public static double getTotal_qty() {
+		return total_qty;
+	}
+
+	public static void setTotal_qty(double total_qty) {
+		PurchaseItem.total_qty = total_qty;
+	}
+
+	public static double getTotal_gross() {
+		return total_gross;
+	}
+
+	public static void setTotal_gross(double total_gross) {
+		PurchaseItem.total_gross = total_gross;
+	}
+
+	public static double getTotal_rate() {
+		return total_rate;
+	}
+
+	public static void setTotal_rate(double total_rate) {
+		PurchaseItem.total_rate = total_rate;
+	}
+
+	public static double getTotal_discount() {
+		return total_discount;
+	}
+
+	public static void setTotal_discount(double total_discount) {
+		PurchaseItem.total_discount = total_discount;
+	}
+
+	public static double getTotal_cgst() {
+		return total_cgst;
+	}
+
+	public static void setTotal_cgst(double total_cgst) {
+		PurchaseItem.total_cgst = total_cgst;
+	}
+
+	public static double getTotal_sgst() {
+		return total_sgst;
+	}
+
+	public static void setTotal_sgst(double total_sgst) {
+		PurchaseItem.total_sgst = total_sgst;
+	}
+
+	public static double getTotal_igst() {
+		return total_igst;
+	}
+
+	public static void setTotal_igst(double total_igst) {
+		PurchaseItem.total_igst = total_igst;
+	}
+
+	public static double getTotal_oc() {
+		return total_oc;
+	}
+
+	public static void setTotal_oc(double total_oc) {
+		PurchaseItem.total_oc = total_oc;
+	}
+
+	public static double getTotal_cess() {
+		return total_cess;
+	}
+
+	public static void setTotal_cess(double total_cess) {
+		PurchaseItem.total_cess = total_cess;
+	}
+
+	public static double getTotal_taxable() {
+		return total_taxable;
+	}
+
+	public static void setTotal_taxable(double total_taxable) {
+		PurchaseItem.total_taxable = total_taxable;
+	}
+
+	public static double getTotal_net_amount() {
+		return total_net_amount;
+	}
+
+	public static void setTotal_net_amount(double total_net_amount) {
+		PurchaseItem.total_net_amount = total_net_amount;
+	}
+
 	public PurchaseItem(int sno, ObservableList items, ObservableList type_of_purchase, String quantity,
-			String rate, String gross, String discount, String cgst, String sgst, String igst, String other_charges,
-			String cess, String taxable_value) {
+						String rate, String gross, String discount, String cgst, String sgst, String igst, String other_charges,
+						String cess, String taxable_value) {
 		super();
 		this.sno = String.valueOf(sno);
 		this.items = new ComboBox<String>(items);
