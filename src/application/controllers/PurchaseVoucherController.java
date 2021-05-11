@@ -184,8 +184,14 @@ public class PurchaseVoucherController {
 					if (item.getItems().getEditor().getText() != "") {
 						try {
 							ResultSet res = get_products_dao.getProductDetails(items_with_ids.get(item.getItems().getSelectionModel().getSelectedItem()));
-							if(res.next()){
-								item.getRate().setText(String.valueOf(res.getFloat(1)));
+							if(res.next()) {
+								// if rate field in empty then set the rate field
+								// then updates the total_rate
+								if(item.getRate().getText().isEmpty()){
+									item.getRate().setText(String.valueOf(res.getFloat(1)));
+									double result = Double.parseDouble(rate_total.getText()) + Double.parseDouble(item.getRate().getText());
+									rate_total.setText(String.format("%.2f",result));
+								}
 								int gst = res.getInt(2);
 								item.getDiscount().setText(String.valueOf(res.getFloat(3)));
 								if(isigst.isSelected()) {
@@ -226,10 +232,9 @@ public class PurchaseVoucherController {
 			});
 
 			item.getRate().focusedProperty().addListener((event,wasFocused,isNowFocused)->{
-				total_rate=calculateTotal(item,PurchaseVoucherController.total_rate,isNowFocused,item.getRate());
-				rate_total.setText(String.valueOf(total_rate));
+				total_rate=calculateTotal(item,Double.parseDouble(rate_total.getText()),isNowFocused,item.getRate());
+				rate_total.setText(String.format("%.2f",total_rate));
 			});
-
 	}
 
 	}
@@ -264,14 +269,14 @@ public class PurchaseVoucherController {
 
 	public double calculateTotal(PurchaseItem item, double total, boolean isNowFocused,TextField field){
 		//focus lost
-		if (! isNowFocused && field.getText()!="") {
-				double q = Double.parseDouble(field.getText());
-				if(q != prev) {
-					total = (total - prev) + q;
+		if (! isNowFocused && !field.getText().isEmpty()) {
+				double curr = Double.parseDouble(field.getText());
+				if(curr != prev) {
+					total = (total - prev) + curr;
 					//totaltxt.setText(String.valueOf(total));
 				}
 			}
-			else if(isNowFocused && field.getText()!="") {
+			else if(isNowFocused && !field.getText().isEmpty()) {
 				prev = Double.parseDouble(field.getText());
 			}
 			else{

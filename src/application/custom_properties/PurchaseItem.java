@@ -1,5 +1,7 @@
 package application.custom_properties;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
@@ -10,7 +12,7 @@ public class PurchaseItem {
 	private ComboBox<String> items, type_of_purchase;
 	private TextField quantity, rate, gross, discount, cgst, sgst, igst, other_charges, cess, taxable_value;
 	static double total_qty,total_gross,total_rate,total_discount,total_cgst,total_sgst,total_igst,total_oc,total_cess,total_taxable,total_net_amount;
-
+	DoubleProperty prop_rate,prop_goss,prop_qty;
 	public static double getTotal_qty() {
 		return total_qty;
 	}
@@ -118,7 +120,10 @@ public class PurchaseItem {
 		this.cess = new TextField(cess);
 		this.taxable_value = new TextField(taxable_value);
 		this.items.setEditable(true);
-		
+		this.prop_rate = new SimpleDoubleProperty();
+		this.prop_goss = new SimpleDoubleProperty();
+		this.prop_qty = new SimpleDoubleProperty();
+
 		// focus
 		this.items.focusedProperty().addListener(e -> {
 			this.items.show();
@@ -128,6 +133,8 @@ public class PurchaseItem {
 			this.type_of_purchase.show();
 		});
 		this.type_of_purchase.getSelectionModel().select(0);
+
+		//this.rate.textProperty().bindBidirectional();
 		
 	}
 
@@ -235,64 +242,4 @@ public class PurchaseItem {
 		this.taxable_value = taxable_value;
 	}
 
-	
-	
-	/*
-	 * public String getSno() { return sno; }
-	 * 
-	 * public void setSno(int sno) { this.sno = String.valueOf(sno); }
-	 * 
-	 * public ObservableList getItems() { return items.getItems(); }
-	 * 
-	 * public void setItems(ObservableList items) {
-	 * this.items.getItems().addAll(items); }
-	 * 
-	 * public ObservableList getType_of_purchase() { return
-	 * type_of_purchase.getItems(); }
-	 * 
-	 * public void setType_of_purchase(ObservableList type_of_purchase) {
-	 * this.type_of_purchase.getItems().addAll(type_of_purchase); }
-	 * 
-	 * public String getQuantity() { return quantity.getText(); }
-	 * 
-	 * public void setQuantity(String quantity) { this.quantity.setText(quantity); }
-	 * 
-	 * public String getRate() { return rate.getText(); }
-	 * 
-	 * public void setRate(String rate) { this.rate.setText(rate); }
-	 * 
-	 * public String getGross() { return gross.getText(); }
-	 * 
-	 * public void setGross(String gross) { this.gross.setText(gross); }
-	 * 
-	 * public String getDiscount() { return discount.getText(); }
-	 * 
-	 * public void setDiscount(String discount) { this.discount.setText(discount); }
-	 * 
-	 * public String getCgst() { return cgst.getText(); }
-	 * 
-	 * public void setCgst(String cgst) { this.cgst.setText(cgst); }
-	 * 
-	 * public String getSgst() { return sgst.getText(); }
-	 * 
-	 * public void setSgst(String sgst) { this.sgst.setText(sgst); }
-	 * 
-	 * public String getIgst() { return igst.getText(); }
-	 * 
-	 * public void setIgst(String igst) { this.igst.setText(igst); }
-	 * 
-	 * public String getOther_charges() { return other_charges.getText(); }
-	 * 
-	 * public void setOther_charges(String other_charges) {
-	 * this.other_charges.setText(other_charges); }
-	 * 
-	 * public String getCess() { return cess.getText(); }
-	 * 
-	 * public void setCess(String cess) { this.cess.setText(cess); }
-	 * 
-	 * public String getTaxable_value() { return taxable_value.getText(); }
-	 * 
-	 * public void setTaxable_value(String taxable_value) {
-	 * this.taxable_value.setText(taxable_value); }
-	 */
 }
