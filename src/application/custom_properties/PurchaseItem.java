@@ -242,4 +242,14 @@ public class PurchaseItem {
 		this.taxable_value = taxable_value;
 	}
 
+	public double getQuantityValue(){return this.getQuantity().getText().isEmpty()?0:Double.parseDouble(this.getQuantity().getText());}
+
+	public double getRateValue(){return this.getRate().getText().isEmpty()?0:Double.parseDouble(this.getRate().getText());}
+
+	public double getGrossValue(){return this.getGross().getText().isEmpty()?0:Double.parseDouble(this.getGross().getText());}
+
+	public double getDiscountValue(){return this.getDiscount().getText().isEmpty()?0:Double.parseDouble(this.getDiscount().getText());}
+
+	public double getTaxableValue(){return this.getTaxable_value().getText().isEmpty()?0:Double.parseDouble(this.getTaxable_value().getText());}
+
 }

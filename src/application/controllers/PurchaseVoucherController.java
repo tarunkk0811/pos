@@ -76,7 +76,7 @@ public class PurchaseVoucherController {
 	HashMap<String, Integer> items_with_ids = new HashMap<String, Integer>();
 	HashMap<String, Integer> Accounts_with_ids = new HashMap<String, Integer>();
 	final ObservableList<String> temp_items = getAllItems();
-	double prev ;
+	double prev,nv,ov ;
 	GetAccountsDao get_acc_dao = new GetAccountsDao();
 	GetProductsDao get_products_dao = new GetProductsDao();
 	ApplicationController app_controller = new ApplicationController();
@@ -89,6 +89,7 @@ public class PurchaseVoucherController {
 	@FXML
 	public void initialize() throws Exception {
 		prev = 0.0;
+		 nv=0;ov=0;
 		total_qty=0;total_gross=0;total_rate=0;total_discount=0;total_cgst=0;total_sgst=0;total_igst=0;total_oc=0;total_cess=0;total_taxable=0;total_net_amount=0;
 		ResultSet vendors_rs = get_acc_dao.getVendors(SessionController.cid);
 		while (vendors_rs.next()) {
@@ -181,7 +182,7 @@ public class PurchaseVoucherController {
 			ObservableList<String> items = FXCollections.observableArrayList(temp_items);
 			item.getItems().getEditor().focusedProperty().addListener((event,wasFocused, isNowFocused) -> {
 				if (! isNowFocused) {
-					if (item.getItems().getEditor().getText() != "") {
+					if (!item.getItems().getEditor().getText().isEmpty()) {
 						try {
 							ResultSet res = get_products_dao.getProductDetails(items_with_ids.get(item.getItems().getSelectionModel().getSelectedItem()));
 							if(res.next()) {
@@ -189,8 +190,8 @@ public class PurchaseVoucherController {
 								// then updates the total_rate
 								if(item.getRate().getText().isEmpty()){
 									item.getRate().setText(String.valueOf(res.getFloat(1)));
-									double result = Double.parseDouble(rate_total.getText()) + Double.parseDouble(item.getRate().getText());
-									rate_total.setText(String.format("%.2f",result));
+									//double result = Double.parseDouble(rate_total.getText()) + Double.parseDouble(item.getRate().getText());
+									//rate_total.setText(String.format("%.2f",result));
 								}
 								int gst = res.getInt(2);
 								item.getDiscount().setText(String.valueOf(res.getFloat(3)));
@@ -217,26 +218,83 @@ public class PurchaseVoucherController {
 				app_controller.filter(item.getItems(), items, event);
 			});
 
-
-			item.getQuantity().focusedProperty().addListener((event,wasFocused, isNowFocused) -> {
-				total_qty=calculateTotal(item, PurchaseVoucherController.total_qty,isNowFocused,item.getQuantity());
+			//For input string: "5         0" should be handled
+			item.getQuantity().textProperty().addListener((observable, oldValue, newValue) -> {
+				total_qty=calculateTotal(oldValue,newValue,total_qty);
 				qty_total.setText(String.valueOf(total_qty));
-
-				if(item.getQuantity().getText()!="") {
-					item.getGross().setText(String.valueOf(Double.parseDouble(item.getQuantity().getText()) *
-							Double.parseDouble(item.getRate().getText())));
-					item.getTaxable_value().setText(String.valueOf(Double.parseDouble(item.getGross().getText()) + (Float.parseFloat(item.getGross().getText())
-							* Double.parseDouble(item.getDiscount().getText())) / 100));
+				if(!item.getQuantity().getText().isEmpty()) {
+					item.getGross().setText(String.format("%.2f",item.getQuantityValue() * item.getRateValue()));
+					item.getTaxable_value().setText(String.format("%.2f",(item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100)));
 				}
-
 			});
-
-			item.getRate().focusedProperty().addListener((event,wasFocused,isNowFocused)->{
-				total_rate=calculateTotal(item,Double.parseDouble(rate_total.getText()),isNowFocused,item.getRate());
+			item.getRate().textProperty().addListener((observable,oldValue,newValue)->{
+				total_rate=calculateTotal(oldValue,newValue,total_rate);
 				rate_total.setText(String.format("%.2f",total_rate));
-			});
-	}
 
+				if(!item.getRate().getText().isEmpty() && !item.getQuantity().getText().isEmpty()) {
+					item.getGross().setText(String.format("%.2f",item.getQuantityValue() * item.getRateValue()));
+					item.getTaxable_value().setText(String.format("%.2f",(item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100)));
+				}
+			});
+
+			item.getGross().textProperty().addListener((observable,oldValue,newValue)->{
+				total_gross=calculateTotal(oldValue,newValue,total_gross);
+				gross_total.setText(String.format("%.2f",total_gross));
+				if(!item.getQuantity().getText().isEmpty() )
+				item.getTaxable_value().setText(String.format("%.2f",(item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100)));
+
+			});
+
+			item.getGross().focusedProperty().addListener((event,wasFocused,isNowFocused)->{
+				if(!isNowFocused){
+					item.getRate().setText(String.format("%.2f",item.getGrossValue()/item.getQuantityValue()));
+				}
+			});
+
+			item.getDiscount().textProperty().addListener(((observableValue, oldValue, newValue) -> {
+				total_discount=calculatePercentageTotal(oldValue,newValue,total_discount,total_gross);
+				discount_total.setText(String.format("%.2f",total_discount));
+				item.getTaxable_value().setText(String.format("%.2f",(item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100)));
+			}));
+
+			item.getTaxable_value().textProperty().addListener(((observableValue, oldValue, newValue) ->{
+				total_taxable=calculateTotal(oldValue,newValue,total_taxable);
+				taxable_total.setText(String.format("%.2f",total_taxable));
+
+				total_cgst = calculatePercentageGst(oldValue,newValue,total_cgst,Integer.parseInt(item.getCgst().getText()));
+				cgst_total.setText(String.format("%.2f",total_cgst));
+
+				total_sgst = calculatePercentageGst(oldValue,newValue,total_sgst,Integer.parseInt(item.getSgst().getText()));
+				sgst_total.setText(String.format("%.2f",total_sgst));
+			}));
+
+			item.getCgst().textProperty().addListener(((observableValue, oldValue, newValue) ->{
+				total_cgst = calculatePercentageTotal(oldValue,newValue,total_cgst,item.getTaxableValue());
+				cgst_total.setText(String.format("%.2f",total_cgst));
+			}));
+			item.getSgst().textProperty().addListener(((observableValue, oldValue, newValue) ->{
+				total_sgst = calculatePercentageTotal(oldValue,newValue,total_sgst,Double.parseDouble(item.getTaxable_value().getText()));
+				sgst_total.setText(String.format("%.2f",total_sgst));
+			}));
+
+			/*if(isigst.isSelected()){
+				item.getIgst().textProperty().addListener(((observableValue, oldValue, newValue) ->{
+					total_igst = calculatePercentageTotal(oldValue,newValue,total_igst,item.getTaxableValue());
+					igst_total.setText(String.format("%.2f",total_igst));
+				}));
+			}*/
+			item.getOther_charges().textProperty().addListener(((observableValue, oldValue, newValue) ->{
+				total_oc=calculateTotal(oldValue,newValue,total_oc);
+				oc_total.setText(String.format("%.2f",oc_total));
+			}));
+
+			item.getCess().textProperty().addListener((observableValue, oldValue, newValue) -> {
+				total_cess=calculateTotal(oldValue,newValue,total_cess);
+				cess_total.setText(String.format("%.2f",cess_total));
+			});
+
+
+		}
 	}
 
 	private ObservableList<String> getAllItems() throws SQLException {
@@ -267,21 +325,69 @@ public class PurchaseVoucherController {
 	}
 
 
-	public double calculateTotal(PurchaseItem item, double total, boolean isNowFocused,TextField field){
-		//focus lost
-		if (! isNowFocused && !field.getText().isEmpty()) {
-				double curr = Double.parseDouble(field.getText());
-				if(curr != prev) {
-					total = (total - prev) + curr;
-					//totaltxt.setText(String.valueOf(total));
-				}
-			}
-			else if(isNowFocused && !field.getText().isEmpty()) {
-				prev = Double.parseDouble(field.getText());
-			}
-			else{
-				prev=0.0;
-			}
-			return total;
+
+	public double calculateTotal(String oldValue,String newValue,double total){
+		if(newValue.isEmpty())
+			nv=0;
+		else
+			nv=Double.parseDouble(newValue);
+		if(oldValue.isEmpty())
+			ov=0;
+		else
+			ov = Double.parseDouble(oldValue);
+
+		if(!newValue.isEmpty() && oldValue.isEmpty()){
+			total+=nv;
+		}
+		else if(!oldValue.isEmpty()&&!newValue.isEmpty()) {
+
+			total = total- ov + nv;
+		}
+		else if(ov!=0 && nv==0)
+			total-=ov;
+		//System.out.println(total);
+		return  total;
 	}
+
+
+	public double calculatePercentageTotal(String oldValue,String newValue,double total,double target){
+		if(newValue.isEmpty())
+			nv=0;
+		else
+			nv=Double.parseDouble(newValue);
+		if(oldValue.isEmpty())
+			ov=0;
+		else
+			ov = Double.parseDouble(oldValue);
+
+		if(!newValue.isEmpty() && oldValue.isEmpty()){
+			total+= (target*nv)/100;
+		}
+		else if(!oldValue.isEmpty()&&!newValue.isEmpty()) {
+
+			total = total- (target*ov/100) + (target*nv/100);
+		}
+		else if(ov!=0 && nv==0)
+			total-=(target*ov/100);
+		//System.out.println(total);
+		return  total;
+	}
+
+	public double calculatePercentageGst(String oldValue,String newValue,double total,int gst){
+		if(newValue.isEmpty())
+			nv=0;
+		else {
+			nv = Double.parseDouble(newValue);
+			nv = (nv*(gst)/100);
+		}
+		if(oldValue.isEmpty())
+			ov=0;
+		else {
+			ov = Double.parseDouble(oldValue);
+			ov = ((ov*gst)/100);
+		}
+
+		return this.calculateTotal(String.valueOf(ov),String.valueOf(nv),total);
+	}
+
 }
