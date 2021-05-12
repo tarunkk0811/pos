@@ -26,7 +26,7 @@ import javafx.scene.text.Text;
 
 
 
-public class PurchaseVoucherController {
+public class PurchaseVoucherController extends ApplicationMainController{
 
 	@FXML
 	private TableView purchasetv;
@@ -191,7 +191,7 @@ public class PurchaseVoucherController {
 								if(item.getRate().getText().isEmpty()){
 									item.getRate().setText(String.valueOf(res.getFloat(1)));
 									//double result = Double.parseDouble(rate_total.getText()) + Double.parseDouble(item.getRate().getText());
-									//rate_total.setText(String.format("%.2f",result));
+									//rate_total.setText(doubleToStringF("%.2f",result));
 								}
 								int gst = res.getInt(2);
 								item.getDiscount().setText(String.valueOf(res.getFloat(3)));
@@ -223,78 +223,78 @@ public class PurchaseVoucherController {
 				total_qty=calculateTotal(oldValue,newValue,total_qty);
 				qty_total.setText(String.valueOf(total_qty));
 				if(!item.getQuantity().getText().isEmpty()) {
-					item.getGross().setText(String.format("%.2f",item.getQuantityValue() * item.getRateValue()));
-					item.getTaxable_value().setText(String.format("%.2f",(item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100)));
+					item.getGross().setText(doubleToStringF(item.getQuantityValue() * item.getRateValue()));
+					item.getTaxable_value().setText(doubleToStringF(item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100));
 				}
 			});
 			item.getRate().textProperty().addListener((observable,oldValue,newValue)->{
 				total_rate=calculateTotal(oldValue,newValue,total_rate);
-				rate_total.setText(String.format("%.2f",total_rate));
+				rate_total.setText(doubleToStringF(total_rate));
 
 				if(!item.getRate().getText().isEmpty() && !item.getQuantity().getText().isEmpty()) {
-					item.getGross().setText(String.format("%.2f",item.getQuantityValue() * item.getRateValue()));
-					item.getTaxable_value().setText(String.format("%.2f",(item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100)));
+					item.getGross().setText(doubleToStringF(item.getQuantityValue() * item.getRateValue()));
+					item.getTaxable_value().setText(doubleToStringF(item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100));
 				}
 			});
 
 			item.getGross().textProperty().addListener((observable,oldValue,newValue)->{
 				total_gross=calculateTotal(oldValue,newValue,total_gross);
-				gross_total.setText(String.format("%.2f",total_gross));
+				gross_total.setText(doubleToStringF(total_gross));
 				// if(!item.getQuantity().getText().isEmpty() )
-				item.getTaxable_value().setText(String.format("%.2f",(item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100)));
+				item.getTaxable_value().setText(doubleToStringF(item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100));
 
 				total_discount=calculatePercentageGst(oldValue,newValue,total_discount,(int)item.getDiscountValue());
-				discount_total.setText(String.format("%.2f",total_discount));
+				discount_total.setText(doubleToStringF(total_discount));
 
 			});
 
 			item.getGross().focusedProperty().addListener((event,wasFocused,isNowFocused)->{
 				if(!isNowFocused){
-					item.getRate().setText(String.format("%.2f",item.getGrossValue()/item.getQuantityValue()));
+					item.getRate().setText(doubleToStringF(item.getGrossValue()/item.getQuantityValue()));
 				}
 			});
 
 			item.getDiscount().textProperty().addListener(((observableValue, oldValue, newValue) -> {
 				total_discount=calculatePercentageTotal(oldValue,newValue,total_discount,item.getGrossValue());
-				discount_total.setText(String.format("%.2f",total_discount));
-				item.getTaxable_value().setText(String.format("%.2f",(item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100)));
+				discount_total.setText(doubleToStringF(total_discount));
+				item.getTaxable_value().setText(doubleToStringF(item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100));
 			}));
 
 			item.getTaxable_value().textProperty().addListener(((observableValue, oldValue, newValue) ->{
 				total_taxable=calculateTotal(oldValue,newValue,total_taxable);
-				taxable_total.setText(String.format("%.2f",total_taxable));
+				taxable_total.setText(doubleToStringF(total_taxable));
 
 				total_cgst = calculatePercentageGst(oldValue,newValue,total_cgst,item.getCgstValue());
-				cgst_total.setText(String.format("%.2f",total_cgst));
+				cgst_total.setText(doubleToStringF(total_cgst));
 
 				total_sgst = calculatePercentageGst(oldValue,newValue,total_sgst,item.getSgstValue());
-				sgst_total.setText(String.format("%.2f",total_sgst));
+				sgst_total.setText(doubleToStringF(total_sgst));
 			}));
 
 			item.getCgst().textProperty().addListener(((observableValue, oldValue, newValue) ->{
 				total_cgst = calculatePercentageTotal(oldValue,newValue,total_cgst,item.getTaxableValue());
-				cgst_total.setText(String.format("%.2f",total_cgst));
+				cgst_total.setText(doubleToStringF(total_cgst));
 			}));
 			item.getSgst().textProperty().addListener(((observableValue, oldValue, newValue) ->{
 				total_sgst = calculatePercentageTotal(oldValue,newValue,total_sgst,Double.parseDouble(item.getTaxable_value().getText()));
-				sgst_total.setText(String.format("%.2f",total_sgst));
+				sgst_total.setText(doubleToStringF(total_sgst));
 			}));
 
 			/*if(isigst.isSelected()){
 				item.getIgst().textProperty().addListener(((observableValue, oldValue, newValue) ->{
 					total_igst = calculatePercentageTotal(oldValue,newValue,total_igst,item.getTaxableValue());
-					igst_total.setText(String.format("%.2f",total_igst));
+					igst_total.setText(doubleToStringF("%.2f",total_igst));
 				}));
 			}*/
 
 			item.getOther_charges().textProperty().addListener(((observableValue, oldValue, newValue) ->{
 				total_oc=calculateTotal(oldValue,newValue,total_oc);
-				oc_total.setText(String.format("%.2f",oc_total));
+				oc_total.setText(doubleToStringF(total_oc));
 			}));
 
 			item.getCess().textProperty().addListener((observableValue, oldValue, newValue) -> {
 				total_cess=calculateTotal(oldValue,newValue,total_cess);
-				cess_total.setText(String.format("%.2f",cess_total));
+				cess_total.setText(doubleToStringF(total_cess));
 			});
 
 
@@ -391,7 +391,7 @@ public class PurchaseVoucherController {
 			ov = ((ov*gst)/100);
 		}
 
-		return this.calculateTotal(String.valueOf(ov),String.valueOf(nv),total);
+		return calculateTotal(String.valueOf(ov),String.valueOf(nv),total);
 	}
 
 }
