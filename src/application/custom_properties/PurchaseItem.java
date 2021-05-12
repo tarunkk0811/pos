@@ -252,4 +252,7 @@ public class PurchaseItem {
 
 	public double getTaxableValue(){return this.getTaxable_value().getText().isEmpty()?0:Double.parseDouble(this.getTaxable_value().getText());}
 
+	public int getCgstValue(){return  this.getCgst().getText().isEmpty() ? 0 : Integer.parseInt(this.getCgst().getText()); }
+
+	public int getSgstValue(){return  this.getSgst().getText().isEmpty() ? 0 : Integer.parseInt(this.getSgst().getText()); }
 }

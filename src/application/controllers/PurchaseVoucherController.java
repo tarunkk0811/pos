@@ -240,8 +240,11 @@ public class PurchaseVoucherController {
 			item.getGross().textProperty().addListener((observable,oldValue,newValue)->{
 				total_gross=calculateTotal(oldValue,newValue,total_gross);
 				gross_total.setText(String.format("%.2f",total_gross));
-				if(!item.getQuantity().getText().isEmpty() )
+				// if(!item.getQuantity().getText().isEmpty() )
 				item.getTaxable_value().setText(String.format("%.2f",(item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100)));
+
+				total_discount=calculatePercentageGst(oldValue,newValue,total_discount,(int)item.getDiscountValue());
+				discount_total.setText(String.format("%.2f",total_discount));
 
 			});
 
@@ -252,7 +255,7 @@ public class PurchaseVoucherController {
 			});
 
 			item.getDiscount().textProperty().addListener(((observableValue, oldValue, newValue) -> {
-				total_discount=calculatePercentageTotal(oldValue,newValue,total_discount,total_gross);
+				total_discount=calculatePercentageTotal(oldValue,newValue,total_discount,item.getGrossValue());
 				discount_total.setText(String.format("%.2f",total_discount));
 				item.getTaxable_value().setText(String.format("%.2f",(item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100)));
 			}));
@@ -261,10 +264,10 @@ public class PurchaseVoucherController {
 				total_taxable=calculateTotal(oldValue,newValue,total_taxable);
 				taxable_total.setText(String.format("%.2f",total_taxable));
 
-				total_cgst = calculatePercentageGst(oldValue,newValue,total_cgst,Integer.parseInt(item.getCgst().getText()));
+				total_cgst = calculatePercentageGst(oldValue,newValue,total_cgst,item.getCgstValue());
 				cgst_total.setText(String.format("%.2f",total_cgst));
 
-				total_sgst = calculatePercentageGst(oldValue,newValue,total_sgst,Integer.parseInt(item.getSgst().getText()));
+				total_sgst = calculatePercentageGst(oldValue,newValue,total_sgst,item.getSgstValue());
 				sgst_total.setText(String.format("%.2f",total_sgst));
 			}));
 
@@ -283,6 +286,7 @@ public class PurchaseVoucherController {
 					igst_total.setText(String.format("%.2f",total_igst));
 				}));
 			}*/
+
 			item.getOther_charges().textProperty().addListener(((observableValue, oldValue, newValue) ->{
 				total_oc=calculateTotal(oldValue,newValue,total_oc);
 				oc_total.setText(String.format("%.2f",oc_total));
