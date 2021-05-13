@@ -158,7 +158,7 @@
             <Font size="22.0" />
          </font>
       </Text>
-      <Text fx:id="net_amount" layoutX="1080.0" layoutY="750.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="155.8408203125">
+      <Text fx:id="net_amount" layoutX="1080.0" layoutY="750.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" wrappingWidth="155.8408203125">
          <font>
             <Font size="22.0" />
          </font>

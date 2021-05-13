@@ -255,4 +255,8 @@ public class PurchaseItem {
 	public int getCgstValue(){return  this.getCgst().getText().isEmpty() ? 0 : Integer.parseInt(this.getCgst().getText()); }
 
 	public int getSgstValue(){return  this.getSgst().getText().isEmpty() ? 0 : Integer.parseInt(this.getSgst().getText()); }
+
+	public String getItemName(){return this.getItems().getEditor().getText();}
+
+	public int getIgstValue() {return  this.getIgst().getText().isEmpty() ? 0 : Integer.parseInt(this.getIgst().getText()); }
 }

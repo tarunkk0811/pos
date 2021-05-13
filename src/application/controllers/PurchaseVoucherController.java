@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 
+import DAO.DBConnection;
 import DAO.GetVoucherDao;
 
 
@@ -34,7 +35,7 @@ public class PurchaseVoucherController extends ApplicationMainController{
 	@FXML
 	private Text qty_total,gross_total,rate_total,discount_total,cgst_total, sgst_total, igst_total, oc_total,cess_total, taxable_total,net_amount,vno;
 
-	static double total_qty,total_gross,total_rate,total_discount,total_cgst,total_sgst,total_igst,total_oc,total_cess,total_taxable,total_net_amount;
+
 	@FXML
 	private TableColumn<PurchaseItem, String> sno_col;
 
@@ -62,6 +63,7 @@ public class PurchaseVoucherController extends ApplicationMainController{
 	@FXML
 	private Button add_rows;
 
+	static double total_qty,total_gross,total_rate,total_discount,total_cgst,total_sgst,total_igst,total_oc,total_cess,total_taxable,total_net_amount;
 
 
 	ObservableList<PurchaseItem> itemlist = FXCollections.observableArrayList();
@@ -77,6 +79,7 @@ public class PurchaseVoucherController extends ApplicationMainController{
 	HashMap<String, Integer> Accounts_with_ids = new HashMap<String, Integer>();
 	final ObservableList<String> temp_items = getAllItems();
 	double prev,nv,ov ;
+	String previtemname;
 	GetAccountsDao get_acc_dao = new GetAccountsDao();
 	GetProductsDao get_products_dao = new GetProductsDao();
 	ApplicationController app_controller = new ApplicationController();
@@ -179,19 +182,19 @@ public class PurchaseVoucherController extends ApplicationMainController{
 
 		for (PurchaseItem item : itemlist) {
 			ObservableList<String> items = FXCollections.observableArrayList(temp_items);
+
 			item.getItems().getEditor().focusedProperty().addListener((event,wasFocused, isNowFocused) -> {
 				if (! isNowFocused) {
-					if (!item.getItems().getEditor().getText().isEmpty()) {
+					if ((!item.getItems().getEditor().getText().isEmpty()) && (items_with_ids.containsKey(capitalize(item.getItems().getEditor().getText()))) && (!previtemname.equals(item.getItemName()))) {
+
 						try {
 							ResultSet res = get_products_dao.getProductDetails(items_with_ids.get(item.getItems().getSelectionModel().getSelectedItem()));
 							if(res.next()) {
 								// if rate field in empty then set the rate field
 								// then updates the total_rate
-								if(item.getRate().getText().isEmpty()){
-									item.getRate().setText(String.valueOf(res.getFloat(1)));
-									//double result = Double.parseDouble(rate_total.getText()) + Double.parseDouble(item.getRate().getText());
-									//rate_total.setText(doubleToStringF("%.2f",result));
-								}
+
+								item.getRate().setText(String.valueOf(res.getFloat(1)));
+
 								int gst = res.getInt(2);
 								item.getDiscount().setText(String.valueOf(res.getFloat(3)));
 								if(isigst.isSelected()) {
@@ -212,7 +215,12 @@ public class PurchaseVoucherController extends ApplicationMainController{
 						//item.getItems().setValue(item.getItems().getEditor().getText());
 					}
 				}
+				else{
+					previtemname= item.getItemName();
+
+				}
 			});
+
 			item.getItems().addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
 				app_controller.filter(item.getItems(), items, event);
 			});
@@ -248,7 +256,7 @@ public class PurchaseVoucherController extends ApplicationMainController{
 			});
 
 			item.getGross().focusedProperty().addListener((event,wasFocused,isNowFocused)->{
-				if(!isNowFocused){
+				if(!isNowFocused && item.getQuantityValue()!=0){
 					item.getRate().setText(doubleToStringF(item.getGrossValue()/item.getQuantityValue()));
 				}
 			});
@@ -269,8 +277,10 @@ public class PurchaseVoucherController extends ApplicationMainController{
 				total_sgst = calculatePercentageGst(oldValue,newValue,total_sgst,item.getSgstValue());
 				sgst_total.setText(doubleToStringF(total_sgst));
 
+				total_igst = calculatePercentageGst(oldValue,newValue,total_igst,item.getIgstValue());
+				igst_total.setText(doubleToStringF(total_igst));
 
-				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable;
+				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable+total_igst;
 				net_amount.setText(doubleToStringF(total_net_amount));
 			}));
 
@@ -283,12 +293,12 @@ public class PurchaseVoucherController extends ApplicationMainController{
 				sgst_total.setText(doubleToStringF(total_sgst));
 			}));
 
-			/*if(isigst.isSelected()){
+			if(isigst.isSelected()){
 				item.getIgst().textProperty().addListener(((observableValue, oldValue, newValue) ->{
 					total_igst = calculatePercentageTotal(oldValue,newValue,total_igst,item.getTaxableValue());
-					igst_total.setText(doubleToStringF("%.2f",total_igst));
+					igst_total.setText(doubleToStringF(total_igst));
 				}));
-			}*/
+			}
 
 			item.getOther_charges().textProperty().addListener(((observableValue, oldValue, newValue) ->{
 				total_oc=calculateTotal(oldValue,newValue,total_oc);
