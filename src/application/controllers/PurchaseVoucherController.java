@@ -1,21 +1,21 @@
 package application.controllers;
 
-import java.awt.event.ActionEvent;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
+
 
 import DAO.GetVoucherDao;
-import com.mysql.cj.conf.StringProperty;
+
 
 import DAO.GetAccountsDao;
 import DAO.GetProductsDao;
 import application.custom_properties.PurchaseItem;
-import javafx.beans.property.SimpleStringProperty;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -155,6 +155,7 @@ public class PurchaseVoucherController extends ApplicationMainController{
 		purchasetv.setItems(itemlist);
 
 		linkEventListeners(itemlist);
+
 		// appyling focus property
 		vendor.focusedProperty().addListener(e -> {
 			vendor.show();
@@ -171,8 +172,6 @@ public class PurchaseVoucherController extends ApplicationMainController{
 		//purchase_account.getSelectionModel().select(0);
 
 		purchasedt.setValue(LocalDate.now());
-
-
 
 	}
 
@@ -269,6 +268,10 @@ public class PurchaseVoucherController extends ApplicationMainController{
 
 				total_sgst = calculatePercentageGst(oldValue,newValue,total_sgst,item.getSgstValue());
 				sgst_total.setText(doubleToStringF(total_sgst));
+
+
+				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable;
+				net_amount.setText(doubleToStringF(total_net_amount));
 			}));
 
 			item.getCgst().textProperty().addListener(((observableValue, oldValue, newValue) ->{
@@ -290,12 +293,18 @@ public class PurchaseVoucherController extends ApplicationMainController{
 			item.getOther_charges().textProperty().addListener(((observableValue, oldValue, newValue) ->{
 				total_oc=calculateTotal(oldValue,newValue,total_oc);
 				oc_total.setText(doubleToStringF(total_oc));
+
+				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable;
+				net_amount.setText(doubleToStringF(total_net_amount));
 			}));
 
 			item.getCess().textProperty().addListener((observableValue, oldValue, newValue) -> {
 				total_cess=calculateTotal(oldValue,newValue,total_cess);
 				cess_total.setText(doubleToStringF(total_cess));
+				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable;
+				net_amount.setText(doubleToStringF(total_net_amount));
 			});
+
 
 
 		}
