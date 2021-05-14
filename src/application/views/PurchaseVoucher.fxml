@@ -20,7 +20,7 @@
             <Font size="15.0" />
          </font>
       </Text>
-      <Text fx:id="vno" fill="#262626" layoutX="136.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="124646545454545" wrappingWidth="332.9734649658203">
+      <Text fx:id="vno" fill="#262626" layoutX="137.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="124646545454545" wrappingWidth="332.9734649658203">
          <font>
             <Font size="20.0" />
          </font>
@@ -37,9 +37,12 @@
             <Font size="17.0" />
          </font>
       </Text>
-      <ComboBox fx:id="place" layoutX="908.0" layoutY="119.0" prefHeight="26.0" prefWidth="262.0" />
-
-      <CheckBox fx:id="show_customers" layoutX="1060.0" layoutY="32.0" mnemonicParsing="false" text="Show customers" />
+      <Text layoutX="808.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vendor :" wrappingWidth="64.79999999999995">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="vendor" layoutX="908.0" layoutY="61.0" prefHeight="26.0" prefWidth="262.0" />
       <Text layoutX="78.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bill No :">
          <font>
             <Font size="17.0" />
@@ -62,6 +65,7 @@
             <Font size="17.0" />
          </font>
       </Text>
+      <ComboBox fx:id="place" layoutX="908.0" layoutY="119.0" prefHeight="26.0" prefWidth="262.0" />
       <TableView fx:id="purchasetv" layoutY="180.0" prefHeight="459.0" prefWidth="1279.0">
          <columns>
             <TableColumn fx:id="sno_col" editable="false" prefWidth="47.19998908042908" resizable="false" sortable="false" text="S no" />
@@ -164,5 +168,6 @@
       <Button layoutX="364.0" layoutY="727.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="107.0" text="Delete" />
       <Button layoutX="517.0" layoutY="725.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="117.0" text="Print" />
       <Button fx:id="add_rows" layoutX="690.0" layoutY="725.0" mnemonicParsing="false" onAction="#addRows" prefHeight="34.0" prefWidth="117.0" text="Add Rows" />
+
    </children>
 </AnchorPane>
