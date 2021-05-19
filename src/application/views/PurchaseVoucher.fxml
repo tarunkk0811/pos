@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PurchaseVoucherController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PurchaseVoucherController">
    <children>
       <Text fill="#363636" layoutX="24.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VOUCHER NO :">
          <font>
@@ -66,23 +67,28 @@
          </font>
       </Text>
       <ComboBox fx:id="place" layoutX="908.0" layoutY="119.0" prefHeight="26.0" prefWidth="262.0" />
-      <TableView fx:id="purchasetv" layoutY="180.0" prefHeight="459.0" prefWidth="1279.0">
-         <columns>
-            <TableColumn fx:id="sno_col" editable="false" prefWidth="47.19998908042908" resizable="false" sortable="false" text="S no" />
-            <TableColumn fx:id="item_col" prefWidth="178.13331604003906" resizable="false" sortable="false" text="Item" />
-            <TableColumn fx:id="qty_col" prefWidth="80.80000305175781" resizable="false" sortable="false" text="Quantity" />
-            <TableColumn fx:id="rate_col" prefWidth="97.86672973632812" resizable="false" sortable="false" text="Rate" />
-            <TableColumn fx:id="gross_col" prefWidth="105.33331298828125" resizable="false" sortable="false" text="Gross" />
-            <TableColumn fx:id="disc_col" prefWidth="96.26675415039062" resizable="false" sortable="false" text="Discount %" />
-            <TableColumn fx:id="cgst_col" editable="false" prefWidth="87.7332763671875" resizable="false" sortable="false" text="CGST" />
-            <TableColumn fx:id="sgst_col" editable="false" prefWidth="76.53338623046875" resizable="false" sortable="false" text="SGST" />
-            <TableColumn fx:id="igst_col" prefWidth="86.40008544921875" resizable="false" sortable="false" text="IGST" />
-            <TableColumn fx:id="ocharges_col" prefWidth="85.59991455078125" resizable="false" sortable="false" text="Other charges" />
-            <TableColumn fx:id="cess_col" prefWidth="73.60003662109375" resizable="false" sortable="false" text="Cess" />
-            <TableColumn fx:id="taxable_value_col" prefWidth="111.199951171875" resizable="false" sortable="false" text="Taxable Value" />
-            <TableColumn fx:id="type_of_purchase_col" prefWidth="131.9998779296875" resizable="false" sortable="false" text="Type of Purchase" />
-         </columns>
-      </TableView>
+      <ScrollPane fx:id="spane" layoutY="179.0" prefHeight="460.0" prefWidth="884.0" vmax="0.0">
+         <content>
+            <TableView fx:id="purchasetv" prefHeight="458.0" prefWidth="1600.0">
+               <columns>
+                  <TableColumn fx:id="sno_col" editable="false" prefWidth="44.00000357627869" resizable="false" sortable="false" text="S no" />
+                  <TableColumn fx:id="item_col" prefWidth="141.0666389465332" resizable="false" sortable="false" text="Item" />
+                  <TableColumn fx:id="qty_col" prefWidth="85.0" resizable="false" sortable="false" text="Quantity" />
+                  <TableColumn fx:id="rate_col" prefWidth="100.0" resizable="false" sortable="false" text="Rate" />
+                  <TableColumn fx:id="gross_col" prefWidth="100.0" resizable="false" sortable="false" text="Gross" />
+                  <TableColumn fx:id="disc_col" prefWidth="85.0" resizable="false" sortable="false" text="Discount %" />
+                  <TableColumn fx:id="cgst_col" editable="false" prefWidth="75.0" resizable="false" sortable="false" text="CGST" />
+                  <TableColumn fx:id="sgst_col" editable="false" prefWidth="75.0" resizable="false" sortable="false" text="SGST" />
+                  <TableColumn fx:id="igst_col" prefWidth="75.0" resizable="false" sortable="false" text="IGST" />
+                  <TableColumn fx:id="ocharges_col" prefWidth="85.0" resizable="false" sortable="false" text="Other charges" />
+                  <TableColumn fx:id="cess_col" prefWidth="75.0" resizable="false" sortable="false" text="Cess" />
+                  <TableColumn fx:id="taxable_value_col" prefWidth="100.0" resizable="false" sortable="false" text="Taxable Value" />
+                  <TableColumn fx:id="type_of_purchase_col" prefWidth="100.0" resizable="false" sortable="false" text="Type of Purchase" />
+                  <TableColumn fx:id="newcol1" prefWidth="111.199951171875" resizable="false" sortable="false" text="Newcol" />
+               </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
       <Text layoutX="136.0" layoutY="718.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total :" translateY="-55.0">
          <font>
             <Font size="17.0" />
@@ -167,7 +173,7 @@
       <Button layoutX="61.0" layoutY="726.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="122.0" text="Edit Previous" />
       <Button layoutX="364.0" layoutY="727.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="107.0" text="Delete" />
       <Button layoutX="517.0" layoutY="725.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="117.0" text="Print" />
-      <Button fx:id="add_rows" layoutX="690.0" layoutY="725.0" mnemonicParsing="false" onAction="#addRows" prefHeight="34.0" prefWidth="117.0" text="Add Rows" />
+      <Button fx:id="add_rows" layoutX="690.0" layoutY="725.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="117.0" text="Add Rows" />
 
    </children>
 </AnchorPane>

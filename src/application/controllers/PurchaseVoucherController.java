@@ -1,12 +1,15 @@
 package application.controllers;
 
 
+import java.awt.event.FocusEvent;
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 
 import DAO.DBConnection;
@@ -17,17 +20,31 @@ import DAO.GetAccountsDao;
 import DAO.GetProductsDao;
 import application.custom_properties.PurchaseItem;
 
+import com.sun.javafx.scene.EventHandlerProperties;
+import com.sun.javafx.stage.FocusUngrabEvent;
+import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.skin.TableViewSkin;
+import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 
+import javax.swing.*;
 
 
-public class PurchaseVoucherController extends ApplicationMainController{
+public class PurchaseVoucherController extends ApplicationMainController {
+
+
+	@FXML
+	private ScrollPane spane;
 
 	@FXML
 	private TableView purchasetv;
@@ -40,7 +57,7 @@ public class PurchaseVoucherController extends ApplicationMainController{
 	private TableColumn<PurchaseItem, String> sno_col;
 
 	@FXML
-	private TableColumn<PurchaseItem, String> qty_col, rate_col, gross_col, disc_col, cgst_col, sgst_col, igst_col, ocharges_col, cess_col, taxable_value_col;
+	private TableColumn<PurchaseItem, String> qty_col,newcol1, rate_col, gross_col, disc_col, cgst_col, sgst_col, igst_col, ocharges_col, cess_col, taxable_value_col;
 
 	@FXML
 	private TableColumn<PurchaseItem, ComboBox> item_col, type_of_purchase_col;
@@ -66,6 +83,7 @@ public class PurchaseVoucherController extends ApplicationMainController{
 	static double total_qty,total_gross,total_rate,total_discount,total_cgst,total_sgst,total_igst,total_oc,total_cess,total_taxable,total_net_amount;
 
 
+
 	ObservableList<PurchaseItem> itemlist = FXCollections.observableArrayList();
 
 
@@ -87,7 +105,7 @@ public class PurchaseVoucherController extends ApplicationMainController{
 
 	public PurchaseVoucherController() throws SQLException {
 	}
-	 int sno;
+	 int sno=1;
 
 	@FXML
 	public void initialize() throws Exception {
@@ -138,10 +156,14 @@ public class PurchaseVoucherController extends ApplicationMainController{
 		type_of_purchase.add("CR Not available");
 
 
-		for (sno= 1; sno <= 50;sno++) {
+		/*for (sno= 1; sno <= 13;sno++) {
 			ObservableList<String> items = FXCollections.observableArrayList(temp_items);
-			itemlist.add(new PurchaseItem(sno, items, type_of_purchase, "", "", "", "", "", "", "", "", "", ""));
-		}
+			itemlist.add(new PurchaseItem(sno, items, type_of_purchase, "", "", "", "", "", "", "", "", "", "","somtxt","col2"));
+		}*/
+
+		TableColumn<PurchaseItem,String> temp2 = new TableColumn<PurchaseItem,String>("New columnn");
+		purchasetv.setMaxWidth(purchasetv.getMaxWidth()+temp2.getMaxWidth());
+
 		sno_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("sno"));
 		item_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, ComboBox>("items"));
 		qty_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("quantity"));
@@ -155,7 +177,10 @@ public class PurchaseVoucherController extends ApplicationMainController{
 		cess_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("cess"));
 		taxable_value_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("taxable_value"));
 		type_of_purchase_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, ComboBox>("type_of_purchase"));
-		purchasetv.setItems(itemlist);
+		newcol1.setCellValueFactory(new PropertyValueFactory<PurchaseItem,String>("newcol1"));
+		temp2.setCellValueFactory(new PropertyValueFactory<PurchaseItem,String>("newcol2"));
+
+		//purchasetv.getItems().addAll(itemlist);
 
 		linkEventListeners(itemlist);
 
@@ -173,8 +198,16 @@ public class PurchaseVoucherController extends ApplicationMainController{
 		});*/
 
 		//purchase_account.getSelectionModel().select(0);
-
+		purchasetv.getColumns().add(temp2);
+		purchasetv.refresh();
 		purchasedt.setValue(LocalDate.now());
+
+		addRows(13);
+
+		/*itemlist.get(itemlist.size()-1).getQuantity().focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+			addRows(1);
+		});*/
+
 
 	}
 
@@ -315,9 +348,11 @@ public class PurchaseVoucherController extends ApplicationMainController{
 				net_amount.setText(doubleToStringF(total_net_amount));
 			});
 
-
-
+			////////////////////////////////////////////////////////////////////
+			//last collumn event listner spane hbar to 0
 		}
+
+
 	}
 
 	private ObservableList<String> getAllItems() throws SQLException {
@@ -333,18 +368,34 @@ public class PurchaseVoucherController extends ApplicationMainController{
 
 
 
-	public void addRows(javafx.event.ActionEvent actionEvent) {
+	public void addRows(int n) {
+		//itemlist.get(itemlist.size()-2).getQuantity().removeEventHandler(FocusModel,this);
+		//if(itemlist.size()>0)
+		//itemlist.get(itemlist.size()-2).getQuantity().focusedProperty().removeListener();
+
+
+		purchasetv.scrollTo(sno+n);
 		int temp;
 		ObservableList<PurchaseItem> extrarowslist = FXCollections.observableArrayList();
 
-		for(temp=sno;temp<sno+10;temp++) {
+		for(temp=sno;temp<sno+n;temp++) {
 			ObservableList<String> items = FXCollections.observableArrayList(temp_items);
-			extrarowslist.add(new PurchaseItem(temp, items, type_of_purchase, "", "", "", "", "", "", "", "", "", ""));
+			extrarowslist.add(new PurchaseItem(temp, items, type_of_purchase, "", "", "", "", "", "", "", "", "", "","somedata","col2"));
 		}
+
 		purchasetv.getItems().addAll(extrarowslist);
 		linkEventListeners(extrarowslist);
+		itemlist.addAll(extrarowslist); //
 		purchasetv.refresh();
 		sno=temp;
+
+		itemlist.get(itemlist.size()-2).getQuantity().focusedProperty().addListener((event, wasFocussed, isNowFocussed) -> {
+			if(isNowFocussed)
+			addRows(1);
+		});
+
+		spane.setVvalue(0);
+
 	}
 
 
@@ -412,5 +463,6 @@ public class PurchaseVoucherController extends ApplicationMainController{
 
 		return calculateTotal(String.valueOf(ov),String.valueOf(nv),total);
 	}
+
 
 }

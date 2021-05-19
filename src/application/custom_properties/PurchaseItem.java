@@ -10,7 +10,27 @@ import javafx.scene.control.TextField;
 public class PurchaseItem {
 	private String sno;
 	private ComboBox<String> items, type_of_purchase;
-	private TextField quantity, rate, gross, discount, cgst, sgst, igst, other_charges, cess, taxable_value;
+	private TextField quantity;
+	private TextField rate;
+	private TextField gross;
+	private TextField discount;
+	private TextField cgst;
+	private TextField sgst;
+	private TextField igst;
+	private TextField other_charges;
+	private TextField cess;
+	private TextField taxable_value;
+	private TextField newcol1;
+	private TextField newcol2;
+
+	public TextField getNewcol2() {
+		return newcol2;
+	}
+
+	public void setNewcol2(TextField newcol2) {
+		this.newcol2 = newcol2;
+	}
+
 	static double total_qty,total_gross,total_rate,total_discount,total_cgst,total_sgst,total_igst,total_oc,total_cess,total_taxable,total_net_amount;
 	DoubleProperty prop_rate,prop_goss,prop_qty;
 	public static double getTotal_qty() {
@@ -101,9 +121,17 @@ public class PurchaseItem {
 		PurchaseItem.total_net_amount = total_net_amount;
 	}
 
+	public TextField getNewcol1() {
+		return newcol1;
+	}
+
+	public void setNewcol1(TextField newcol1) {
+		this.newcol1 = newcol1;
+	}
+
 	public PurchaseItem(int sno, ObservableList items, ObservableList type_of_purchase, String quantity,
 						String rate, String gross, String discount, String cgst, String sgst, String igst, String other_charges,
-						String cess, String taxable_value) {
+						String cess, String taxable_value, String newcol,String ncol2) {
 		super();
 		this.sno = String.valueOf(sno);
 		this.items = new ComboBox<String>(items);
@@ -123,7 +151,8 @@ public class PurchaseItem {
 		this.prop_rate = new SimpleDoubleProperty();
 		this.prop_goss = new SimpleDoubleProperty();
 		this.prop_qty = new SimpleDoubleProperty();
-
+		this.newcol1 = new TextField(newcol);
+		this.newcol2=new TextField(ncol2);
 		// focus
 		this.items.focusedProperty().addListener(e -> {
 			this.items.show();
