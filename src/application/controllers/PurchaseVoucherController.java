@@ -348,8 +348,14 @@ public class PurchaseVoucherController extends ApplicationMainController {
 				net_amount.setText(doubleToStringF(total_net_amount));
 			});
 
+
+
 			////////////////////////////////////////////////////////////////////
-			//last collumn event listner spane hbar to 0
+			item.getQuantity().focusedProperty().addListener((event,wasFocussed,isNowFocussed)->{
+				if(Integer.parseInt(item.getSno()) == sno -2){
+					addRows(1);
+				}
+			});
 		}
 
 
@@ -369,10 +375,6 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 
 	public void addRows(int n) {
-		//itemlist.get(itemlist.size()-2).getQuantity().removeEventHandler(FocusModel,this);
-		//git branchesif(itemlist.size()>0)
-		//itemlist.get(itemlist.size()-2).getQuantity().focusedProperty().removeListener();
-
 
 		purchasetv.scrollTo(sno+n);
 		int temp;
@@ -388,11 +390,6 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		itemlist.addAll(extrarowslist); //
 		purchasetv.refresh();
 		sno=temp;
-
-		itemlist.get(itemlist.size()-2).getQuantity().focusedProperty().addListener((event, wasFocussed, isNowFocussed) -> {
-			if(isNowFocussed)
-			addRows(1);
-		});
 
 		spane.setVvalue(0);
 
