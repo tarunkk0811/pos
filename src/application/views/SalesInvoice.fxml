@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.SalesInvoiceController">
+   <children>
+      <TextField fx:id="newtf1" alignment="CENTER" layoutX="563.0" layoutY="179.0" prefHeight="32.0" prefWidth="136.0" visible="false" />
+      <Text layoutX="64.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invoice No :">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="196.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="265.9392395019531">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="27.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sales Account :">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="sales_account_type" layoutX="181.0" layoutY="72.0" prefHeight="23.0" prefWidth="211.0" />
+      <Text layoutX="479.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date :" wrappingWidth="70.2415771484375">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <DatePicker fx:id="date" layoutX="548.0" layoutY="74.0" prefHeight="24.0" prefWidth="190.0" />
+      <Text layoutX="806.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer :" wrappingWidth="121.33685302734375">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="customer" layoutX="920.0" layoutY="75.0" prefHeight="23.0" prefWidth="254.0" />
+      <CheckBox layoutX="1007.0" layoutY="22.0" mnemonicParsing="false" text="Raise Cash Reciept">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </CheckBox>
+      <Text layoutX="27.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Business Type :" wrappingWidth="161.39999694824223">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="btype" layoutX="184.0" layoutY="125.0" prefHeight="26.0" prefWidth="109.0" />
+      <CheckBox fx:id="isIgst" layoutX="341.0" layoutY="124.0" mnemonicParsing="false" text="Is IGST">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </CheckBox>
+      <Text layoutX="474.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Place of Supply :">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="place" layoutX="634.0" layoutY="128.0" prefHeight="24.0" prefWidth="198.0" />
+      <Text layoutX="872.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sale Type :">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="sale_type" layoutX="984.0" layoutY="126.0" prefHeight="26.0" prefWidth="108.0" />
+      <TextField fx:id="transport" alignment="CENTER" layoutX="1130.0" layoutY="122.0" prefHeight="33.0" prefWidth="122.0" promptText="Transport">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="vehicleNo" alignment="CENTER" layoutX="32.0" layoutY="180.0" prefHeight="31.0" prefWidth="121.0" promptText="Vehicle No">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="ctns" alignment="CENTER" layoutX="194.0" layoutY="179.0" prefHeight="32.0" prefWidth="136.0" promptText="No of Ctns">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="cash_petty_name" alignment="CENTER" layoutX="371.0" layoutY="179.0" prefHeight="32.0" prefWidth="136.0" promptText="Cash Petty Name">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="newtf2" alignment="CENTER" layoutX="763.0" layoutY="178.0" prefHeight="32.0" prefWidth="136.0" />
+      <TextField fx:id="newtf3" alignment="CENTER" layoutX="953.0" layoutY="176.0" prefHeight="32.0" prefWidth="136.0" />
+      <TextField fx:id="newtf4" alignment="CENTER" layoutX="1129.0" layoutY="174.0" prefHeight="32.0" prefWidth="136.0" />
+      <TableView layoutY="225.0" prefHeight="491.0" prefWidth="1282.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <Button layoutX="56.0" layoutY="755.0" mnemonicParsing="false" text="Button">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="165.0" layoutY="755.0" mnemonicParsing="false" text="Button">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="304.0" layoutY="755.0" mnemonicParsing="false" text="Button">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="443.0" layoutY="755.0" mnemonicParsing="false" text="Button">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="555.0" layoutY="755.0" mnemonicParsing="false" text="Button">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="704.0" layoutY="755.0" mnemonicParsing="false" text="Button">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="844.0" layoutY="755.0" mnemonicParsing="false" text="Button">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <TextField fx:id="newtf1" alignment="CENTER" layoutX="571.0" layoutY="176.0" prefHeight="32.0" prefWidth="136.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

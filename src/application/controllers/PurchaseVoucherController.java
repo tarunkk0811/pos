@@ -370,7 +370,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 	public void addRows(int n) {
 		//itemlist.get(itemlist.size()-2).getQuantity().removeEventHandler(FocusModel,this);
-		//if(itemlist.size()>0)
+		//git branchesif(itemlist.size()>0)
 		//itemlist.get(itemlist.size()-2).getQuantity().focusedProperty().removeListener();
 
 
