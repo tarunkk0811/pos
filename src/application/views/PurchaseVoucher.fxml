@@ -23,16 +23,20 @@
          <children>
             <HBox fx:id="row1hbox" prefHeight="17.0" prefWidth="1042.0">
                <children>
-                  <Text fill="#363636" strokeType="OUTSIDE" strokeWidth="0.0" text="VOUCHER NO :" textAlignment="CENTER" wrappingWidth="147.29244232177734">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="vno" fill="#262626" strokeType="OUTSIDE" strokeWidth="0.0" text="124646545454545" wrappingWidth="233.77349853515625">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
+                  <HBox fx:id="vnohbox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="398.0">
+                     <children>
+                        <Text fill="#363636" strokeType="OUTSIDE" strokeWidth="0.0" text="VOUCHER NO :" textAlignment="CENTER" wrappingWidth="147.29244232177734">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="vno" fill="#262626" strokeType="OUTSIDE" strokeWidth="0.0" text="124646545454545" wrappingWidth="233.77349853515625">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
                </children>
                <VBox.margin>
                   <Insets />
@@ -43,7 +47,7 @@
             </HBox>
             <HBox fx:id="row2hbox">
                <children>
-                  <HBox prefHeight="26.0" prefWidth="396.0">
+                  <HBox fx:id="pahbox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="396.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Puchase Account :" wrappingWidth="159.07662963867188">
                            <font>
@@ -56,7 +60,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </HBox>
-                  <HBox prefHeight="26.0" prefWidth="271.0">
+                  <HBox fx:id="datehbox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="271.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date :" wrappingWidth="50.24078369140625">
                            <font>
@@ -69,7 +73,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </HBox>
-                  <HBox prefHeight="26.0" prefWidth="219.0">
+                  <HBox fx:id="vendorhbox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="219.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vendor :" wrappingWidth="73.3333862304687">
                            <font>

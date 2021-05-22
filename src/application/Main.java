@@ -14,7 +14,7 @@
 		public void start(Stage primaryStage) {
 			try {
 				window = primaryStage;
-				Parent root = FXMLLoader.load(getClass().getResource("/application/views/Main.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource("/application/views/Settings.fxml"));
 				Scene scene = new Scene(root,1280,800);
 				scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 				window.setScene(scene);

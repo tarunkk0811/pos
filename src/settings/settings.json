@@ -1,0 +1,9 @@
+{
+  "puchasevoucher": {
+    "fields":{
+      "hiddenfields":{},
+      "unhiddenfields": {"vnohbox": "Voucher Number","pahbox" : "Purchase Account","datehbox": "Date","vendorhbox" :  "Vendor","billnohbox": "Bill No","billdatehbox": "Bill Date","isigsthbox": "Is IGST","placehbox": "Place"},
+      "newfield":{}},
+        "table":""}
+}
+

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="404.0" prefWidth="571.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.views.NewField">
+<AnchorPane prefHeight="404.0" prefWidth="571.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.views.NewField">
    <children>
       <HBox layoutX="-1.0" layoutY="1.0" prefHeight="403.0" prefWidth="601.0">
          <children>
@@ -124,9 +124,9 @@
                   </HBox>
                   <HBox prefHeight="149.0" prefWidth="438.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Save">
+                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="89.0" text="Save">
                            <HBox.margin>
-                              <Insets left="150.0" top="30.0" />
+                              <Insets left="125.0" top="30.0" />
                            </HBox.margin>
                         </Button>
                      </children>
