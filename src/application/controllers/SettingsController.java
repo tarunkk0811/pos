@@ -1,16 +1,19 @@
 package application.controllers;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 import org.json.JSONArray;
+//import org.json.JSONException;
+//import org.json.JSONObject;
+
 import org.json.simple.JSONObject;
+
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Iterator;
 
 public class SettingsController {
@@ -27,24 +30,37 @@ public class SettingsController {
         @FXML
         private Button new_field;
 
+        JSONObject fields;
+
+        JSONObject settings ;
+        JSONObject hiddenfield,unhiddenfield;
+
         @FXML
         public void initialize() throws IOException, ParseException {
 
-            //read json
                 JSONParser parser = new JSONParser();
-                JSONObject settings = (JSONObject) parser.parse(new FileReader("src/settings/settings.json"));
+                settings = (JSONObject) parser.parse(new FileReader("src/settings/settings.json"));
+                JSONObject pv = (JSONObject) settings.get("purchasevoucher");
+                fields = (JSONObject) pv.get("fields"); //unhidden,hidden,newfield
+                hiddenfield = (JSONObject) fields.get("hiddenfields");
+                unhiddenfield = (JSONObject) fields.get("unhiddenfields");
+                hiddenUnhiddenFields("unhiddenfields",true);
+                hiddenUnhiddenFields("hiddenfields",false);
 
-                JSONObject pv = (JSONObject) settings.get("puchasevoucher"); //fields,table
-                JSONObject fields = (JSONObject) pv.get("fields"); //unhidden,hidden,newfield
-                JSONObject unhiddenfields = (JSONObject) fields.get("unhiddenfields");
-                Iterator<?> keys = unhiddenfields.keySet().iterator();
+        }
+
+
+        public void hiddenUnhiddenFields(String fieldstate,boolean isSelected) throws  IOException {
+
+                JSONObject horufields = (JSONObject) fields.get(fieldstate);
+                Iterator<?> keys = horufields.keySet().iterator();
+
                 int i=0;
                 while(keys.hasNext()){
                         String key = (String) keys.next();
-                        String value  = (String) unhiddenfields.get(key);
-                        System.out.println(key+"  "+value);
+                        String value  = (String) horufields.get(key);
                         CheckBox cb = new CheckBox(value);
-                        cb.setSelected(true);
+                        cb.setSelected(isSelected);
                         cb.setId(key);
                         i++;
                         if(i==1)
@@ -56,9 +72,32 @@ public class SettingsController {
                                 i=0;
                         }
 
+                        cb.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newValue) -> {
+                                horufields.remove(cb.getId());
+                                if(oldValue)
+
+                                                hiddenfield.put(cb.getId(),cb.getText());
+
+                                else
+                                                unhiddenfield.put(cb.getId(),cb.getText());
+
+                                try {
+                                        FileOutputStream outputStream = new FileOutputStream("src/settings/settings.json");
+                                        byte[] strToBytes = settings.toString().getBytes();
+                                        outputStream.write(strToBytes);
+                                        outputStream.close();
+
+                                } catch (IOException e) {
+                                        e.printStackTrace();
+                                }
+
+                        });
+
                 }
 
+        }
 
+        public void removeField(String key,String field){
 
         }
 
