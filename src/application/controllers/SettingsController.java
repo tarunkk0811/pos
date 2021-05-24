@@ -1,9 +1,15 @@
 package application.controllers;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.json.JSONArray;
 //import org.json.JSONException;
 //import org.json.JSONObject;
@@ -101,7 +107,17 @@ public class SettingsController {
 
         }
 
-
+        @FXML
+        void newField(ActionEvent event) throws IOException {
+                Parent root = FXMLLoader.load(getClass().getResource("/application/views/NewField.fxml"));
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                Scene scene = new Scene(root, 600, 400);
+                stage.setScene(scene);
+                stage.setTitle("Add New Field");
+                stage.setResizable(false);
+                stage.showAndWait();
+        }
 }
 
 

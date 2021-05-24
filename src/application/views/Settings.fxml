@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="480.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.SettingsController">
+<AnchorPane prefHeight="480.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.SettingsController">
    <children>
       <VBox layoutX="14.0" layoutY="27.0">
          <children>
@@ -58,7 +58,7 @@
                         <VBox fx:id="vbox3" layoutX="168.0" layoutY="10.0" prefHeight="199.0" prefWidth="158.0" />
                      </children>
                   </HBox>
-                  <Button fx:id="new_field" layoutX="447.0" layoutY="159.0" mnemonicParsing="false" text="New Field" />
+                  <Button fx:id="new_field" layoutX="447.0" layoutY="159.0" mnemonicParsing="false" onAction="#newField" text="New Field" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
