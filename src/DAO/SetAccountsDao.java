@@ -23,7 +23,7 @@ public class SetAccountsDao {
 
 		PreparedStatement stmt = con.prepareStatement(query);
 		int cid = SessionController.cid;
-		System.out.println(cid);
+
 		stmt.setInt(1, cid);
 		stmt.setString(2, dao.capitalize(Aname));
 		stmt.setString(3, Aphone);

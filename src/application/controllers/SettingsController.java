@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -24,6 +25,18 @@ import java.io.*;
 import java.util.Iterator;
 
 public class SettingsController {
+
+        @FXML
+        private AnchorPane fields_display;
+
+        @FXML
+        private Button purchasevoucher;
+
+        @FXML
+        private Button salesinvoice;
+
+        @FXML
+        private Button quotation;
 
         @FXML
         private VBox vbox1;
@@ -44,21 +57,11 @@ public class SettingsController {
 
         static JSONObject settings ;
         JSONObject hiddenfield,unhiddenfield;
-        String current_selected;
+        String current_selected = "purchasevoucher";
 
         @FXML
         public void initialize() throws IOException, ParseException {
-                current_selected="purchasevoucher";
-
-                JSONParser parser = new JSONParser();
-                settings = (JSONObject) parser.parse(new FileReader("src/settings/settings.json"));
-                JSONObject pv = (JSONObject) settings.get("purchasevoucher");
-                fields = (JSONObject) pv.get("fields"); //unhidden,hidden,newfield
-                hiddenfield = (JSONObject) fields.get("hiddenfields");
-                unhiddenfield = (JSONObject) fields.get("unhiddenfields");
-                hiddenUnhiddenFields("unhiddenfields",true);
-                hiddenUnhiddenFields("hiddenfields",false);
-
+                displayField();
         }
 
 
@@ -131,7 +134,38 @@ public class SettingsController {
                 return new_field_stage;
         }
 
+        @FXML
+        void selectPurchaseVoucher(ActionEvent event) throws IOException, ParseException {
+                current_selected = purchasevoucher.getId();
+                displayField();;
+        }
 
+        @FXML
+        void selectQuotation(ActionEvent event) throws IOException {
+                current_selected = quotation.getId();
+        }
+
+        @FXML
+        void selectSalesInvoice(ActionEvent event) throws IOException, ParseException {
+                current_selected = salesinvoice.getId();
+                displayField();
+        }
+
+        public void displayField() throws IOException, ParseException {
+                vbox1.getChildren().clear();
+                vbox2.getChildren().clear();
+                vbox3.getChildren().clear();
+                JSONParser parser = new JSONParser();
+                settings = (JSONObject) parser.parse(new FileReader("src/settings/settings.json"));
+                JSONObject pv = (JSONObject) settings.get(current_selected);
+                if(pv != null) {
+                        fields = (JSONObject) pv.get("fields"); //unhidden,hidden,newfield
+                        hiddenfield = (JSONObject) fields.get("hiddenfields");
+                        unhiddenfield = (JSONObject) fields.get("unhiddenfields");
+                        hiddenUnhiddenFields("unhiddenfields", true);
+                        hiddenUnhiddenFields("hiddenfields", false);
+                }
+        }
 }
 
 
