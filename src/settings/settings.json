@@ -1,1 +1,18 @@
-{"purchasevoucher":{"fields":{"unhiddenfields":{"placehbox":"Place","pahbox":"Purchase Account","billdatehbox":"Bill Date","isigsthbox":"Is IGST"},"hiddenfields":{"vendorhbox":"Vendor","datehbox":"Date","billnohbox":"Bill No","vnohbox":"Voucher Number"},"newfield":{}},"table":""}}
+{"purchasevoucher":{"fields": {
+  "hiddenfields": {
+    "vendorhbox": "Vendor",
+    "datehbox": "Date",
+    "billnohbox": "Bill No",
+    "vnohbox": "Voucher Number"
+  },
+  "newfield": [],
+  "unhiddenfields": {
+    "placehbox": "Place",
+    "pahbox": "Purchase Account",
+
+    "billdatehbox": "Bill Date",
+
+
+    "isigsthbox": "Is IGST"
+  }
+},"table":""},"salesinvoice":{}}

@@ -114,4 +114,19 @@ public class DashboardController {
 		stage.showAndWait();
 	}
 
+	@FXML
+	void showSettings(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("/application/views/Settings.fxml"));
+		ccstage = new Stage();
+		ccstage.initModality(Modality.APPLICATION_MODAL);
+		Scene scene = new Scene(root, 800, 600);
+		ccstage.setScene(scene);
+		ccstage.setTitle("Settings Wizard");
+		ccstage.setResizable(false);
+		ccstage.showAndWait();
+	}
+
+
+
+
 }

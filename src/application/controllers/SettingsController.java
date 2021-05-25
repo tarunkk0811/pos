@@ -1,4 +1,5 @@
 package application.controllers;
+import application.Main;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,11 +39,16 @@ public class SettingsController {
 
         JSONObject fields;
 
-        JSONObject settings ;
+        public static Stage new_field_stage;
+
+
+        static JSONObject settings ;
         JSONObject hiddenfield,unhiddenfield;
+        String current_selected;
 
         @FXML
         public void initialize() throws IOException, ParseException {
+                current_selected="purchasevoucher";
 
                 JSONParser parser = new JSONParser();
                 settings = (JSONObject) parser.parse(new FileReader("src/settings/settings.json"));
@@ -103,21 +109,29 @@ public class SettingsController {
 
         }
 
-        public void removeField(String key,String field){
-
-        }
 
         @FXML
         void newField(ActionEvent event) throws IOException {
+
                 Parent root = FXMLLoader.load(getClass().getResource("/application/views/NewField.fxml"));
-                Stage stage = new Stage();
-                stage.initModality(Modality.APPLICATION_MODAL);
+                new_field_stage = new Stage();
+                new_field_stage.initModality(Modality.APPLICATION_MODAL);
                 Scene scene = new Scene(root, 600, 400);
-                stage.setScene(scene);
-                stage.setTitle("Add New Field");
-                stage.setResizable(false);
-                stage.showAndWait();
+                new_field_stage.setScene(scene);
+                new_field_stage.setTitle(current_selected);
+                new_field_stage.setResizable(false);
+                new_field_stage.showAndWait();
+                Parent root2 =  FXMLLoader.load(getClass().getResource("/application/views/Settings.fxml"));
+                Scene sc = new Scene(root2,800,600);
+                DashboardController.changeSceneTo(sc);
+
         }
+
+        public static Stage getNewFieldStage(){
+                return new_field_stage;
+        }
+
+
 }
 
 

@@ -11,13 +11,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="404.0" prefWidth="571.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.NewField">
+<AnchorPane prefHeight="404.0" prefWidth="571.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.NewField">
    <children>
       <HBox layoutX="-1.0" layoutY="1.0" prefHeight="403.0" prefWidth="601.0">
          <children>
             <VBox prefHeight="403.0" prefWidth="212.0" />
             <VBox layoutX="10.0" layoutY="10.0" prefHeight="403.0" prefWidth="486.0">
                <children>
+                  <HBox prefHeight="62.0" prefWidth="486.0">
+                     <children>
+                        <Label text="Add New Field">
+                           <HBox.margin>
+                              <Insets left="70.0" right="10.0" top="15.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
                   <HBox prefHeight="62.0" prefWidth="486.0">
                      <children>
                         <Label text="Row number :">
@@ -28,7 +40,7 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <RadioButton mnemonicParsing="false" prefHeight="20.0" prefWidth="29.0" text="1">
+                        <RadioButton fx:id="rbtn_1" mnemonicParsing="false" prefHeight="20.0" prefWidth="29.0" text="1">
                            <HBox.margin>
                               <Insets left="10.0" right="10.0" top="15.0" />
                            </HBox.margin>
@@ -36,7 +48,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton layoutX="115.0" layoutY="25.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="29.0" text="2">
+                        <RadioButton fx:id="rbtn_2" layoutX="115.0" layoutY="25.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="29.0" text="2">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -44,7 +56,7 @@
                               <Insets left="10.0" right="10.0" top="15.0" />
                            </HBox.margin>
                         </RadioButton>
-                        <RadioButton layoutX="155.0" layoutY="10.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="29.0" text="3">
+                        <RadioButton fx:id="rbtn_3" layoutX="155.0" layoutY="10.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="29.0" text="3">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -64,7 +76,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="field_name">
+                        <TextField fx:id="field_name" promptText="Field Name">
                            <HBox.margin>
                               <Insets left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
@@ -98,7 +110,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="field_default">
+                        <TextField fx:id="field_default" promptText="Default value">
                            <HBox.margin>
                               <Insets left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
@@ -115,7 +127,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <RadioButton fx:id="taxable_value" mnemonicParsing="false" text="Taxable Value">
+                        <RadioButton fx:id="tv_rbtn" mnemonicParsing="false" text="Taxable Value">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -123,7 +135,7 @@
                               <Insets left="10.0" right="10.0" top="15.0" />
                            </HBox.margin>
                         </RadioButton>
-                        <RadioButton fx:id="net_value" layoutX="101.0" layoutY="25.0" mnemonicParsing="false" text="Net Value">
+                        <RadioButton fx:id="nv_rbtn" layoutX="101.0" layoutY="25.0" mnemonicParsing="false" text="Net Value">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -133,7 +145,7 @@
                         </RadioButton>
                      </children>
                   </HBox>
-                  <HBox focusTraversable="true" layoutX="10.0" layoutY="120.0" prefHeight="48.0" prefWidth="486.0" visible="false">
+                  <HBox fx:id="combolist_hbox" focusTraversable="true" layoutX="10.0" layoutY="120.0" prefHeight="48.0" prefWidth="486.0" visible="false">
                      <children>
                         <Label prefHeight="18.0" prefWidth="60.0" text="List :">
                            <HBox.margin>
@@ -143,18 +155,18 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="combobox_list">
+                        <TextField fx:id="combobox_list" promptText="Comma( , ) Seperated list ">
                            <HBox.margin>
                               <Insets left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </TextField>
                      </children>
                   </HBox>
-                  <HBox prefHeight="147.0" prefWidth="438.0">
+                  <HBox prefHeight="102.0" prefWidth="438.0">
                      <children>
                         <Button fx:id="save_field" mnemonicParsing="false" onAction="#saveField" prefHeight="26.0" prefWidth="89.0" text="Save">
                            <HBox.margin>
-                              <Insets left="125.0" top="30.0" />
+                              <Insets left="115.0" top="30.0" />
                            </HBox.margin>
                         </Button>
                      </children>

@@ -91,7 +91,7 @@
                         <MenuItem mnemonicParsing="false" text="Action 1" />
                      </items>
                   </Menu>
-                  <MenuItem mnemonicParsing="false" text="Delete" />
+                  <MenuItem fx:id="settings" mnemonicParsing="false" onAction="#showSettings" text="Settings Wizard" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="_Financial Accounting">
