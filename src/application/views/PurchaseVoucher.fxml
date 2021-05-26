@@ -17,135 +17,139 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PurchaseVoucherController">
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PurchaseVoucherController">
    <children>
       <VBox layoutX="24.0" layoutY="16.41796875">
          <children>
-            <HBox fx:id="row1hbox" prefHeight="17.0" prefWidth="1042.0">
+            <VBox fx:id="topvbox">
                <children>
-                  <HBox fx:id="vnohbox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="398.0">
+                  <HBox fx:id="row1hbox" prefHeight="17.0" prefWidth="1042.0">
                      <children>
-                        <Text fill="#363636" strokeType="OUTSIDE" strokeWidth="0.0" text="VOUCHER NO :" textAlignment="CENTER" wrappingWidth="147.29244232177734">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="vno" fill="#262626" strokeType="OUTSIDE" strokeWidth="0.0" text="124646545454545" wrappingWidth="233.77349853515625">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
+                        <HBox fx:id="vnohbox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="300.0">
+                           <children>
+                              <Text fill="#363636" strokeType="OUTSIDE" strokeWidth="0.0" text="VOUCHER NO :" textAlignment="CENTER" wrappingWidth="147.29244232177734">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="vno" fill="#262626" strokeType="OUTSIDE" strokeWidth="0.0" text="124646545454545" wrappingWidth="233.77349853515625">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Text>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox fx:id="row2hbox">
+                     <children>
+                        <HBox fx:id="pahbox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="350.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Puchase Account :" wrappingWidth="159.07662963867188">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Text>
+                              <ChoiceBox fx:id="purchase_account" prefHeight="26.0" prefWidth="216.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox fx:id="datehbox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="250.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date :" wrappingWidth="50.24078369140625">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Text>
+                              <DatePicker fx:id="purchasedt" prefHeight="26.0" prefWidth="172.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox fx:id="vendorhbox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="250.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vendor :" wrappingWidth="73.3333862304687">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Text>
+                              <ComboBox fx:id="vendor" prefHeight="26.0" prefWidth="161.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox fx:id="row3hbox">
+                     <children>
+                        <HBox fx:id="billnohbox" prefHeight="27.0" prefWidth="223.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bill No :" wrappingWidth="70.57344818115234">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="billno" prefHeight="26.0" prefWidth="118.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox fx:id="billdatehbox" prefHeight="26.0" prefWidth="268.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bill Date :" wrappingWidth="87.57412719726562">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Text>
+                              <DatePicker fx:id="billdt" prefHeight="26.0" prefWidth="154.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox fx:id="isigsthbox">
+                           <children>
+                              <CheckBox fx:id="isigst" mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="  IS IGST">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </CheckBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox fx:id="placehbox">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Place :" wrappingWidth="64.79999999999995">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Text>
+                              <ComboBox fx:id="place" prefHeight="26.0" prefWidth="152.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
                      </children>
                   </HBox>
                </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </HBox>
-            <HBox fx:id="row2hbox">
-               <children>
-                  <HBox fx:id="pahbox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="396.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Puchase Account :" wrappingWidth="159.07662963867188">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Text>
-                        <ChoiceBox fx:id="purchase_account" prefHeight="26.0" prefWidth="216.0" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-                  <HBox fx:id="datehbox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="271.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date :" wrappingWidth="50.24078369140625">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Text>
-                        <DatePicker fx:id="purchasedt" prefHeight="26.0" prefWidth="172.0" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-                  <HBox fx:id="vendorhbox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="219.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vendor :" wrappingWidth="73.3333862304687">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Text>
-                        <ComboBox fx:id="vendor" prefHeight="26.0" prefWidth="161.0" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" />
-               </padding>
-            </HBox>
-            <HBox fx:id="row3hbox">
-               <children>
-                  <HBox prefHeight="27.0" prefWidth="223.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bill No :" wrappingWidth="70.57344818115234">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Text>
-                        <TextField fx:id="billno" prefHeight="26.0" prefWidth="118.0" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-                  <HBox prefHeight="26.0" prefWidth="268.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bill Date :" wrappingWidth="87.57412719726562">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Text>
-                        <DatePicker fx:id="billdt" prefHeight="26.0" prefWidth="154.0" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-                  <HBox>
-                     <children>
-                        <CheckBox fx:id="isigst" mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="  IS IGST">
-                           <font>
-                              <Font name="System Bold" size="16.0" />
-                           </font>
-                        </CheckBox>
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-                  <HBox>
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Place :" wrappingWidth="64.79999999999995">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Text>
-                        <ComboBox fx:id="place" prefHeight="26.0" prefWidth="152.0" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-               </children>
-            </HBox>
+            </VBox>
          </children>
       </VBox>
       <ScrollPane fx:id="spane" layoutY="179.0" prefHeight="460.0" prefWidth="884.0" vmax="0.0">

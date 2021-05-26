@@ -24,7 +24,7 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 import java.util.Iterator;
 
-public class SettingsController {
+public class SettingsController extends ApplicationMainController {
 
         @FXML
         private AnchorPane fields_display;
@@ -55,12 +55,13 @@ public class SettingsController {
         public static Stage new_field_stage;
 
 
-        static JSONObject settings ;
+        JSONObject settings;
         JSONObject hiddenfield,unhiddenfield;
         String current_selected = "purchasevoucher";
 
         @FXML
         public void initialize() throws IOException, ParseException {
+                settings = getJson();
                 displayField();
         }
 
@@ -97,10 +98,7 @@ public class SettingsController {
                                                 unhiddenfield.put(cb.getId(),cb.getText());
 
                                 try {
-                                        FileOutputStream outputStream = new FileOutputStream("src/settings/settings.json");
-                                        byte[] strToBytes = settings.toString().getBytes();
-                                        outputStream.write(strToBytes);
-                                        outputStream.close();
+                                       writeToJson(settings);
 
                                 } catch (IOException e) {
                                         e.printStackTrace();
@@ -127,7 +125,6 @@ public class SettingsController {
                 Parent root2 =  FXMLLoader.load(getClass().getResource("/application/views/Settings.fxml"));
                 Scene sc = new Scene(root2,800,600);
                 DashboardController.changeSceneTo(sc);
-
         }
 
         public static Stage getNewFieldStage(){
@@ -155,8 +152,7 @@ public class SettingsController {
                 vbox1.getChildren().clear();
                 vbox2.getChildren().clear();
                 vbox3.getChildren().clear();
-                JSONParser parser = new JSONParser();
-                settings = (JSONObject) parser.parse(new FileReader("src/settings/settings.json"));
+
                 JSONObject pv = (JSONObject) settings.get(current_selected);
                 if(pv != null) {
                         fields = (JSONObject) pv.get("fields"); //unhidden,hidden,newfield

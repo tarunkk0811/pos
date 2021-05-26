@@ -1,9 +1,12 @@
 package application.controllers;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class ApplicationMainController {
@@ -24,5 +27,16 @@ public class ApplicationMainController {
         byte[] strToBytes = jsonObject.toString().getBytes();
         outputStream.write(strToBytes);
         outputStream.close();
+    }
+
+    public JSONObject getJson() throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject settings = (JSONObject) parser.parse(new FileReader("src/settings/settings.json"));
+        return settings;
+    }
+
+
+    public JSONObject getJsonObject(String objname,JSONObject jsonobject){
+        return (JSONObject) jsonobject.get(objname);
     }
 }

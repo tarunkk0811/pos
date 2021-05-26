@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import org.json.simple.JSONArray;
 import org.json.JSONException;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -66,7 +67,7 @@ public class NewField extends  ApplicationMainController{
     JSONObject fields;
     JSONObject hiddenfields;
     JSONObject unhiddenfields;
-    int row_num;
+    String row_num;
     ToggleGroup group;
     ToggleGroup group2;
     ObservableList<String> field_types = FXCollections.observableArrayList("Text","Number","Dropdown");
@@ -79,8 +80,9 @@ public class NewField extends  ApplicationMainController{
         field_type.getSelectionModel().select(0);
 
         rbtn_1.setToggleGroup(group);
-        rbtn_1.setSelected(true);
         rbtn_2.setToggleGroup(group);
+        rbtn_2.setSelected(true);
+        rbtn_2.setSelected(true);
         rbtn_3.setToggleGroup(group);
 
         tv_rbtn.setToggleGroup(group2);
@@ -108,9 +110,9 @@ public class NewField extends  ApplicationMainController{
     }
 
     @FXML
-    void saveField(ActionEvent event) throws JSONException, IOException, SQLException {
+    void saveField(ActionEvent event) throws JSONException, IOException, SQLException, ParseException {
         RadioButton result = (RadioButton) group.getSelectedToggle();
-        row_num = Integer.parseInt(result.getText());
+        row_num = result.getText();
         String add_to = "";
         String name = field_name.getText();
         String type = field_types.get(field_type.getSelectionModel().getSelectedIndex());
@@ -131,7 +133,7 @@ public class NewField extends  ApplicationMainController{
             newfield.put("add_to", add_to);
             newfield.put("combobox_list", list);
             //save to jsonobject
-            JSONObject settings = SettingsController.settings;
+            JSONObject settings = getJson();
             JSONObject window = (JSONObject) settings.get(window_name); // pv or si or quot
             JSONObject fields = (JSONObject) window.get("fields");
             JSONObject unhidden = (JSONObject) fields.get("unhiddenfields");
@@ -159,10 +161,11 @@ public class NewField extends  ApplicationMainController{
         temp.close();
     }
 
-    private boolean fieldNotExists(String name) throws JSONException {
+    private boolean fieldNotExists(String name) throws JSONException, IOException, ParseException {
 
         window_name = SettingsController.new_field_stage.getTitle();
-        window = (JSONObject) SettingsController.settings.get(window_name);
+        JSONObject settings = getJson();
+        window = (JSONObject) settings.get(window_name);
         fields = (JSONObject) window.get("fields");
         hiddenfields = (JSONObject) fields.get("hiddenfields");
         unhiddenfields = (JSONObject) fields.get("unhiddenfields");

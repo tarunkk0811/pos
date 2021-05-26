@@ -40,13 +40,13 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <RadioButton fx:id="rbtn_1" mnemonicParsing="false" prefHeight="20.0" prefWidth="29.0" text="1">
-                           <HBox.margin>
-                              <Insets left="10.0" right="10.0" top="15.0" />
-                           </HBox.margin>
+                        <RadioButton fx:id="rbtn_3" layoutX="155.0" layoutY="10.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="29.0" text="3">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" top="15.0" />
+                           </HBox.margin>
                         </RadioButton>
                         <RadioButton fx:id="rbtn_2" layoutX="115.0" layoutY="25.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="29.0" text="2">
                            <font>
@@ -56,13 +56,13 @@
                               <Insets left="10.0" right="10.0" top="15.0" />
                            </HBox.margin>
                         </RadioButton>
-                        <RadioButton fx:id="rbtn_3" layoutX="155.0" layoutY="10.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="29.0" text="3">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
+                        <RadioButton fx:id="rbtn_1" mnemonicParsing="false" prefHeight="20.0" prefWidth="29.0" text="1">
                            <HBox.margin>
                               <Insets left="10.0" right="10.0" top="15.0" />
                            </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
                         </RadioButton>
                      </children>
                   </HBox>

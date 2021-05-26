@@ -2,6 +2,7 @@ package application.controllers;
 
 
 import java.awt.event.FocusEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +10,7 @@ import java.time.LocalDate;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 
 
@@ -30,21 +32,79 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.skin.TableViewSkin;
 import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 
 import javax.swing.*;
 
 
 public class PurchaseVoucherController extends ApplicationMainController {
+	@FXML
+	private AnchorPane ap;
+
+	@FXML
+	private HBox row1hbox;
+
+	@FXML
+	private HBox vnohbox;
+
+	@FXML
+	private HBox row2hbox;
+
+	@FXML
+	private HBox pahbox;
 
 
 	@FXML
+	private HBox datehbox;
+
+
+	@FXML
+	private HBox vendorhbox;
+
+
+	@FXML
+	private HBox row3hbox;
+
+	@FXML
+	private HBox billnohbox;
+
+
+	@FXML
+	private HBox billdatehbox;
+
+
+	@FXML
+	private HBox isigsthbox;
+	;
+
+	@FXML
+	private HBox placehbox;
+
+	@FXML
 	private ScrollPane spane;
+
+	@FXML
+	private VBox topvbox;
+
+
+
+
+
+
+
+
 
 	@FXML
 	private TableView purchasetv;
@@ -109,6 +169,10 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 	@FXML
 	public void initialize() throws Exception {
+
+		addNewFields();
+		hideOrUnhideFields();
+
 		prev = 0.0;
 		 nv=0;ov=0;
 		total_qty=0;total_gross=0;total_rate=0;total_discount=0;total_cgst=0;total_sgst=0;total_igst=0;total_oc=0;total_cess=0;total_taxable=0;total_net_amount=0;
@@ -209,6 +273,89 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		});*/
 
 
+	}
+
+	private void hideOrUnhideFields() throws IOException, ParseException {
+		JSONObject settings = getJson();
+		JSONObject hidden =   getJsonObject("hiddenfields", getJsonObject("fields",getJsonObject("purchasevoucher",settings)))  ;
+
+		Iterator keys = hidden.keySet().iterator();
+
+
+
+		topvbox.getChildren().remove((HBox) ap.lookup("#billnohbox"));
+
+		while(keys.hasNext()) {
+			String key = (String) keys.next();
+			Node n;
+			if((n=row1hbox.lookup( "#"+key)) !=null)
+				row1hbox.getChildren().remove(n);
+
+			else if((n=row2hbox.lookup( "#"+key)) !=null)
+				row2hbox.getChildren().remove(n);
+
+			else if((n=row3hbox.lookup( "#"+key)) !=null)
+				row3hbox.getChildren().remove(n);
+
+		}
+
+	}
+
+	private void addNewFields() throws IOException, ParseException {
+		JSONObject settings = getJson();
+		//System.out.println(settings.toJSONString());
+		JSONObject fields = getJsonObject("fields",getJsonObject("purchasevoucher",settings));
+		JSONArray newfields= (JSONArray) fields.get("newfield");
+
+		Iterator obj = newfields.iterator();
+		while (obj.hasNext()){
+			JSONObject newf = (JSONObject) obj.next();
+			System.out.println(newf.toJSONString());
+			int rno = Integer.parseInt((String) newf.get("rno"));
+			String type = (String) newf.get("type");
+			String name = (String) newf.get("name");
+			String default_value = (String) newf.get("default");
+			String list = (String) newf.get("combobox_list");
+
+			addToHBox(rno,name,type,list,default_value);
+
+
+		}
+	}
+
+	private void addToHBox(int rno, String name, String type, String list, String default_value) {
+		String hboxid = name.split(" ")[0].toLowerCase() + "hbox";
+		HBox newhbox = new HBox();
+		newhbox.setId(hboxid);
+		System.out.println(type);
+		if(type.equalsIgnoreCase("Text")){
+			System.out.println("enterws text");
+		TextField tf = new TextField();
+		tf.setPromptText(name);
+		if(!default_value.isEmpty())
+			tf.setText(default_value);
+		newhbox.getChildren().add(tf);
+		}
+		else if(type.equalsIgnoreCase("Dropdown")){
+			ObservableList<String> dropdownlist = FXCollections.observableArrayList();
+
+			System.out.println("dd entered");
+			String[] arr = list.split(",");
+			for(String s:arr){
+				dropdownlist.add(s);
+			}
+			ComboBox<String> ddcbox = new ComboBox<String>(dropdownlist);
+
+			newhbox.getChildren().add(ddcbox);
+		}
+		if(rno==1)
+			row1hbox.getChildren().add(newhbox);
+
+		else if(rno==2)
+			row2hbox.getChildren().add(newhbox);
+
+		else
+			row3hbox.getChildren().add(newhbox);
 	}
 
 	private void linkEventListeners(ObservableList<PurchaseItem> itemlist) {
