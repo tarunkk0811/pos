@@ -1,5 +1,7 @@
 package DAO;
 
+import application.controllers.ApplicationController;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -13,14 +15,20 @@ public class SetPurchaseDao {
 		String query = "ALTER TABLE PURCHASE_VOUCHER ADD " + field_name;
 
 		if(type == "Number"){
-			query += " DECIMAL(10,2) ";
+			query += " DECIMAL(10,2) DEFAULT ";
 			query += (default_value.isEmpty()) ? default_value : String.valueOf(0);
 		}
 		else{
-			query += " TEXT ";
+			query += " VARCHAR(1000) DEFAULT ";
 			query += (default_value.isEmpty()) ? "\'NULL\'" : ("\'"+ default_value + "\'");
 		}
-		System.out.println(query);
-		return stmt.execute(query);
+
+		try {
+			stmt.execute(query);
+			return true;
+		}catch (Exception e){
+			new ApplicationController().errorDialog("Error: "+ e.getMessage(),null);
+			return false;
+		}
 	}
 }

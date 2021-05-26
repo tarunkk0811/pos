@@ -146,8 +146,6 @@ public class NewField extends  ApplicationMainController{
                 writeToJson(settings);
                 new ApplicationController().informationDialog(name + " Added successfully!",null);
             }
-            else
-                new ApplicationController().errorDialog("Error: Cannot add to the Database",null);
         }
         else{
             new ApplicationController().informationDialog("Field name Already Exists !",null);
@@ -157,8 +155,6 @@ public class NewField extends  ApplicationMainController{
         //RUN QUERY Based on window;
 
         //Information Dialog
-
-        new ApplicationController().informationDialog("Field created Successfully !",null);
         Stage temp = (Stage)save_field.getScene().getWindow();
         temp.close();
     }
