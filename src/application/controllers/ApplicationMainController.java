@@ -14,12 +14,15 @@ public class ApplicationMainController {
         return String.format("%.2f",d);
     }
 
-    public String capitalize(String word)
-    {
-        String nameCapitalized = "";
-        String s1 = word.substring(0, 1).toUpperCase();
-        nameCapitalized = s1 + word.substring(1).toLowerCase();
-        return nameCapitalized;
+    public String capitalize(String s){
+        String words[] = s.split("\\s");
+        String capitalizeWord="";
+        for(String w:words){
+            String first=w.substring(0,1);
+            String afterfirst=w.substring(1);
+            capitalizeWord+=first.toUpperCase()+afterfirst+" ";
+        }
+        return capitalizeWord.trim();
     }
 
     public void writeToJson(JSONObject jsonObject) throws IOException {
@@ -39,4 +42,6 @@ public class ApplicationMainController {
     public JSONObject getJsonObject(String objname,JSONObject jsonobject){
         return (JSONObject) jsonobject.get(objname);
     }
+
+
 }

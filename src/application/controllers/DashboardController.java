@@ -129,7 +129,7 @@ public class DashboardController extends  ApplicationMainController{
 		ObservableList<TableColumn> columns = tv.getColumns();
 		JSONObject settings = getJson();
 		JSONObject purchasev = (JSONObject) settings.get("purchasevoucher");
-		JSONObject table  = (JSONObject) purchasev.get("table");
+		JSONObject table  = (JSONObject) purchasev.get("columns");
 		JSONObject hiddencolumns = (JSONObject) table.get("hiddencolumns");
 		Iterator keys = hiddencolumns.keySet().iterator();
 		while (keys.hasNext()) {

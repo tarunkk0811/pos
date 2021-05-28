@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="480.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.SettingsController">
+<AnchorPane prefHeight="480.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.SettingsController">
    <children>
       <VBox layoutX="14.0" layoutY="27.0">
          <children>
@@ -70,7 +70,7 @@
                         <VBox fx:id="vbox6" layoutX="168.0" layoutY="10.0" prefHeight="199.0" prefWidth="158.0" />
                      </children>
                   </HBox>
-                  <Button layoutX="438.0" layoutY="211.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="New Column" />
+                  <Button fx:id="new_column" layoutX="438.0" layoutY="211.0" mnemonicParsing="false" onAction="#newColumn" prefHeight="26.0" prefWidth="87.0" text="New Column" />
                </children></AnchorPane>
         </items>
       </SplitPane>

@@ -60,6 +60,8 @@ public class SettingsController extends ApplicationMainController {
         @FXML
         private VBox vbox6;
 
+        @FXML
+        private Button new_column;
 
         @FXML
         private Button new_field;
@@ -148,6 +150,22 @@ public class SettingsController extends ApplicationMainController {
                 DashboardController.changeSceneTo(sc);
         }
 
+
+        @FXML
+        void newColumn(ActionEvent event) throws IOException {
+                Parent root = FXMLLoader.load(getClass().getResource("/application/views/NewColumn.fxml"));
+                new_field_stage = new Stage();
+                new_field_stage.initModality(Modality.APPLICATION_MODAL);
+                Scene scene = new Scene(root, 600, 400);
+                new_field_stage.setScene(scene);
+                new_field_stage.setTitle(current_selected);
+                new_field_stage.setResizable(false);
+                new_field_stage.showAndWait();
+                Parent root2 =  FXMLLoader.load(getClass().getResource("/application/views/Settings.fxml"));
+                Scene sc = new Scene(root2,800,600);
+                DashboardController.changeSceneTo(sc);
+        }
+
         public static Stage getNewFieldStage(){
                 return new_field_stage;
         }
@@ -192,7 +210,7 @@ public class SettingsController extends ApplicationMainController {
                 vbox6.getChildren().clear();
                 JSONObject cs = (JSONObject) settings.get(current_selected);
                 if (cs != null) {
-                        table = (JSONObject) cs.get("table");
+                        table = (JSONObject) cs.get("columns");
                         hiddencolumns = (JSONObject) table.get("hiddencolumns");
                         unhiddencolumns = (JSONObject) table.get("unhiddencolumns");
                         hiddenUnhiddenColumns("unhiddencolumns",true);
@@ -243,6 +261,8 @@ public class SettingsController extends ApplicationMainController {
                 }
 
         }
+
+
 }
 
 

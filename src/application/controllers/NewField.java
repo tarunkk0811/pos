@@ -181,14 +181,4 @@ public class NewField extends  ApplicationMainController{
         return true;
     }
 
-    public String capitalize(String s){
-        String words[] = s.split("\\s");
-        String capitalizeWord="";
-        for(String w:words){
-            String first=w.substring(0,1);
-            String afterfirst=w.substring(1);
-            capitalizeWord+=first.toUpperCase()+afterfirst+" ";
-        }
-        return capitalizeWord.trim();
-    }
 }
