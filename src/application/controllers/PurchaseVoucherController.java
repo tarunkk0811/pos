@@ -1,9 +1,7 @@
 package application.controllers;
 
 
-import java.awt.event.FocusEvent;
 import java.io.IOException;
-import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -11,10 +9,8 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.ResourceBundle;
 
 
-import DAO.DBConnection;
 import DAO.GetVoucherDao;
 
 
@@ -22,21 +18,12 @@ import DAO.GetAccountsDao;
 import DAO.GetProductsDao;
 import application.custom_properties.PurchaseItem;
 
-import com.sun.javafx.scene.EventHandlerProperties;
-import com.sun.javafx.stage.FocusUngrabEvent;
-import javafx.application.Platform;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.skin.TableViewSkin;
-import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -45,8 +32,6 @@ import javafx.scene.text.Text;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
-
-import javax.swing.*;
 
 
 public class PurchaseVoucherController extends ApplicationMainController {
@@ -117,7 +102,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 	private TableColumn<PurchaseItem, String> sno_col;
 
 	@FXML
-	private TableColumn<PurchaseItem, String> qty_col,newcol1, rate_col, gross_col, disc_col, cgst_col, sgst_col, igst_col, ocharges_col, cess_col, taxable_value_col;
+	private TableColumn<PurchaseItem, String> qty_col, rate_col, gross_col, disc_col, cgst_col, sgst_col, igst_col, ocharges_col, cess_col, taxable_value_col;
 
 	@FXML
 	private TableColumn<PurchaseItem, ComboBox> item_col, type_of_purchase_col;
@@ -225,8 +210,8 @@ public class PurchaseVoucherController extends ApplicationMainController {
 			itemlist.add(new PurchaseItem(sno, items, type_of_purchase, "", "", "", "", "", "", "", "", "", "","somtxt","col2"));
 		}*/
 
-		TableColumn<PurchaseItem,String> temp2 = new TableColumn<PurchaseItem,String>("New columnn");
-		purchasetv.setMaxWidth(purchasetv.getMaxWidth()+temp2.getMaxWidth());
+
+		//purchasetv.setMaxWidth(purchasetv.getMaxWidth()+temp2.getMaxWidth());
 
 		sno_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("sno"));
 		item_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, ComboBox>("items"));
@@ -241,11 +226,17 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		cess_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("cess"));
 		taxable_value_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("taxable_value"));
 		type_of_purchase_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, ComboBox>("type_of_purchase"));
-		newcol1.setCellValueFactory(new PropertyValueFactory<PurchaseItem,String>("newcol1"));
-		temp2.setCellValueFactory(new PropertyValueFactory<PurchaseItem,String>("newcol2"));
+		//newcol1.setCellValueFactory(new PropertyValueFactory<PurchaseItem,String>("newcol1"));
 
-		//purchasetv.getItems().addAll(itemlist);
-
+		//columns adding to  table
+//		for(int i=1;i<5;i++) {
+//			TableColumn<PurchaseItem, String> temp2 = new TableColumn<PurchaseItem, String>("New columnn");
+//			temp2.setSortable(false);
+//			temp2.setMaxWidth(100);
+//			temp2.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("newcol"+i));
+//			purchasetv.getColumns().add(temp2);
+//			//purchasetv.getItems().addAll(itemlist);
+//		}
 		linkEventListeners(itemlist);
 
 		// appyling focus property
@@ -262,8 +253,12 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		});*/
 
 		//purchase_account.getSelectionModel().select(0);
-		purchasetv.getColumns().add(temp2);
-		purchasetv.refresh();
+
+		purchasetv.refresh(); // is this really needed?
+
+
+
+
 		purchasedt.setValue(LocalDate.now());
 
 		addRows(13);
@@ -273,6 +268,14 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		});*/
 
 
+
+		purchasetv.applyCss();
+
+		/*Stage temp = (Stage) ap.getScene().getWindow();
+		temp.setOnShown((event)->{
+			System.out.println("completed");
+
+		});*/
 	}
 
 	private void hideOrUnhideFields() throws IOException, ParseException {
@@ -301,6 +304,15 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 	}
 
+	@FXML
+	public void printData(){
+
+
+		//System.out.println(purchasetv.getColumns());
+		//purchasetv.getColumns().remove(tc);
+		//System.out.println();
+	}
+
 	private void addNewFields() throws IOException, ParseException {
 		JSONObject settings = getJson();
 		//System.out.println(settings.toJSONString());
@@ -310,7 +322,6 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		Iterator obj = newfields.iterator();
 		while (obj.hasNext()){
 			JSONObject newf = (JSONObject) obj.next();
-			System.out.println(newf.toJSONString());
 			int rno = Integer.parseInt((String) newf.get("rno"));
 			String type = (String) newf.get("type");
 			String name = (String) newf.get("name");
@@ -329,7 +340,6 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		newhbox.setId(hboxid);
 		System.out.println(type);
 		if(type.equalsIgnoreCase("Text")){
-			System.out.println("enterws text");
 		TextField tf = new TextField();
 		tf.setPromptText(name);
 		if(!default_value.isEmpty())
@@ -338,8 +348,6 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		}
 		else if(type.equalsIgnoreCase("Dropdown")){
 			ObservableList<String> dropdownlist = FXCollections.observableArrayList();
-
-			System.out.println("dd entered");
 			String[] arr = list.split(",");
 			for(String s:arr){
 				dropdownlist.add(s);
@@ -529,7 +537,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 		for(temp=sno;temp<sno+n;temp++) {
 			ObservableList<String> items = FXCollections.observableArrayList(temp_items);
-			extrarowslist.add(new PurchaseItem(temp, items, type_of_purchase, "", "", "", "", "", "", "", "", "", "","somedata","col2"));
+			extrarowslist.add(new PurchaseItem(temp, items, type_of_purchase, "", "", "", "", "", "", "", "", "", "","","","",""));
 		}
 
 		purchasetv.getItems().addAll(extrarowslist);
@@ -609,4 +617,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 	}
 
 
+	public TableView getTV() {
+		return  this.purchasetv;
+	}
 }

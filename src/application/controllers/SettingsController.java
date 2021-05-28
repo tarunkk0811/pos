@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -48,6 +49,19 @@ public class SettingsController extends ApplicationMainController {
         private VBox vbox3;
 
         @FXML
+        private HBox hbox2;
+
+        @FXML
+        private VBox vbox4;
+
+        @FXML
+        private VBox vbox5;
+
+        @FXML
+        private VBox vbox6;
+
+
+        @FXML
         private Button new_field;
 
         JSONObject fields;
@@ -56,13 +70,18 @@ public class SettingsController extends ApplicationMainController {
 
 
         JSONObject settings;
+        JSONObject table;
+        JSONObject hiddencolumns;
+        JSONObject unhiddencolumns;
+        JSONObject newcolumn;
         JSONObject hiddenfield,unhiddenfield;
         String current_selected = "purchasevoucher";
 
         @FXML
         public void initialize() throws IOException, ParseException {
                 settings = getJson();
-                displayField();
+                displayFields();
+                displayColumns();
         }
 
 
@@ -111,6 +130,8 @@ public class SettingsController extends ApplicationMainController {
         }
 
 
+
+
         @FXML
         void newField(ActionEvent event) throws IOException {
 
@@ -134,7 +155,8 @@ public class SettingsController extends ApplicationMainController {
         @FXML
         void selectPurchaseVoucher(ActionEvent event) throws IOException, ParseException {
                 current_selected = purchasevoucher.getId();
-                displayField();;
+                displayFields();;
+                displayColumns();
         }
 
         @FXML
@@ -145,22 +167,81 @@ public class SettingsController extends ApplicationMainController {
         @FXML
         void selectSalesInvoice(ActionEvent event) throws IOException, ParseException {
                 current_selected = salesinvoice.getId();
-                displayField();
+                displayFields();
+                displayColumns();
         }
 
-        public void displayField() throws IOException, ParseException {
+        public void displayFields() throws IOException, ParseException {
                 vbox1.getChildren().clear();
                 vbox2.getChildren().clear();
                 vbox3.getChildren().clear();
 
-                JSONObject pv = (JSONObject) settings.get(current_selected);
-                if(pv != null) {
-                        fields = (JSONObject) pv.get("fields"); //unhidden,hidden,newfield
+                JSONObject cs = (JSONObject) settings.get(current_selected);
+                if(cs != null) {
+                        fields = (JSONObject) cs.get("fields"); //unhidden,hidden,newfield
                         hiddenfield = (JSONObject) fields.get("hiddenfields");
                         unhiddenfield = (JSONObject) fields.get("unhiddenfields");
                         hiddenUnhiddenFields("unhiddenfields", true);
                         hiddenUnhiddenFields("hiddenfields", false);
                 }
+        }
+
+        public void displayColumns() throws IOException {
+                vbox4.getChildren().clear();
+                vbox5.getChildren().clear();
+                vbox6.getChildren().clear();
+                JSONObject cs = (JSONObject) settings.get(current_selected);
+                if (cs != null) {
+                        table = (JSONObject) cs.get("table");
+                        hiddencolumns = (JSONObject) table.get("hiddencolumns");
+                        unhiddencolumns = (JSONObject) table.get("unhiddencolumns");
+                        hiddenUnhiddenColumns("unhiddencolumns",true);
+                        hiddenUnhiddenColumns("hiddencolumns",false);
+                }
+        }
+
+        public void hiddenUnhiddenColumns(String fieldstate,boolean isSelected) throws  IOException {
+
+                JSONObject horuh_column = (JSONObject) table.get(fieldstate);
+                Iterator<?> keys = horuh_column.keySet().iterator();
+
+                int i=3;
+                while(keys.hasNext()){
+                        String key = (String) keys.next();
+                        String value  = (String) horuh_column.get(key);
+                        CheckBox cb = new CheckBox(value);
+                        cb.setSelected(isSelected);
+                        cb.setId(key);
+                        i++;
+                        if(i==4)
+                                vbox4.getChildren().add(cb);
+                        else if(i==5)
+                                vbox5.getChildren().add(cb);
+                        else{
+                                vbox6.getChildren().add(cb);
+                                i=3;
+                        }
+
+                        cb.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newValue) -> {
+                                horuh_column.remove(cb.getId());
+                                if(oldValue)
+
+                                        hiddencolumns.put(cb.getId(),cb.getText());
+
+                                else
+                                        unhiddencolumns.put(cb.getId(),cb.getText());
+
+                                try {
+                                        writeToJson(settings);
+
+                                } catch (IOException e) {
+                                        e.printStackTrace();
+                                }
+
+                        });
+
+                }
+
         }
 }
 

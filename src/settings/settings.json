@@ -1,1 +1,52 @@
-{"purchasevoucher":{"fields":{"unhiddenfields":{"vendorhbox":"Vendor","placehbox":"Place","pahbox":"Purchase Account","billdatehbox":"Bill Date","datehbox":"Date","isigsthbox":"Is IGST","dropdownhbox":"Dropdown","vnohbox":"Voucher Number","billnohbox":"Bill No"},"hiddenfields":{"descriptionhbox":"Description"},"newfield":[{"rno":"2","default":"","combobox_list":"","name":"Description","type":"Text","add_to":""},{"rno":"2","default":"","combobox_list":"item 1,item 2,item 3","name":"Dropdown","type":"Dropdown","add_to":""}]},"table":""},"salesinvoice":{}}
+{"purchasevoucher":{"fields": {
+  "hiddenfields": {},
+  "newfield": [
+    {
+      "rno": "2",
+      "default": "",
+      "combobox_list": "",
+      "name": "Description",
+      "type": "Text",
+      "add_to": ""
+    },
+    {
+      "rno": "2",
+      "default": "",
+      "combobox_list": "item 1,item 2,item 3",
+      "name": "Dropdown",
+      "type": "Dropdown",
+      "add_to": ""
+    }
+  ],
+  "unhiddenfields": {
+    "vendorhbox": "Vendor",
+    "placehbox": "Place",
+    "pahbox": "Purchase Account",
+    "descriptionhbox": "Description",
+    "billdatehbox": "Bill Date",
+    "datehbox": "Date",
+    "isigsthbox": "Is IGST",
+    "dropdownhbox": "Dropdown",
+    "billnohbox": "Bill No",
+    "vnohbox": "Voucher Number"
+  }
+},"table": {
+  "hiddencolumns": {
+    "item_col": "Item",
+    "sno_col": "S no"
+  },
+  "newcolumn": {},
+  "unhiddencolumns": {
+    "rate_col": "Rate",
+    "sgst_col": "SGST",
+    "cgst_col": "CGST",
+    "gross_col": "Gross",
+    "type_of_purchase_col": "Type of purchase",
+    "disc_col": "Discount",
+    "igst_col": "IGST",
+    "cess_col": "Cess",
+    "ocharges_col": "Other charges",
+    "taxable_value_col": "Taxable Value",
+    "qty_col": "Quantity"
+  }
+}},"salesinvoice":{}}

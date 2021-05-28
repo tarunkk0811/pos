@@ -169,7 +169,6 @@
                   <TableColumn fx:id="cess_col" prefWidth="75.0" resizable="false" sortable="false" text="Cess" />
                   <TableColumn fx:id="taxable_value_col" prefWidth="100.0" resizable="false" sortable="false" text="Taxable Value" />
                   <TableColumn fx:id="type_of_purchase_col" prefWidth="100.0" resizable="false" sortable="false" text="Type of Purchase" />
-                  <TableColumn fx:id="newcol1" prefWidth="111.199951171875" resizable="false" sortable="false" text="Newcol" />
                </columns>
             </TableView>
          </content>
@@ -257,7 +256,7 @@
       <Button layoutX="217.0" layoutY="726.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="107.0" text="Edit Next" />
       <Button layoutX="61.0" layoutY="726.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="122.0" text="Edit Previous" />
       <Button layoutX="364.0" layoutY="727.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="107.0" text="Delete" />
-      <Button layoutX="517.0" layoutY="725.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="117.0" text="Print" />
+      <Button fx:id="print" layoutX="517.0" layoutY="725.0" mnemonicParsing="false" onAction="#printData" prefHeight="34.0" prefWidth="117.0" text="Print" />
       <Button fx:id="add_rows" layoutX="690.0" layoutY="725.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="117.0" text="Add Rows" />
 
    </children>
