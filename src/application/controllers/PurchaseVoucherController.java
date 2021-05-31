@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 
 
 import DAO.GetVoucherDao;
@@ -125,7 +126,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 	@FXML
 	private Button add_rows;
 
-	static double total_qty,total_gross,total_rate,total_discount,total_cgst,total_sgst,total_igst,total_oc,total_cess,total_taxable,total_net_amount;
+	static double total_qty,total_gross,total_rate,total_discount,total_cgst,total_sgst,total_igst,total_oc,total_cess,total_taxable,total_net_amount,total_col1,total_col2,total_col3,total_col4,total_col5;
 
 
 
@@ -151,6 +152,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 	public PurchaseVoucherController() throws SQLException {
 	}
 	 int sno=1;
+	String var1="",var2="",var3="",var4="",var5="";
 
 	@FXML
 	public void initialize() throws Exception {
@@ -161,6 +163,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		prev = 0.0;
 		 nv=0;ov=0;
 		total_qty=0;total_gross=0;total_rate=0;total_discount=0;total_cgst=0;total_sgst=0;total_igst=0;total_oc=0;total_cess=0;total_taxable=0;total_net_amount=0;
+		total_col1=0;total_col2=0;total_col3=0;total_col4=0;total_col5=0;
 		ResultSet vendors_rs = get_acc_dao.getVendors(SessionController.cid);
 		while (vendors_rs.next()) {
 			Accounts_with_ids.put(vendors_rs.getString(2), vendors_rs.getInt(1));
@@ -226,17 +229,10 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		cess_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("cess"));
 		taxable_value_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("taxable_value"));
 		type_of_purchase_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, ComboBox>("type_of_purchase"));
-		//newcol1.setCellValueFactory(new PropertyValueFactory<PurchaseItem,String>("newcol1"));
 
-		//columns adding to  table
-//		for(int i=1;i<5;i++) {
-//			TableColumn<PurchaseItem, String> temp2 = new TableColumn<PurchaseItem, String>("New columnn");
-//			temp2.setSortable(false);
-//			temp2.setMaxWidth(100);
-//			temp2.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("newcol"+i));
-//			purchasetv.getColumns().add(temp2);
-//			//purchasetv.getItems().addAll(itemlist);
-//		}
+
+		addNewColumns();
+
 		linkEventListeners(itemlist);
 
 		// appyling focus property
@@ -278,6 +274,48 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		});*/
 	}
 
+	private void addNewColumns() throws IOException, ParseException {
+		int i=1;
+		JSONObject settings = getJson();
+		JSONObject pv = (JSONObject) settings.get("purchasevoucher");
+		JSONObject columns = (JSONObject) pv.get("columns");
+		JSONArray newcols = (JSONArray) columns.get("newcolumn");
+		Iterator objs = newcols.iterator();
+		while(objs.hasNext()){
+			JSONObject column = (JSONObject) objs.next();
+			String name = (String) column.get("name");
+			String add_to = (String) column.get("add_to");
+			String default_value = (String) column.get("default");
+			//	columns adding to  table
+				if(i<5) {
+					TableColumn<PurchaseItem, String> temp2 = new TableColumn<PurchaseItem, String>(name);
+					temp2.setSortable(false);
+					temp2.setMaxWidth(100);
+					temp2.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("newcol" + i));
+					String fname = name.split("\\s")[0].toLowerCase(Locale.ROOT)+"_col";
+					temp2.setId(fname);
+					purchasetv.getColumns().add(temp2);
+
+					if(i==1)
+						var1 = add_to;
+					else if(i==2)
+						var2 = add_to;
+					else if(i==3)
+						var3 = add_to;
+					else if(i==4)
+						var4 = add_to;
+					else if(i==5)
+						var5 = add_to;
+
+					i++;
+				}
+
+		}
+
+		}
+
+
+
 	private void hideOrUnhideFields() throws IOException, ParseException {
 		JSONObject settings = getJson();
 		JSONObject hidden =   getJsonObject("hiddenfields", getJsonObject("fields",getJsonObject("purchasevoucher",settings)))  ;
@@ -308,9 +346,6 @@ public class PurchaseVoucherController extends ApplicationMainController {
 	public void printData(){
 
 
-		//System.out.println(purchasetv.getColumns());
-		//purchasetv.getColumns().remove(tc);
-		//System.out.println();
 	}
 
 	private void addNewFields() throws IOException, ParseException {
@@ -468,7 +503,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 				total_igst = calculatePercentageGst(oldValue,newValue,total_igst,item.getIgstValue());
 				igst_total.setText(doubleToStringF(total_igst));
 
-				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable+total_igst;
+				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable+total_col1+total_col2+total_col3+total_col4+total_col5;
 				net_amount.setText(doubleToStringF(total_net_amount));
 			}));
 
@@ -492,14 +527,14 @@ public class PurchaseVoucherController extends ApplicationMainController {
 				total_oc=calculateTotal(oldValue,newValue,total_oc);
 				oc_total.setText(doubleToStringF(total_oc));
 
-				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable;
+				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable+total_col1+total_col2+total_col3+total_col4+total_col5;
 				net_amount.setText(doubleToStringF(total_net_amount));
 			}));
 
 			item.getCess().textProperty().addListener((observableValue, oldValue, newValue) -> {
 				total_cess=calculateTotal(oldValue,newValue,total_cess);
 				cess_total.setText(doubleToStringF(total_cess));
-				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable;
+				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable+total_col1+total_col2+total_col3+total_col4+total_col5;
 				net_amount.setText(doubleToStringF(total_net_amount));
 			});
 
@@ -511,10 +546,59 @@ public class PurchaseVoucherController extends ApplicationMainController {
 					addRows(1);
 				}
 			});
+
+
+			if(!var1.isEmpty()) {
+				item.getNewcol1().textProperty().addListener((observableValue, oldValue, newValue) -> {
+					addNewColListeners(var1, total_col1, oldValue, newValue);
+				});
+				if (!var2.isEmpty()) {
+					item.getNewcol2().textProperty().addListener((observableValue, oldValue, newValue) -> {
+						addNewColListeners(var2, total_col2, oldValue, newValue);
+					});
+
+					if (!var3.isEmpty()) {
+						item.getNewcol3().textProperty().addListener((observableValue, oldValue, newValue) -> {
+							addNewColListeners(var3, total_col3, oldValue, newValue);
+						});
+						if (!var4.isEmpty()) {
+							item.getNewcol4().textProperty().addListener((observableValue, oldValue, newValue) -> {
+								addNewColListeners(var4, total_col4, oldValue, newValue);
+							});
+							if (!var5.isEmpty()) {
+								item.getNewcol5().textProperty().addListener((observableValue, oldValue, newValue) -> {
+									addNewColListeners(var5, total_col5, oldValue, newValue);
+								});
+
+							}
+						}
+					}
+				}
+			}
+
+
 		}
 
 
+
+
 	}
+
+	private void addNewColListeners(String var, double total_col,String oldValue,String newValue) {
+		if (!var.equalsIgnoreCase("None")){
+			if(var.equalsIgnoreCase("Net Value")){
+				total_col=calculateTotal(oldValue,newValue,total_col);
+				//oc_total.setText(doubleToStringF(total_col1));
+				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable+total_col1+total_col2+total_col3+total_col4+total_col5;
+				net_amount.setText(doubleToStringF(total_net_amount));
+			}
+			else{
+				total_taxable=calculateTotal(oldValue,newValue,total_taxable);
+				taxable_total.setText(doubleToStringF(total_taxable));
+			}
+		}
+	}
+
 
 	private ObservableList<String> getAllItems() throws SQLException {
 		ObservableList<String> items = FXCollections.observableArrayList();
@@ -537,7 +621,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 		for(temp=sno;temp<sno+n;temp++) {
 			ObservableList<String> items = FXCollections.observableArrayList(temp_items);
-			extrarowslist.add(new PurchaseItem(temp, items, type_of_purchase, "", "", "", "", "", "", "", "", "", "","","","",""));
+			extrarowslist.add(new PurchaseItem(temp, items, type_of_purchase, "", "", "", "", "", "", "", "", "", "","","","","",""));
 		}
 
 		purchasetv.getItems().addAll(extrarowslist);

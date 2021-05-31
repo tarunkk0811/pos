@@ -1,1 +1,59 @@
-{"purchasevoucher":{"columns":{"newcolumn":[{"default":"0","name":"Coolie","add_to":"Net Value"}],"unhiddencolumns":{"item_col":"Item","sgst_col":"SGST","cgst_col":"CGST","gross_col":"Gross","type_of_purchase_col":"Type of purchase","disc_col":"Discount","igst_col":"IGST","cess_col":"Cess","cooliehbox":"Coolie","ocharges_col":"Other charges","qty_col":"Quantity","taxable_value_col":"Taxable Value"},"hiddencolumns":{"rate_col":"Rate","sno_col":"S no"}},"fields":{"unhiddenfields":{"vendorhbox":"Vendor","placehbox":"Place","pahbox":"Purchase Account","descriptionhbox":"Description","billdatehbox":"Bill Date","datehbox":"Date","isigsthbox":"Is IGST","dropdownhbox":"Dropdown","billnohbox":"Bill No","vnohbox":"Voucher Number"},"hiddenfields":{},"newfield":[{"default":"","rno":"2","combobox_list":"","name":"Description","type":"Text","add_to":""},{"default":"","rno":"2","combobox_list":"item 1,item 2,item 3","name":"Dropdown","type":"Dropdown","add_to":""}]}},"salesinvoice":{}}
+{"purchasevoucher":{"columns":{"newcolumn":[
+  {
+    "add_to": "Net Value",
+    "default": "0",
+    "name": "Coolie"
+  },
+  {
+    "add_to": "Taxable Value",
+    "default": "",
+    "name": "Frieght"
+  }],"unhiddencolumns": {
+  "cess_col": "Cess",
+  "cgst_col": "CGST",
+  "coolie_col": "Coolie",
+  "disc_col": "Discount",
+  "frieght_col": "Frieght",
+  "gross_col": "Gross",
+  "igst_col": "IGST",
+  "item_col": "Item",
+  "ocharges_col": "Other charges",
+  "qty_col": "Quantity",
+  "rate_col": "Rate",
+  "sgst_col": "SGST",
+  "sno_col": "S no",
+  "taxable_value_col": "Taxable Value",
+  "type_of_purchase_col": "Type of purchase"
+},"hiddencolumns":{}},"fields": {
+  "hiddenfields": {},
+  "newfield": [
+    {
+      "default": "",
+      "rno": "2",
+      "combobox_list": "",
+      "name": "Description",
+      "type": "Text",
+      "add_to": ""
+    },
+    {
+      "default": "",
+      "rno": "2",
+      "combobox_list": "item 1,item 2,item 3",
+      "name": "Dropdown",
+      "type": "Dropdown",
+      "add_to": ""
+    }
+  ],
+  "unhiddenfields": {
+    "vendorhbox": "Vendor",
+    "placehbox": "Place",
+    "pahbox": "Purchase Account",
+    "descriptionhbox": "Description",
+    "billdatehbox": "Bill Date",
+    "datehbox": "Date",
+    "isigsthbox": "Is IGST",
+    "dropdownhbox": "Dropdown",
+    "billnohbox": "Bill No",
+    "vnohbox": "Voucher Number"
+  }
+}},"salesinvoice":{}}

@@ -24,6 +24,15 @@ public class PurchaseItem {
 	private TextField newcol2;
 	private TextField newcol3;
 	private TextField newcol4;
+	private TextField newcol5;
+
+	public TextField getNewcol5() {
+		return newcol5;
+	}
+
+	public void setNewcol5(TextField newcol5) {
+		this.newcol5 = newcol5;
+	}
 
 	public TextField getNewcol2() {
 		return newcol2;
@@ -149,12 +158,11 @@ public class PurchaseItem {
 
 	public PurchaseItem(int sno, ObservableList items, ObservableList type_of_purchase, String quantity,
 						String rate, String gross, String discount, String cgst, String sgst, String igst, String other_charges,
-						String cess, String taxable_value, String ncol1,String ncol2,String ncol3,String ncol4) {
+						String cess, String taxable_value, String ncol1,String ncol2,String ncol3,String ncol4,String ncol5) {
 		super();
 		this.sno = String.valueOf(sno);
 		this.items = new ComboBox<String>(items);
 		this.type_of_purchase = new ComboBox(type_of_purchase);
-
 		this.quantity = new TextField(quantity);
 		this.rate = new TextField(rate);
 		this.gross = new TextField(gross);
@@ -174,6 +182,7 @@ public class PurchaseItem {
 		this.newcol2=new TextField(ncol2);
 		this.newcol3 = new TextField(ncol3);
 		this.newcol4 = new TextField(ncol4);
+		this.newcol5 = new TextField(ncol5);
 		// focus
 		this.items.focusedProperty().addListener(e -> {
 			this.items.show();

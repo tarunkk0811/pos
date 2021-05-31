@@ -84,7 +84,7 @@ public class NewColumn extends ApplicationMainController{
             JSONObject fields = (JSONObject) window.get("columns");
             JSONObject unhidden = (JSONObject) fields.get("unhiddencolumns");
 
-            String key = name.split(" ")[0].toLowerCase() + "hbox";
+            String key = name.split(" ")[0].toLowerCase() + "_col";
             unhidden.put(key, capitalize(name));
 
             JSONArray newfield_array = (JSONArray) fields.get("newcolumn");
