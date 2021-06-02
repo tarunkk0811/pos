@@ -503,7 +503,18 @@ public class PurchaseVoucherController extends ApplicationMainController {
 				total_igst = calculatePercentageGst(oldValue,newValue,total_igst,item.getIgstValue());
 				igst_total.setText(doubleToStringF(total_igst));
 
-				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable+total_col1+total_col2+total_col3+total_col4+total_col5;
+				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable;
+				if (var1.equalsIgnoreCase("net value"))
+					total_net_amount += total_col1;
+				if (var2.equalsIgnoreCase("net value"))
+					total_net_amount += total_col2;
+				if (var3.equalsIgnoreCase("net value"))
+					total_net_amount += total_col3;
+				if (var4.equalsIgnoreCase("net value"))
+					total_net_amount += total_col4;
+				if (var5.equalsIgnoreCase("net value"))
+					total_net_amount += total_col5;
+
 				net_amount.setText(doubleToStringF(total_net_amount));
 			}));
 
@@ -550,24 +561,35 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 			if(!var1.isEmpty()) {
 				item.getNewcol1().textProperty().addListener((observableValue, oldValue, newValue) -> {
-					total_col1 = addNewColListeners(var1, total_col1, oldValue, newValue, item);
+					String old_total_col = String.valueOf(total_col1);
+					total_col1 = calculateTotal(oldValue,newValue,total_col1);
+					addNewColListeners(var1,old_total_col, total_col1, oldValue, newValue, item);
 				});
 				if (!var2.isEmpty()) {
 					item.getNewcol2().textProperty().addListener((observableValue, oldValue, newValue) -> {
-						total_col2 = addNewColListeners(var2, total_col2, oldValue, newValue,item);
+						String old_total_col = String.valueOf(total_col2);
+						total_col2 = calculateTotal(oldValue,newValue,total_col2);
+						System.out.println(total_col2);
+						addNewColListeners(var2,old_total_col,total_col2, oldValue, newValue, item);
 					});
 
 					if (!var3.isEmpty()) {
 						item.getNewcol3().textProperty().addListener((observableValue, oldValue, newValue) -> {
-							total_col3 = addNewColListeners(var3, total_col3, oldValue, newValue, item);
+							String old_total_col = String.valueOf(total_col3);
+							total_col3 = calculateTotal(oldValue,newValue,total_col3);
+							addNewColListeners(var3,old_total_col,total_col3, oldValue, newValue, item);
 						});
 						if (!var4.isEmpty()) {
 							item.getNewcol4().textProperty().addListener((observableValue, oldValue, newValue) -> {
-								total_col4 = addNewColListeners(var4, total_col4, oldValue, newValue, item);
+								String old_total_col = String.valueOf(total_col1);
+								total_col4 = calculateTotal(oldValue,newValue,total_col4);
+								addNewColListeners(var4, old_total_col,total_col4, oldValue, newValue, item);
 							});
 							if (!var5.isEmpty()) {
 								item.getNewcol5().textProperty().addListener((observableValue, oldValue, newValue) -> {
-									total_col5 = addNewColListeners(var5, total_col5, oldValue, newValue, item);
+									String old_total_col = String.valueOf(total_col5);
+									total_col5 = calculateTotal(oldValue,newValue,total_col5);
+									addNewColListeners(var5,old_total_col,total_col5, oldValue, newValue, item);
 								});
 
 							}
@@ -584,24 +606,17 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 	}
 
-	private double addNewColListeners(String var, double total_col, String oldValue, String newValue, PurchaseItem item) {
+	private void addNewColListeners(String var,String old_total_col,double total_col, String oldValue, String newValue, PurchaseItem item) {
 		if (!var.equalsIgnoreCase("None")){
-			String old_total_col = String.valueOf(total_col);
 			if(var.equalsIgnoreCase("Net Value")){
-				total_col=calculateTotal(oldValue,newValue,total_col);
-				//oc_total.setText(doubleToStringF(total_col1));
 				total_net_amount=calculateTotal(old_total_col,String.valueOf(total_col),total_net_amount);
 				net_amount.setText(doubleToStringF(total_net_amount));
-			}
-			else{
+			}else{
 				double taxable_value = item.getTaxableValue();
 				taxable_value = calculateTotal(oldValue,newValue,taxable_value);
 				item.getTaxable_value().setText(doubleToStringF(taxable_value));
-				total_col = calculateTotal(oldValue,newValue,total_col);
 			}
 		}
-		System.out.println(total_col);
-		return total_col;
 	}
 
 
