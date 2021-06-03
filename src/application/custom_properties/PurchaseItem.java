@@ -318,4 +318,22 @@ public class PurchaseItem {
 	public String getItemName(){return this.getItems().getEditor().getText();}
 
 	public int getIgstValue() {return  this.getIgst().getText().isEmpty() ? 0 : Integer.parseInt(this.getIgst().getText()); }
+
+	public double getNewCol1Value(){
+		return this.getNewcol1().getText().isEmpty() ? 0 : Double.parseDouble(this.getNewcol1().getText());
+	}
+
+	public double getNewCol2Value(){
+		return this.getNewcol2().getText().isEmpty() ? 0 : Double.parseDouble(this.getNewcol2().getText());
+	}
+	public double getNewCol3Value(){
+		return this.getNewcol3().getText().isEmpty() ? 0 : Double.parseDouble(this.getNewcol3().getText());
+	}
+	public double getNewCol4Value(){
+		return this.getNewcol4().getText().isEmpty() ? 0 : Double.parseDouble(this.getNewcol4().getText());
+	}
+	public double getNewCol5Value(){
+		return this.getNewcol5().getText().isEmpty() ? 0 : Double.parseDouble(this.getNewcol5().getText());
+	}
+
 }

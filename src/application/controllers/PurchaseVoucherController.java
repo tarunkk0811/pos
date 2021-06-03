@@ -454,8 +454,9 @@ public class PurchaseVoucherController extends ApplicationMainController {
 				qty_total.setText(String.valueOf(total_qty));
 				if(!item.getQuantity().getText().isEmpty()) {
 					item.getGross().setText(doubleToStringF(item.getQuantityValue() * item.getRateValue()));
-					item.getTaxable_value().setText(doubleToStringF(item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100));
+					calculateTaxable(item);
 				}
+
 			});
 			item.getRate().textProperty().addListener((observable,oldValue,newValue)->{
 				total_rate=calculateTotal(oldValue,newValue,total_rate);
@@ -463,7 +464,9 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 				if(!item.getRate().getText().isEmpty() && !item.getQuantity().getText().isEmpty()) {
 					item.getGross().setText(doubleToStringF(item.getQuantityValue() * item.getRateValue()));
-					item.getTaxable_value().setText(doubleToStringF(item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100));
+//					double taxable = item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100;
+//					item.getTaxable_value().setText(doubleToStringF(taxable));
+
 				}
 			});
 
@@ -471,13 +474,13 @@ public class PurchaseVoucherController extends ApplicationMainController {
 				total_gross=calculateTotal(oldValue,newValue,total_gross);
 				gross_total.setText(doubleToStringF(total_gross));
 				// if(!item.getQuantity().getText().isEmpty() )
-				item.getTaxable_value().setText(doubleToStringF(item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100));
 
 				total_discount=calculatePercentageGst(oldValue,newValue,total_discount,(int)item.getDiscountValue());
 				discount_total.setText(doubleToStringF(total_discount));
 
-			});
+				calculateTaxable(item);
 
+			});
 			item.getGross().focusedProperty().addListener((event,wasFocused,isNowFocused)->{
 				if(!isNowFocused && item.getQuantityValue()!=0){
 					item.getRate().setText(doubleToStringF(item.getGrossValue()/item.getQuantityValue()));
@@ -487,10 +490,11 @@ public class PurchaseVoucherController extends ApplicationMainController {
 			item.getDiscount().textProperty().addListener(((observableValue, oldValue, newValue) -> {
 				total_discount=calculatePercentageTotal(oldValue,newValue,total_discount,item.getGrossValue());
 				discount_total.setText(doubleToStringF(total_discount));
-				item.getTaxable_value().setText(doubleToStringF(item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100));
+				calculateTaxable(item);
 			}));
 
 			item.getTaxable_value().textProperty().addListener(((observableValue, oldValue, newValue) ->{
+				System.out.println("old: " + oldValue + "   New:" + newValue);
 				total_taxable=calculateTotal(oldValue,newValue,total_taxable);
 				taxable_total.setText(doubleToStringF(total_taxable));
 
@@ -603,6 +607,26 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 
 
+
+	}
+
+	private void calculateTaxable(PurchaseItem item) {
+
+		double taxable = item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100;
+
+		if (var1.equalsIgnoreCase("taxable value"))
+			taxable += item.getNewCol1Value();
+		if (var2.equalsIgnoreCase("taxable value"))
+			taxable += item.getNewCol2Value();
+		if (var3.equalsIgnoreCase("taxable value"))
+			taxable += item.getNewCol3Value();
+		if (var4.equalsIgnoreCase("taxable value"))
+			taxable += item.getNewCol4Value();
+		if (var5.equalsIgnoreCase("taxable value"))
+			taxable += item.getNewCol5Value();
+
+		System.out.println("Taxable: " + taxable);
+		item.getTaxable_value().setText(doubleToStringF(taxable));
 
 	}
 
