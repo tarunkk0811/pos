@@ -43,5 +43,13 @@ public class ApplicationMainController {
         return (JSONObject) jsonobject.get(objname);
     }
 
+    public int parseToInt(String str){
+        return (str.isEmpty()) ? 0 : Integer.parseInt(str);
+    }
+
+    public double parseToDouble(String str){
+        return (str.isEmpty()) ? 0 : Double.parseDouble(str);
+    }
+
 
 }

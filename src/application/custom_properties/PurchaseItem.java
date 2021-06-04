@@ -305,7 +305,7 @@ public class PurchaseItem {
 
 	public double getRateValue(){return this.getRate().getText().isEmpty()?0:Double.parseDouble(this.getRate().getText());}
 
-	public double getGrossValue(){return this.getGross().getText().isEmpty()?0:Double.parseDouble(this.getGross().getText());}
+	public double getGrossValue(){return this.getGross().getText().isEmpty()? 0:Double.parseDouble(this.getGross().getText());}
 
 	public double getDiscountValue(){return this.getDiscount().getText().isEmpty()?0:Double.parseDouble(this.getDiscount().getText());}
 

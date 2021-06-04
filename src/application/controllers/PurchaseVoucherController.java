@@ -6,10 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Locale;
+import java.util.*;
 
 
 import DAO.GetVoucherDao;
@@ -125,6 +122,18 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 	@FXML
 	private Button add_rows;
+
+	HashMap<Integer,Double> tot_quantity = new HashMap<>(),tot_rate = new HashMap<>(),tot_gross = new HashMap<>(),
+						tot_taxable_value = new HashMap<>() ,tot_discount = new HashMap<>(),tot_sgst = new HashMap<>(),
+						tot_cgst = new HashMap<>(),tot_igst = new HashMap<>(),tot_other_charges = new HashMap<>(),
+						tot_cess = new HashMap<>(),tot_new_col1 = new HashMap<>(),tot_new_col2 = new HashMap<>(),
+						tot_new_col3 = new HashMap<>(),tot_new_col4 = new HashMap<>(),tot_new_col5 = new HashMap<>(),
+						tot_net_value = new HashMap<>();
+
+	HashMap<Integer,TextField> add_to_taxable_value = new HashMap<>();
+	HashMap<Integer,TextField> add_to_net_value = new HashMap<>();
+
+
 
 	static double total_qty,total_gross,total_rate,total_discount,total_cgst,total_sgst,total_igst,total_oc,total_cess,total_taxable,total_net_amount,total_col1,total_col2,total_col3,total_col4,total_col5;
 
@@ -323,7 +332,6 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		Iterator keys = hidden.keySet().iterator();
 
 
-
 		topvbox.getChildren().remove((HBox) ap.lookup("#billnohbox"));
 
 		while(keys.hasNext()) {
@@ -447,167 +455,344 @@ public class PurchaseVoucherController extends ApplicationMainController {
 			item.getItems().addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
 				app_controller.filter(item.getItems(), items, event);
 			});
+			/********************************************************************/
 
-			//For input string: "5         0" should be handled
-			item.getQuantity().textProperty().addListener((observable, oldValue, newValue) -> {
-				total_qty=calculateTotal(oldValue,newValue,total_qty);
-				qty_total.setText(String.valueOf(total_qty));
-				if(!item.getQuantity().getText().isEmpty()) {
-					item.getGross().setText(doubleToStringF(item.getQuantityValue() * item.getRateValue()));
-					calculateTaxable(item);
-				}
-
-			});
-			item.getRate().textProperty().addListener((observable,oldValue,newValue)->{
-				total_rate=calculateTotal(oldValue,newValue,total_rate);
-				rate_total.setText(doubleToStringF(total_rate));
-
-				if(!item.getRate().getText().isEmpty() && !item.getQuantity().getText().isEmpty()) {
-					item.getGross().setText(doubleToStringF(item.getQuantityValue() * item.getRateValue()));
-//					double taxable = item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100;
-//					item.getTaxable_value().setText(doubleToStringF(taxable));
-
+			item.getQuantity().focusedProperty().addListener((observableValue, wasFocussed, isNowFocussed) -> {
+				if(!isNowFocussed){
+					if(Integer.parseInt(item.getSno()) == sno -2)
+						addRows(1);
+					if(!item.getItemName().isEmpty())
+						calculate(item);
 				}
 			});
 
-			item.getGross().textProperty().addListener((observable,oldValue,newValue)->{
-				total_gross=calculateTotal(oldValue,newValue,total_gross);
-				gross_total.setText(doubleToStringF(total_gross));
-				// if(!item.getQuantity().getText().isEmpty() )
-
-				total_discount=calculatePercentageGst(oldValue,newValue,total_discount,(int)item.getDiscountValue());
-				discount_total.setText(doubleToStringF(total_discount));
-
-				calculateTaxable(item);
-
-			});
-			item.getGross().focusedProperty().addListener((event,wasFocused,isNowFocused)->{
-				if(!isNowFocused && item.getQuantityValue()!=0){
-					item.getRate().setText(doubleToStringF(item.getGrossValue()/item.getQuantityValue()));
+			item.getRate().focusedProperty().addListener((observableValue, wasFocussed, isNowFocussed) -> {
+				if(!isNowFocussed){
+					if(isDiff(tot_rate,item.getRateValue(),parseToInt(item.getSno())))
+						calculate(item);
 				}
 			});
 
-			item.getDiscount().textProperty().addListener(((observableValue, oldValue, newValue) -> {
-				total_discount=calculatePercentageTotal(oldValue,newValue,total_discount,item.getGrossValue());
-				discount_total.setText(doubleToStringF(total_discount));
-				calculateTaxable(item);
-			}));
-
-			item.getTaxable_value().textProperty().addListener(((observableValue, oldValue, newValue) ->{
-				System.out.println("old: " + oldValue + "   New:" + newValue);
-				total_taxable=calculateTotal(oldValue,newValue,total_taxable);
-				taxable_total.setText(doubleToStringF(total_taxable));
-
-				total_cgst = calculatePercentageGst(oldValue,newValue,total_cgst,item.getCgstValue());
-				cgst_total.setText(doubleToStringF(total_cgst));
-
-				total_sgst = calculatePercentageGst(oldValue,newValue,total_sgst,item.getSgstValue());
-				sgst_total.setText(doubleToStringF(total_sgst));
-
-				total_igst = calculatePercentageGst(oldValue,newValue,total_igst,item.getIgstValue());
-				igst_total.setText(doubleToStringF(total_igst));
-
-				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable;
-				if (var1.equalsIgnoreCase("net value"))
-					total_net_amount += total_col1;
-				if (var2.equalsIgnoreCase("net value"))
-					total_net_amount += total_col2;
-				if (var3.equalsIgnoreCase("net value"))
-					total_net_amount += total_col3;
-				if (var4.equalsIgnoreCase("net value"))
-					total_net_amount += total_col4;
-				if (var5.equalsIgnoreCase("net value"))
-					total_net_amount += total_col5;
-
-				net_amount.setText(doubleToStringF(total_net_amount));
-			}));
-
-			item.getCgst().textProperty().addListener(((observableValue, oldValue, newValue) ->{
-				total_cgst = calculatePercentageTotal(oldValue,newValue,total_cgst,item.getTaxableValue());
-				cgst_total.setText(doubleToStringF(total_cgst));
-			}));
-			item.getSgst().textProperty().addListener(((observableValue, oldValue, newValue) ->{
-				total_sgst = calculatePercentageTotal(oldValue,newValue,total_sgst,Double.parseDouble(item.getTaxable_value().getText()));
-				sgst_total.setText(doubleToStringF(total_sgst));
-			}));
-
-			if(isigst.isSelected()){
-				item.getIgst().textProperty().addListener(((observableValue, oldValue, newValue) ->{
-					total_igst = calculatePercentageTotal(oldValue,newValue,total_igst,item.getTaxableValue());
-					igst_total.setText(doubleToStringF(total_igst));
-				}));
-			}
-
-			item.getOther_charges().textProperty().addListener(((observableValue, oldValue, newValue) ->{
-				total_oc=calculateTotal(oldValue,newValue,total_oc);
-				oc_total.setText(doubleToStringF(total_oc));
-
-				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable+total_col1+total_col2+total_col3+total_col4+total_col5;
-				net_amount.setText(doubleToStringF(total_net_amount));
-			}));
-
-			item.getCess().textProperty().addListener((observableValue, oldValue, newValue) -> {
-				total_cess=calculateTotal(oldValue,newValue,total_cess);
-				cess_total.setText(doubleToStringF(total_cess));
-				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable+total_col1+total_col2+total_col3+total_col4+total_col5;
-				net_amount.setText(doubleToStringF(total_net_amount));
-			});
-
-
-
-			////////////////////////////////////////////////////////////////////
-			item.getQuantity().focusedProperty().addListener((event,wasFocussed,isNowFocussed)->{
-				if(Integer.parseInt(item.getSno()) == sno -2){
-					addRows(1);
-				}
-			});
-
-
-			if(!var1.isEmpty()) {
-				item.getNewcol1().textProperty().addListener((observableValue, oldValue, newValue) -> {
-					String old_total_col = String.valueOf(total_col1);
-					total_col1 = calculateTotal(oldValue,newValue,total_col1);
-					addNewColListeners(var1,old_total_col, total_col1, oldValue, newValue, item);
-				});
-				if (!var2.isEmpty()) {
-					item.getNewcol2().textProperty().addListener((observableValue, oldValue, newValue) -> {
-						String old_total_col = String.valueOf(total_col2);
-						total_col2 = calculateTotal(oldValue,newValue,total_col2);
-						System.out.println(total_col2);
-						addNewColListeners(var2,old_total_col,total_col2, oldValue, newValue, item);
-					});
-
-					if (!var3.isEmpty()) {
-						item.getNewcol3().textProperty().addListener((observableValue, oldValue, newValue) -> {
-							String old_total_col = String.valueOf(total_col3);
-							total_col3 = calculateTotal(oldValue,newValue,total_col3);
-							addNewColListeners(var3,old_total_col,total_col3, oldValue, newValue, item);
-						});
-						if (!var4.isEmpty()) {
-							item.getNewcol4().textProperty().addListener((observableValue, oldValue, newValue) -> {
-								String old_total_col = String.valueOf(total_col1);
-								total_col4 = calculateTotal(oldValue,newValue,total_col4);
-								addNewColListeners(var4, old_total_col,total_col4, oldValue, newValue, item);
-							});
-							if (!var5.isEmpty()) {
-								item.getNewcol5().textProperty().addListener((observableValue, oldValue, newValue) -> {
-									String old_total_col = String.valueOf(total_col5);
-									total_col5 = calculateTotal(oldValue,newValue,total_col5);
-									addNewColListeners(var5,old_total_col,total_col5, oldValue, newValue, item);
-								});
-
-							}
-						}
+			item.getGross().focusedProperty().addListener((observableValue, wasFocussed, isNowFocussed) -> {
+				if(!isNowFocussed){
+					if(isDiff(tot_gross,item.getGrossValue(),parseToInt(item.getSno()))){
+						item.getRate().setText(doubleToStringF(item.getGrossValue()/item.getQuantityValue()));
+						calculate(item);
 					}
 				}
-			}
+			});
 
+			item.getDiscount().focusedProperty().addListener((observableValue, wasFocussed, isNowFocussed) -> {
+				if(!isNowFocussed){
+					if(isDiff(tot_discount,item.getDiscountValue(),parseToInt(item.getSno())))
+						calculate(item);
+				}
+			});
+
+			item.getSgst().focusedProperty().addListener((observableValue, wasFocussed, isNowFocussed) -> {
+				if(!isNowFocussed){
+					if(isDiff(tot_sgst,item.getSgstValue(),parseToInt(item.getSno())))
+						calculate(item);
+				}
+			});
+
+			item.getCgst().focusedProperty().addListener((observableValue, wasFocussed, isNowFocussed) -> {
+				if(!isNowFocussed){
+					if(isDiff(tot_cgst,item.getCgstValue(),parseToInt(item.getSno())))
+						calculate(item);
+				}
+			});
+
+			item.getIgst().focusedProperty().addListener((observableValue, wasFocussed, isNowFocussed) -> {
+				if(!isNowFocussed){
+					if(isDiff(tot_igst,item.getIgstValue(),parseToInt(item.getSno())))
+						calculate(item);
+				}
+			});
+
+			item.getOther_charges().focusedProperty().addListener((observableValue, wasFocussed, isNowFocussed) -> {
+				if(!isNowFocussed){
+					if(isDiff(tot_other_charges,parseToDouble(item.getOther_charges().getText()),parseToInt(item.getSno())))
+						calculate(item);
+				}
+			});
+
+			item.getCess().focusedProperty().addListener((observableValue, wasFocussed, isNowFocussed) -> {
+				if(!isNowFocussed){
+					if(isDiff(tot_cess,parseToDouble(item.getCess().getText()),parseToInt(item.getSno())))
+						calculate(item);
+				}
+			});
+
+
+
+
+
+
+
+
+
+			/******************************************************************************/
+			//For input string: "5         0" should be handled
+//
+//			item.getQuantity().textProperty().addListener((observable, oldValue, newValue) -> {
+//				total_qty=calculateTotal(oldValue,newValue,total_qty);
+//				qty_total.setText(String.valueOf(total_qty));
+//				if(!item.getQuantity().getText().isEmpty()) {
+//					item.getGross().setText(doubleToStringF(item.getQuantityValue() * item.getRateValue()));
+//					calculateTaxable(item);
+//				}
+//
+//			});
+//			item.getRate().textProperty().addListener((observable,oldValue,newValue)->{
+//				total_rate=calculateTotal(oldValue,newValue,total_rate);
+//				rate_total.setText(doubleToStringF(total_rate));
+//
+//				if(!item.getRate().getText().isEmpty() && !item.getQuantity().getText().isEmpty()) {
+//					item.getGross().setText(doubleToStringF(item.getQuantityValue() * item.getRateValue()));
+////					double taxable = item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100;
+////					item.getTaxable_value().setText(doubleToStringF(taxable));
+//
+//				}
+//			});
+//
+//			item.getGross().textProperty().addListener((observable,oldValue,newValue)->{
+//				total_gross=calculateTotal(oldValue,newValue,total_gross);
+//				gross_total.setText(doubleToStringF(total_gross));
+//				// if(!item.getQuantity().getText().isEmpty() )
+//
+//				total_discount=calculatePercentageGst(oldValue,newValue,total_discount,(int)item.getDiscountValue());
+//				discount_total.setText(doubleToStringF(total_discount));
+//
+//				calculateTaxable(item);
+//
+//			});
+//			item.getGross().focusedProperty().addListener((event,wasFocused,isNowFocused)->{
+//				if(!isNowFocused && item.getQuantityValue()!=0){
+//					item.getRate().setText(doubleToStringF(item.getGrossValue()/item.getQuantityValue()));
+//				}
+//			});
+//
+//			item.getDiscount().textProperty().addListener(((observableValue, oldValue, newValue) -> {
+//				total_discount=calculatePercentageTotal(oldValue,newValue,total_discount,item.getGrossValue());
+//				discount_total.setText(doubleToStringF(total_discount));
+//				calculateTaxable(item);
+//			}));
+//
+//			item.getTaxable_value().textProperty().addListener(((observableValue, oldValue, newValue) ->{
+//				System.out.println("old: " + oldValue + "   New:" + newValue);
+//				total_taxable=calculateTotal(oldValue,newValue,total_taxable);
+//				taxable_total.setText(doubleToStringF(total_taxable));
+//
+//				total_cgst = calculatePercentageGst(oldValue,newValue,total_cgst,item.getCgstValue());
+//				cgst_total.setText(doubleToStringF(total_cgst));
+//
+//				total_sgst = calculatePercentageGst(oldValue,newValue,total_sgst,item.getSgstValue());
+//				sgst_total.setText(doubleToStringF(total_sgst));
+//
+//				total_igst = calculatePercentageGst(oldValue,newValue,total_igst,item.getIgstValue());
+//				igst_total.setText(doubleToStringF(total_igst));
+//
+//				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable;
+//				if (var1.equalsIgnoreCase("net value"))
+//					total_net_amount += total_col1;
+//				if (var2.equalsIgnoreCase("net value"))
+//					total_net_amount += total_col2;
+//				if (var3.equalsIgnoreCase("net value"))
+//					total_net_amount += total_col3;
+//				if (var4.equalsIgnoreCase("net value"))
+//					total_net_amount += total_col4;
+//				if (var5.equalsIgnoreCase("net value"))
+//					total_net_amount += total_col5;
+//
+//				net_amount.setText(doubleToStringF(total_net_amount));
+//			}));
+//
+//			item.getCgst().textProperty().addListener(((observableValue, oldValue, newValue) ->{
+//				total_cgst = calculatePercentageTotal(oldValue,newValue,total_cgst,item.getTaxableValue());
+//				cgst_total.setText(doubleToStringF(total_cgst));
+//			}));
+//			item.getSgst().textProperty().addListener(((observableValue, oldValue, newValue) ->{
+//				total_sgst = calculatePercentageTotal(oldValue,newValue,total_sgst,Double.parseDouble(item.getTaxable_value().getText()));
+//				sgst_total.setText(doubleToStringF(total_sgst));
+//			}));
+//
+//			if(isigst.isSelected()){
+//				item.getIgst().textProperty().addListener(((observableValue, oldValue, newValue) ->{
+//					total_igst = calculatePercentageTotal(oldValue,newValue,total_igst,item.getTaxableValue());
+//					igst_total.setText(doubleToStringF(total_igst));
+//				}));
+//			}
+//
+//			item.getOther_charges().textProperty().addListener(((observableValue, oldValue, newValue) ->{
+//				total_oc=calculateTotal(oldValue,newValue,total_oc);
+//				oc_total.setText(doubleToStringF(total_oc));
+//
+//				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable+total_col1+total_col2+total_col3+total_col4+total_col5;
+//				net_amount.setText(doubleToStringF(total_net_amount));
+//			}));
+//
+//			item.getCess().textProperty().addListener((observableValue, oldValue, newValue) -> {
+//				total_cess=calculateTotal(oldValue,newValue,total_cess);
+//				cess_total.setText(doubleToStringF(total_cess));
+//				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable+total_col1+total_col2+total_col3+total_col4+total_col5;
+//				net_amount.setText(doubleToStringF(total_net_amount));
+//			});
+//
+//
+//
+//			////////////////////////////////////////////////////////////////////
+//			item.getQuantity().focusedProperty().addListener((event,wasFocussed,isNowFocussed)->{
+//				if(Integer.parseInt(item.getSno()) == sno -2){
+//					addRows(1);
+//				}
+//			});
+//
+//
+//			if(!var1.isEmpty()) {
+//				item.getNewcol1().textProperty().addListener((observableValue, oldValue, newValue) -> {
+//					String old_total_col = String.valueOf(total_col1);
+//					total_col1 = calculateTotal(oldValue,newValue,total_col1);
+//					addNewColListeners(var1,old_total_col, total_col1, oldValue, newValue, item);
+//				});
+//				if (!var2.isEmpty()) {
+//					item.getNewcol2().textProperty().addListener((observableValue, oldValue, newValue) -> {
+//						String old_total_col = String.valueOf(total_col2);
+//						total_col2 = calculateTotal(oldValue,newValue,total_col2);
+//						System.out.println(total_col2);
+//						addNewColListeners(var2,old_total_col,total_col2, oldValue, newValue, item);
+//					});
+//
+//					if (!var3.isEmpty()) {
+//						item.getNewcol3().textProperty().addListener((observableValue, oldValue, newValue) -> {
+//							String old_total_col = String.valueOf(total_col3);
+//							total_col3 = calculateTotal(oldValue,newValue,total_col3);
+//							addNewColListeners(var3,old_total_col,total_col3, oldValue, newValue, item);
+//						});
+//						if (!var4.isEmpty()) {
+//							item.getNewcol4().textProperty().addListener((observableValue, oldValue, newValue) -> {
+//								String old_total_col = String.valueOf(total_col1);
+//								total_col4 = calculateTotal(oldValue,newValue,total_col4);
+//								addNewColListeners(var4, old_total_col,total_col4, oldValue, newValue, item);
+//							});
+//							if (!var5.isEmpty()) {
+//								item.getNewcol5().textProperty().addListener((observableValue, oldValue, newValue) -> {
+//									String old_total_col = String.valueOf(total_col5);
+//									total_col5 = calculateTotal(oldValue,newValue,total_col5);
+//									addNewColListeners(var5,old_total_col,total_col5, oldValue, newValue, item);
+//								});
+//
+//							}
+//						}
+//					}
+//				}
+//			}
 
 		}
 
+	}
+
+
+	private void calculate(PurchaseItem item) {
+		int item_sno = parseToInt(item.getSno());
+		double item_net_value = 0;
+		// rate
+		tot_rate.put(item_sno,item.getRateValue());
+		rate_total.setText(calculateSum(tot_rate));
+
+		// quantity
+		tot_quantity.put(item_sno,item.getQuantityValue());
+		qty_total.setText(calculateSum(tot_quantity));
+
+		//gross
+		// calculate gross value of an item
+		double gross = item.getRateValue()*item.getQuantityValue();
+		item.getGross().setText(doubleToStringF(gross));
+		tot_gross.put(item_sno,item.getGrossValue());
+		gross_total.setText(calculateSum(tot_gross));
+
+		// discount
+		// calculate discount value of an item
+		double discount_in_rs = (item.getDiscountValue()*gross)/100;
+		tot_discount.put(item_sno,discount_in_rs);
+		discount_total.setText(calculateSum(tot_discount));
+
+		// new cols
+//		if (var1.equalsIgnoreCase("taxable value")) {
+//			tot_new_col1.put(item_sno, item.getNewCol1Value());
+//
+//		}
+//		if (var2.equalsIgnoreCase("taxable value"))
+//			tot_new_col2.put(item_sno,item.getNewCol2Value());
+//		if (var3.equalsIgnoreCase("taxable value"))
+//			tot_new_col3.put(item_sno,item.getNewCol3Value());
+//		if (var4.equalsIgnoreCase("taxable value"))
+//			tot_new_col4.put(item_sno,item.getNewCol4Value());
+//		if (var5.equalsIgnoreCase("taxable value"))
+//			tot_new_col5.put(item_sno,item.getNewCol5Value());
 
 
 
+		// taxable
+		// calculate taxable value of an item
+		double taxable = gross-discount_in_rs;
+		item_net_value += taxable;
+		item.getTaxable_value().setText(doubleToStringF(taxable));
+		tot_taxable_value.put(item_sno,item.getTaxableValue());
+		taxable_total.setText(calculateSum(tot_taxable_value));
+
+
+		/****************** After calculating Taxable Value *****************************/
+
+		// tax
+		// calculate tax value of an item
+		double sgst = item.getTaxableValue()*item.getSgstValue()/100;
+		double cgst = item.getTaxableValue()*item.getCgstValue()/100;
+		double igst = item.getTaxableValue()*item.getIgstValue()/100;
+		if(!isigst.isSelected()){
+			// sgst
+			item_net_value += sgst;
+			tot_sgst.put(item_sno,sgst);
+			sgst_total.setText(calculateSum(tot_sgst));
+
+			// cgst
+			item_net_value += cgst;
+			tot_cgst.put(item_sno,cgst);
+			cgst_total.setText(calculateSum(tot_cgst));
+		}else{
+			// igst
+			item_net_value += igst;
+			tot_igst.put(item_sno,igst);
+			cgst_total.setText(calculateSum(tot_igst));
+		}
+
+		// other charges
+		double other_charges = parseToDouble(item.getOther_charges().getText());
+		item_net_value += other_charges;
+		tot_other_charges.put(item_sno,other_charges);
+		oc_total.setText(calculateSum(tot_other_charges));
+
+		// cess
+		double cess = parseToDouble(item.getCess().getText());
+		item_net_value += cess;
+		tot_cess.put(item_sno,cess);
+		cess_total.setText(calculateSum(tot_cess));
+
+		// total net
+		tot_net_value.put(item_sno,item_net_value);
+		net_amount.setText(calculateSum(tot_net_value));
+	}
+
+	private String calculateSum(HashMap<Integer, Double> tot_taxable_value) {
+		double sum = 0;
+		for(double value:tot_taxable_value.values())
+			sum += value;
+		return doubleToStringF(sum);
+	}
+
+
+	private boolean isDiff(HashMap<Integer, Double> tot_map, double newValue, int item_sno) {
+		return (tot_map.containsKey(item_sno) && newValue != tot_map.get(item_sno));
 	}
 
 	private void calculateTaxable(PurchaseItem item) {
