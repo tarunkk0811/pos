@@ -524,7 +524,54 @@ public class PurchaseVoucherController extends ApplicationMainController {
 				}
 			});
 
+			if(!var1.isEmpty() && !var1.equalsIgnoreCase("none")){
+				item.getNewcol1().focusedProperty().addListener((observableValue, wasFocussed, isNowFocussed) -> {
+					if(!isNowFocussed){
+						if(isDiff(tot_new_col1,item.getNewCol1Value(),parseToInt(item.getSno())))
+							calculate(item);
+					}
+				});
+			}
 
+
+			if(!var2.isEmpty() && !var2.equalsIgnoreCase("none")){
+				item.getNewcol2().focusedProperty().addListener((observableValue, wasFocussed, isNowFocussed) -> {
+					if(!isNowFocussed){
+						if(isDiff(tot_new_col2,item.getNewCol2Value(),parseToInt(item.getSno())))
+							calculate(item);
+					}
+				});
+			}
+
+
+			if(!var3.isEmpty() && !var3.equalsIgnoreCase("none")){
+				item.getNewcol3().focusedProperty().addListener((observableValue, wasFocussed, isNowFocussed) -> {
+					if(!isNowFocussed){
+						if(isDiff(tot_new_col3,item.getNewCol3Value(),parseToInt(item.getSno())))
+							calculate(item);
+					}
+				});
+			}
+
+
+			if(!var4.isEmpty() && !var4.equalsIgnoreCase("none")){
+				item.getNewcol4().focusedProperty().addListener((observableValue, wasFocussed, isNowFocussed) -> {
+					if(!isNowFocussed){
+						if(isDiff(tot_new_col4,item.getNewCol4Value(),parseToInt(item.getSno())))
+							calculate(item);
+					}
+				});
+			}
+
+
+			if(!var5.isEmpty() && !var5.equalsIgnoreCase("none")){
+				item.getNewcol5().focusedProperty().addListener((observableValue, wasFocussed, isNowFocussed) -> {
+					if(!isNowFocussed){
+						if(isDiff(tot_new_col5,item.getNewCol5Value(),parseToInt(item.getSno())))
+							calculate(item);
+					}
+				});
+			}
 
 
 
@@ -694,48 +741,75 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 
 	private void calculate(PurchaseItem item) {
+		System.out.println("In calculate");
 		int item_sno = parseToInt(item.getSno());
 		double item_net_value = 0;
+		double taxable = 0;
 		// rate
-		tot_rate.put(item_sno,item.getRateValue());
+		tot_rate.put(item_sno, item.getRateValue());
 		rate_total.setText(calculateSum(tot_rate));
 
 		// quantity
-		tot_quantity.put(item_sno,item.getQuantityValue());
+		tot_quantity.put(item_sno, item.getQuantityValue());
 		qty_total.setText(calculateSum(tot_quantity));
 
 		//gross
 		// calculate gross value of an item
-		double gross = item.getRateValue()*item.getQuantityValue();
+		double gross = item.getRateValue() * item.getQuantityValue();
 		item.getGross().setText(doubleToStringF(gross));
-		tot_gross.put(item_sno,item.getGrossValue());
+		tot_gross.put(item_sno, item.getGrossValue());
 		gross_total.setText(calculateSum(tot_gross));
 
 		// discount
 		// calculate discount value of an item
-		double discount_in_rs = (item.getDiscountValue()*gross)/100;
-		tot_discount.put(item_sno,discount_in_rs);
+		double discount_in_rs = (item.getDiscountValue() * gross) / 100;
+		tot_discount.put(item_sno, discount_in_rs);
 		discount_total.setText(calculateSum(tot_discount));
 
 		// new cols
-//		if (var1.equalsIgnoreCase("taxable value")) {
-//			tot_new_col1.put(item_sno, item.getNewCol1Value());
-//
-//		}
-//		if (var2.equalsIgnoreCase("taxable value"))
-//			tot_new_col2.put(item_sno,item.getNewCol2Value());
-//		if (var3.equalsIgnoreCase("taxable value"))
-//			tot_new_col3.put(item_sno,item.getNewCol3Value());
-//		if (var4.equalsIgnoreCase("taxable value"))
-//			tot_new_col4.put(item_sno,item.getNewCol4Value());
-//		if (var5.equalsIgnoreCase("taxable value"))
-//			tot_new_col5.put(item_sno,item.getNewCol5Value());
+		if (!var1.equalsIgnoreCase("none") && !var1.isEmpty()) {
+			if(var1.equalsIgnoreCase("taxable value"))
+				taxable += item.getNewCol1Value();
+			else
+				item_net_value += item.getNewCol1Value();
+			tot_new_col1.put(item_sno, item.getNewCol1Value());
+		}
+
+		if (!var2.equalsIgnoreCase("none") && !var2.isEmpty()) {
+			if(var2.equalsIgnoreCase("taxable value"))
+				taxable += item.getNewCol2Value();
+			else
+				item_net_value += item.getNewCol2Value();
+			tot_new_col2.put(item_sno, item.getNewCol2Value());
+		}
+		if (!var3.equalsIgnoreCase("none") && !var3.isEmpty()) {
+			if(var3.equalsIgnoreCase("taxable value"))
+				taxable += item.getNewCol3Value();
+			else
+				item_net_value += item.getNewCol3Value();
+			tot_new_col3.put(item_sno, item.getNewCol3Value());
+		}
+		if (!var4.equalsIgnoreCase("none") && !var4.isEmpty()) {
+			if(var4.equalsIgnoreCase("taxable value"))
+				taxable += item.getNewCol4Value();
+			else
+				item_net_value += item.getNewCol4Value();
+			tot_new_col4.put(item_sno, item.getNewCol4Value());
+		}
+		if (!var5.equalsIgnoreCase("none") && !var5.isEmpty()) {
+			if(var5.equalsIgnoreCase("taxable value"))
+				taxable += item.getNewCol5Value();
+			else
+				item_net_value += item.getNewCol5Value();
+			tot_new_col5.put(item_sno, item.getNewCol5Value());
+		}
+
 
 
 
 		// taxable
 		// calculate taxable value of an item
-		double taxable = gross-discount_in_rs;
+		taxable += gross-discount_in_rs;
 		item_net_value += taxable;
 		item.getTaxable_value().setText(doubleToStringF(taxable));
 		tot_taxable_value.put(item_sno,item.getTaxableValue());
