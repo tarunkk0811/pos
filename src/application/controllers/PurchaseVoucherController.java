@@ -1,6 +1,7 @@
 package application.controllers;
 
 
+import DAO.SetPurchaseItemDao;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ import application.custom_properties.PurchaseItem;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -121,7 +123,8 @@ public class PurchaseVoucherController extends ApplicationMainController {
 	private CheckBox isigst, show_customers;
 
 	@FXML
-	private Button add_rows;
+	private Button save;
+
 
 	HashMap<Integer,Double> tot_quantity = new HashMap<>(),tot_rate = new HashMap<>(),tot_gross = new HashMap<>(),
 						tot_taxable_value = new HashMap<>() ,tot_discount = new HashMap<>(),tot_sgst = new HashMap<>(),
@@ -150,7 +153,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 	HashMap<String, Integer> items_with_ids = new HashMap<String, Integer>();
 	HashMap<String, Integer> Accounts_with_ids = new HashMap<String, Integer>();
-	final ObservableList<String> temp_items = getAllItems();
+	ObservableList<String> item_names = getAllItems();
 	double prev,nv,ov ;
 	String previtemname;
 	GetAccountsDao get_acc_dao = new GetAccountsDao();
@@ -170,7 +173,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		hideOrUnhideFields();
 
 		prev = 0.0;
-		 nv=0;ov=0;
+		nv=0;ov=0;
 		total_qty=0;total_gross=0;total_rate=0;total_discount=0;total_cgst=0;total_sgst=0;total_igst=0;total_oc=0;total_cess=0;total_taxable=0;total_net_amount=0;
 		total_col1=0;total_col2=0;total_col3=0;total_col4=0;total_col5=0;
 		ResultSet vendors_rs = get_acc_dao.getVendors(SessionController.cid);
@@ -215,13 +218,6 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		type_of_purchase.add("Non Business");
 		type_of_purchase.add("Ineligible Credit Section");
 		type_of_purchase.add("CR Not available");
-
-
-		/*for (sno= 1; sno <= 13;sno++) {
-			ObservableList<String> items = FXCollections.observableArrayList(temp_items);
-			itemlist.add(new PurchaseItem(sno, items, type_of_purchase, "", "", "", "", "", "", "", "", "", "","somtxt","col2"));
-		}*/
-
 
 		//purchasetv.setMaxWidth(purchasetv.getMaxWidth()+temp2.getMaxWidth());
 
@@ -412,19 +408,20 @@ public class PurchaseVoucherController extends ApplicationMainController {
 	private void linkEventListeners(ObservableList<PurchaseItem> itemlist) {
 
 		for (PurchaseItem item : itemlist) {
-			ObservableList<String> items = FXCollections.observableArrayList(temp_items);
+			ObservableList<String> items = FXCollections.observableArrayList(item_names);
 
 			item.getItems().getEditor().focusedProperty().addListener((event,wasFocused, isNowFocused) -> {
-				if (! isNowFocused) {
-					if ((!item.getItems().getEditor().getText().isEmpty()) && (items_with_ids.containsKey(capitalize(item.getItems().getEditor().getText()))) && (!previtemname.equals(item.getItemName()))) {
+				if (!isNowFocused) {
+					if ((!item.getItemName().isEmpty()) && (items_with_ids.containsKey(capitalize(item.getItemName()))) && (!previtemname.equals(item.getItemName()))) {
 
 						try {
-							ResultSet res = get_products_dao.getProductDetails(items_with_ids.get(item.getItems().getSelectionModel().getSelectedItem()));
+							ResultSet res = get_products_dao.getProductDetails(items_with_ids.get(capitalize(item.getItemName().trim())));
 							if(res.next()) {
 								// if rate field in empty then set the rate field
 								// then updates the total_rate
 
-								item.getRate().setText(String.valueOf(res.getFloat(1)));
+
+								item.getRate().setText(doubleToStringF((double)res.getFloat(1)));
 
 								int gst = res.getInt(2);
 								item.getDiscount().setText(String.valueOf(res.getFloat(3)));
@@ -443,11 +440,10 @@ public class PurchaseVoucherController extends ApplicationMainController {
 						} catch (SQLException throwables) {
 							throwables.printStackTrace();
 						}
-						//item.getItems().setValue(item.getItems().getEditor().getText());
 					}
 				}
 				else{
-					previtemname= item.getItemName();
+					previtemname = item.getItemName();
 
 				}
 			});
@@ -580,160 +576,6 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 
 			/******************************************************************************/
-			//For input string: "5         0" should be handled
-//
-//			item.getQuantity().textProperty().addListener((observable, oldValue, newValue) -> {
-//				total_qty=calculateTotal(oldValue,newValue,total_qty);
-//				qty_total.setText(String.valueOf(total_qty));
-//				if(!item.getQuantity().getText().isEmpty()) {
-//					item.getGross().setText(doubleToStringF(item.getQuantityValue() * item.getRateValue()));
-//					calculateTaxable(item);
-//				}
-//
-//			});
-//			item.getRate().textProperty().addListener((observable,oldValue,newValue)->{
-//				total_rate=calculateTotal(oldValue,newValue,total_rate);
-//				rate_total.setText(doubleToStringF(total_rate));
-//
-//				if(!item.getRate().getText().isEmpty() && !item.getQuantity().getText().isEmpty()) {
-//					item.getGross().setText(doubleToStringF(item.getQuantityValue() * item.getRateValue()));
-////					double taxable = item.getGrossValue()-(item.getGrossValue()*item.getDiscountValue())/100;
-////					item.getTaxable_value().setText(doubleToStringF(taxable));
-//
-//				}
-//			});
-//
-//			item.getGross().textProperty().addListener((observable,oldValue,newValue)->{
-//				total_gross=calculateTotal(oldValue,newValue,total_gross);
-//				gross_total.setText(doubleToStringF(total_gross));
-//				// if(!item.getQuantity().getText().isEmpty() )
-//
-//				total_discount=calculatePercentageGst(oldValue,newValue,total_discount,(int)item.getDiscountValue());
-//				discount_total.setText(doubleToStringF(total_discount));
-//
-//				calculateTaxable(item);
-//
-//			});
-//			item.getGross().focusedProperty().addListener((event,wasFocused,isNowFocused)->{
-//				if(!isNowFocused && item.getQuantityValue()!=0){
-//					item.getRate().setText(doubleToStringF(item.getGrossValue()/item.getQuantityValue()));
-//				}
-//			});
-//
-//			item.getDiscount().textProperty().addListener(((observableValue, oldValue, newValue) -> {
-//				total_discount=calculatePercentageTotal(oldValue,newValue,total_discount,item.getGrossValue());
-//				discount_total.setText(doubleToStringF(total_discount));
-//				calculateTaxable(item);
-//			}));
-//
-//			item.getTaxable_value().textProperty().addListener(((observableValue, oldValue, newValue) ->{
-//				System.out.println("old: " + oldValue + "   New:" + newValue);
-//				total_taxable=calculateTotal(oldValue,newValue,total_taxable);
-//				taxable_total.setText(doubleToStringF(total_taxable));
-//
-//				total_cgst = calculatePercentageGst(oldValue,newValue,total_cgst,item.getCgstValue());
-//				cgst_total.setText(doubleToStringF(total_cgst));
-//
-//				total_sgst = calculatePercentageGst(oldValue,newValue,total_sgst,item.getSgstValue());
-//				sgst_total.setText(doubleToStringF(total_sgst));
-//
-//				total_igst = calculatePercentageGst(oldValue,newValue,total_igst,item.getIgstValue());
-//				igst_total.setText(doubleToStringF(total_igst));
-//
-//				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable;
-//				if (var1.equalsIgnoreCase("net value"))
-//					total_net_amount += total_col1;
-//				if (var2.equalsIgnoreCase("net value"))
-//					total_net_amount += total_col2;
-//				if (var3.equalsIgnoreCase("net value"))
-//					total_net_amount += total_col3;
-//				if (var4.equalsIgnoreCase("net value"))
-//					total_net_amount += total_col4;
-//				if (var5.equalsIgnoreCase("net value"))
-//					total_net_amount += total_col5;
-//
-//				net_amount.setText(doubleToStringF(total_net_amount));
-//			}));
-//
-//			item.getCgst().textProperty().addListener(((observableValue, oldValue, newValue) ->{
-//				total_cgst = calculatePercentageTotal(oldValue,newValue,total_cgst,item.getTaxableValue());
-//				cgst_total.setText(doubleToStringF(total_cgst));
-//			}));
-//			item.getSgst().textProperty().addListener(((observableValue, oldValue, newValue) ->{
-//				total_sgst = calculatePercentageTotal(oldValue,newValue,total_sgst,Double.parseDouble(item.getTaxable_value().getText()));
-//				sgst_total.setText(doubleToStringF(total_sgst));
-//			}));
-//
-//			if(isigst.isSelected()){
-//				item.getIgst().textProperty().addListener(((observableValue, oldValue, newValue) ->{
-//					total_igst = calculatePercentageTotal(oldValue,newValue,total_igst,item.getTaxableValue());
-//					igst_total.setText(doubleToStringF(total_igst));
-//				}));
-//			}
-//
-//			item.getOther_charges().textProperty().addListener(((observableValue, oldValue, newValue) ->{
-//				total_oc=calculateTotal(oldValue,newValue,total_oc);
-//				oc_total.setText(doubleToStringF(total_oc));
-//
-//				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable+total_col1+total_col2+total_col3+total_col4+total_col5;
-//				net_amount.setText(doubleToStringF(total_net_amount));
-//			}));
-//
-//			item.getCess().textProperty().addListener((observableValue, oldValue, newValue) -> {
-//				total_cess=calculateTotal(oldValue,newValue,total_cess);
-//				cess_total.setText(doubleToStringF(total_cess));
-//				total_net_amount=total_cess+total_oc+total_cgst+total_sgst+total_taxable+total_col1+total_col2+total_col3+total_col4+total_col5;
-//				net_amount.setText(doubleToStringF(total_net_amount));
-//			});
-//
-//
-//
-//			////////////////////////////////////////////////////////////////////
-//			item.getQuantity().focusedProperty().addListener((event,wasFocussed,isNowFocussed)->{
-//				if(Integer.parseInt(item.getSno()) == sno -2){
-//					addRows(1);
-//				}
-//			});
-//
-//
-//			if(!var1.isEmpty()) {
-//				item.getNewcol1().textProperty().addListener((observableValue, oldValue, newValue) -> {
-//					String old_total_col = String.valueOf(total_col1);
-//					total_col1 = calculateTotal(oldValue,newValue,total_col1);
-//					addNewColListeners(var1,old_total_col, total_col1, oldValue, newValue, item);
-//				});
-//				if (!var2.isEmpty()) {
-//					item.getNewcol2().textProperty().addListener((observableValue, oldValue, newValue) -> {
-//						String old_total_col = String.valueOf(total_col2);
-//						total_col2 = calculateTotal(oldValue,newValue,total_col2);
-//						System.out.println(total_col2);
-//						addNewColListeners(var2,old_total_col,total_col2, oldValue, newValue, item);
-//					});
-//
-//					if (!var3.isEmpty()) {
-//						item.getNewcol3().textProperty().addListener((observableValue, oldValue, newValue) -> {
-//							String old_total_col = String.valueOf(total_col3);
-//							total_col3 = calculateTotal(oldValue,newValue,total_col3);
-//							addNewColListeners(var3,old_total_col,total_col3, oldValue, newValue, item);
-//						});
-//						if (!var4.isEmpty()) {
-//							item.getNewcol4().textProperty().addListener((observableValue, oldValue, newValue) -> {
-//								String old_total_col = String.valueOf(total_col1);
-//								total_col4 = calculateTotal(oldValue,newValue,total_col4);
-//								addNewColListeners(var4, old_total_col,total_col4, oldValue, newValue, item);
-//							});
-//							if (!var5.isEmpty()) {
-//								item.getNewcol5().textProperty().addListener((observableValue, oldValue, newValue) -> {
-//									String old_total_col = String.valueOf(total_col5);
-//									total_col5 = calculateTotal(oldValue,newValue,total_col5);
-//									addNewColListeners(var5,old_total_col,total_col5, oldValue, newValue, item);
-//								});
-//
-//							}
-//						}
-//					}
-//				}
-//			}
 
 		}
 
@@ -923,7 +765,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		ObservableList<PurchaseItem> extrarowslist = FXCollections.observableArrayList();
 
 		for(temp=sno;temp<sno+n;temp++) {
-			ObservableList<String> items = FXCollections.observableArrayList(temp_items);
+			ObservableList<String> items = FXCollections.observableArrayList(item_names);
 			extrarowslist.add(new PurchaseItem(temp, items, type_of_purchase, "", "", "", "", "", "", "", "", "", "","","","","",""));
 		}
 
@@ -1007,4 +849,21 @@ public class PurchaseVoucherController extends ApplicationMainController {
 	public TableView getTV() {
 		return  this.purchasetv;
 	}
+
+
+	@FXML
+	void onSave(ActionEvent event) {
+//		int purchase_voucher_id = new SetPurchaseDao().createPurchaseVoucher();
+//		for(PurchaseItem item: itemlist){
+//
+//			if(!item.getItemName().isEmpty() && item.getQuantityValue() != 0) {
+//				int pid = 1;
+//				double disc = 0,sgst = 0,igst = 0,col1_value = 0,col2_value = 0,col3_value = 0,col4_value = 0,col5_value = 0;
+//				new SetPurchaseItemDao().insertPurchaseItem(purchase_voucher_id, item.getSno(), pid, item.getQuantityValue(),
+//						item.getGrossValue(), disc,item.getTaxableValue(),sgst,sgst,igst,col1_value,col2_value,
+//						col3_value,col4_value,col5_value);
+//			}
+//		}
+	}
+
 }

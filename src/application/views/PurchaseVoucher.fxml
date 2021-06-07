@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PurchaseVoucherController">
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PurchaseVoucherController">
    <children>
       <VBox layoutX="24.0" layoutY="16.41796875">
          <children>
@@ -242,14 +242,14 @@
       <Line endX="129.2332763671875" endY="-20.50006103515625" layoutX="892.0" layoutY="748.0" startX="129.2332763671875" startY="-54.4000244140625" translateY="-55.0" />
       <Line endX="129.2332763671875" endY="-20.50006103515625" layoutX="1003.0" layoutY="748.0" startX="129.2332763671875" startY="-54.4000244140625" translateY="-55.0" />
       <Line endX="129.2332763671875" endY="-21.3333740234375" layoutX="-82.0" layoutY="749.0" startX="129.2332763671875" startY="-54.4000244140625" translateY="-55.0" />
-      <Text fill="#5c85d1" layoutX="941.0" layoutY="749.0" stroke="#340303" strokeType="OUTSIDE" strokeWidth="0.0" text="Net Amount :  ">
+      <Text fill="#5c85d1" layoutX="872.0" layoutY="728.0" stroke="#340303" strokeType="OUTSIDE" strokeWidth="0.0" text="Net Amount :  ">
          <font>
-            <Font name="System Bold" size="22.0" />
+            <Font name="System Bold" size="25.0" />
          </font>
       </Text>
-      <Text fx:id="net_amount" fill="#5c85d1" layoutX="1093.0" layoutY="749.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" wrappingWidth="155.8408203125">
+      <Text fx:id="net_amount" fill="#5c85d1" layoutX="1051.0" layoutY="727.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" wrappingWidth="201.00000000000006">
          <font>
-            <Font name="System Bold" size="22.0" />
+            <Font name="System Bold" size="25.0" />
          </font>
       </Text>
       <Line endX="14.5001220703125" endY="13.49993896484375" layoutX="1266.0" layoutY="657.0" startX="14.5001220703125" startY="-18.0" />
@@ -257,7 +257,10 @@
       <Button layoutX="61.0" layoutY="726.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="122.0" text="Edit Previous" />
       <Button layoutX="364.0" layoutY="727.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="107.0" text="Delete" />
       <Button fx:id="print" layoutX="517.0" layoutY="725.0" mnemonicParsing="false" onAction="#printData" prefHeight="34.0" prefWidth="117.0" text="Print" />
-      <Button fx:id="add_rows" layoutX="690.0" layoutY="725.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="117.0" text="Add Rows" />
+      <Button fx:id="save" defaultButton="true" layoutX="952.0" layoutY="741.0" mnemonicParsing="false" onAction="#onSave" prefHeight="38.0" prefWidth="98.0" text="Save">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Button>
 
    </children>
 </AnchorPane>
