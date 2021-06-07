@@ -21,14 +21,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.skin.TableColumnHeader;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextBoundsType;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -164,7 +168,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 	public PurchaseVoucherController() throws SQLException {
 	}
 	 int sno=1;
-	String var1="",var2="",var3="",var4="",var5="";
+	String var1="",var2="",var3="",var4="",var5="",var6="",var7="",var8="",var9="";
 
 	@FXML
 	public void initialize() throws Exception {
@@ -277,6 +281,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 			System.out.println("completed");
 
 		});*/
+
 	}
 
 	private void addNewColumns() throws IOException, ParseException {
@@ -292,14 +297,18 @@ public class PurchaseVoucherController extends ApplicationMainController {
 			String add_to = (String) column.get("add_to");
 			String default_value = (String) column.get("default");
 			//	columns adding to  table
-				if(i<5) {
+				if(i<10) {
 					TableColumn<PurchaseItem, String> temp2 = new TableColumn<PurchaseItem, String>(name);
 					temp2.setSortable(false);
 					temp2.setMaxWidth(100);
 					temp2.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("newcol" + i));
 					String fname = name.split("\\s")[0].toLowerCase(Locale.ROOT)+"_col";
 					temp2.setId(fname);
+					if(i>5)
+					purchasetv.setPrefWidth(purchasetv.getPrefWidth()+100);
+
 					purchasetv.getColumns().add(temp2);
+
 
 					if(i==1)
 						var1 = add_to;
@@ -311,6 +320,14 @@ public class PurchaseVoucherController extends ApplicationMainController {
 						var4 = add_to;
 					else if(i==5)
 						var5 = add_to;
+					else if(i==6)
+						var6=add_to;
+					else if(i==7)
+						var7 = add_to;
+					else if(i==8)
+						var8 = add_to;
+					else if(i==9)
+						var9 = add_to;
 
 					i++;
 				}
@@ -354,7 +371,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 	private void addNewFields() throws IOException, ParseException {
 		JSONObject settings = getJson();
-		//System.out.println(settings.toJSONString());
+
 		JSONObject fields = getJsonObject("fields",getJsonObject("purchasevoucher",settings));
 		JSONArray newfields= (JSONArray) fields.get("newfield");
 
@@ -366,10 +383,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 			String name = (String) newf.get("name");
 			String default_value = (String) newf.get("default");
 			String list = (String) newf.get("combobox_list");
-
 			addToHBox(rno,name,type,list,default_value);
-
-
 		}
 	}
 
@@ -377,7 +391,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		String hboxid = name.split(" ")[0].toLowerCase() + "hbox";
 		HBox newhbox = new HBox();
 		newhbox.setId(hboxid);
-		System.out.println(type);
+
 		if(type.equalsIgnoreCase("Text")){
 		TextField tf = new TextField();
 		tf.setPromptText(name);
@@ -411,17 +425,20 @@ public class PurchaseVoucherController extends ApplicationMainController {
 			ObservableList<String> items = FXCollections.observableArrayList(item_names);
 
 			item.getItems().getEditor().focusedProperty().addListener((event,wasFocused, isNowFocused) -> {
+
 				if (!isNowFocused) {
-					if ((!item.getItemName().isEmpty()) && (items_with_ids.containsKey(capitalize(item.getItemName()))) && (!previtemname.equals(item.getItemName()))) {
+					if ((!item.getItemName().isEmpty()) && (items_with_ids.containsKey(item.getItemName())) && (!previtemname.equals(item.getItemName()))) {
 
 						try {
-							ResultSet res = get_products_dao.getProductDetails(items_with_ids.get(capitalize(item.getItemName().trim())));
+
+							ResultSet res = get_products_dao.getProductDetails(items_with_ids.get(item.getItemName().trim()));
 							if(res.next()) {
 								// if rate field in empty then set the rate field
 								// then updates the total_rate
 
+								String rate = doubleToStringF((double)res.getFloat(1));
 
-								item.getRate().setText(doubleToStringF((double)res.getFloat(1)));
+								item.getRate().setText(rate);
 
 								int gst = res.getInt(2);
 								item.getDiscount().setText(String.valueOf(res.getFloat(3)));
@@ -583,7 +600,8 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 
 	private void calculate(PurchaseItem item) {
-		System.out.println("In calculate");
+
+
 		int item_sno = parseToInt(item.getSno());
 		double item_net_value = 0;
 		double taxable = 0;
@@ -726,7 +744,6 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		if (var5.equalsIgnoreCase("taxable value"))
 			taxable += item.getNewCol5Value();
 
-		System.out.println("Taxable: " + taxable);
 		item.getTaxable_value().setText(doubleToStringF(taxable));
 
 	}
@@ -766,7 +783,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 		for(temp=sno;temp<sno+n;temp++) {
 			ObservableList<String> items = FXCollections.observableArrayList(item_names);
-			extrarowslist.add(new PurchaseItem(temp, items, type_of_purchase, "", "", "", "", "", "", "", "", "", "","","","","",""));
+			extrarowslist.add(new PurchaseItem(temp, items, type_of_purchase, "", "", "", "", "", "", "", "", "", "","","","","","","","","",""));
 		}
 
 		purchasetv.getItems().addAll(extrarowslist);
@@ -800,7 +817,6 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		}
 		else if(ov!=0 && nv==0)
 			total-=ov;
-		//System.out.println(total);
 		return  total;
 	}
 
@@ -824,7 +840,6 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		}
 		else if(ov!=0 && nv==0)
 			total-=(target*ov/100);
-		//System.out.println(total);
 		return  total;
 	}
 

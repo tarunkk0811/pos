@@ -25,6 +25,42 @@ public class PurchaseItem {
 	private TextField newcol3;
 	private TextField newcol4;
 	private TextField newcol5;
+	private TextField newcol6;
+	private TextField newcol7;
+	private TextField newcol8;
+	private TextField newcol9;
+
+	public TextField getNewcol6() {
+		return newcol6;
+	}
+
+	public void setNewcol6(TextField newcol6) {
+		this.newcol6 = newcol6;
+	}
+
+	public TextField getNewcol7() {
+		return newcol7;
+	}
+
+	public void setNewcol7(TextField newcol7) {
+		this.newcol7 = newcol7;
+	}
+
+	public TextField getNewcol8() {
+		return newcol8;
+	}
+
+	public void setNewcol8(TextField newcol8) {
+		this.newcol8 = newcol8;
+	}
+
+	public TextField getNewcol9() {
+		return newcol9;
+	}
+
+	public void setNewcol9(TextField newcol9) {
+		this.newcol9 = newcol9;
+	}
 
 	public TextField getNewcol5() {
 		return newcol5;
@@ -158,7 +194,7 @@ public class PurchaseItem {
 
 	public PurchaseItem(int sno, ObservableList items, ObservableList type_of_purchase, String quantity,
 						String rate, String gross, String discount, String cgst, String sgst, String igst, String other_charges,
-						String cess, String taxable_value, String ncol1,String ncol2,String ncol3,String ncol4,String ncol5) {
+						String cess, String taxable_value, String ncol1,String ncol2,String ncol3,String ncol4,String ncol5,String ncol6,String ncol7,String ncol8,String ncol9) {
 		super();
 		this.sno = String.valueOf(sno);
 		this.items = new ComboBox<String>(items);
@@ -183,6 +219,10 @@ public class PurchaseItem {
 		this.newcol3 = new TextField(ncol3);
 		this.newcol4 = new TextField(ncol4);
 		this.newcol5 = new TextField(ncol5);
+		this.newcol6 = new TextField(ncol6);
+		this.newcol7 = new TextField(ncol7);
+		this.newcol8 = new TextField(ncol8);
+		this.newcol9 = new TextField(ncol9);
 		// focus
 		this.items.focusedProperty().addListener(e -> {
 			this.items.show();

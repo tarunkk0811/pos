@@ -5,7 +5,7 @@
 	import javafx.scene.Scene;
 	import javafx.fxml.FXMLLoader;
 	
-	
+	//error in bluestar ac rate
 	public class Main extends Application {
 		
 		private static Stage window;
