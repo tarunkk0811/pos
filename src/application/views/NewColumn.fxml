@@ -105,7 +105,7 @@
                         </HBox>
                         <HBox prefHeight="102.0" prefWidth="438.0">
                             <children>
-                                <Button fx:id="save_column" mnemonicParsing="false" onAction="#saveColumn" prefHeight="26.0" prefWidth="89.0" text="Save">
+                                <Button fx:id="save_column" defaultButton="true" mnemonicParsing="false" onAction="#saveColumn" prefHeight="26.0" prefWidth="89.0" text="Save">
                                     <HBox.margin>
                                         <Insets left="115.0" top="30.0" />
                                     </HBox.margin>

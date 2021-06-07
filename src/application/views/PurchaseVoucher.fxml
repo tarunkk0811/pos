@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PurchaseVoucherController">
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PurchaseVoucherController">
    <children>
       <VBox layoutX="24.0" layoutY="16.41796875">
          <children>
@@ -152,12 +152,12 @@
             </VBox>
          </children>
       </VBox>
-      <ScrollPane fx:id="spane" layoutY="179.0" prefHeight="460.0" prefWidth="884.0" vmax="0.0">
+      <ScrollPane fx:id="spane" layoutY="179.0" prefHeight="460.0" prefWidth="903.0" vbarPolicy="NEVER" vmax="0.0">
          <content>
-            <TableView fx:id="purchasetv" prefHeight="458.0" prefWidth="1802.0">
+            <TableView fx:id="purchasetv" prefHeight="450.0" prefWidth="1400.0">
                <columns>
-                  <TableColumn fx:id="sno_col" editable="false" prefWidth="44.00000357627869" resizable="false" sortable="false" text="S no" />
-                  <TableColumn fx:id="item_col" prefWidth="141.0666389465332" resizable="false" sortable="false" text="Item" />
+                  <TableColumn fx:id="sno_col" editable="false" prefWidth="50.0" resizable="false" sortable="false" text="S no" />
+                  <TableColumn fx:id="item_col" prefWidth="150.0" resizable="false" sortable="false" text="Item" />
                   <TableColumn fx:id="qty_col" prefWidth="100.0" resizable="false" sortable="false" text="Quantity" />
                   <TableColumn fx:id="rate_col" prefWidth="100.0" resizable="false" sortable="false" text="Rate" />
                   <TableColumn fx:id="gross_col" prefWidth="100.0" resizable="false" sortable="false" text="Gross" />

@@ -296,6 +296,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 			String name = (String) column.get("name");
 			String add_to = (String) column.get("add_to");
 			String default_value = (String) column.get("default");
+			purchasetv.setPrefWidth(purchasetv.getPrefWidth()+100);
 			//	columns adding to  table
 				if(i<10) {
 					TableColumn<PurchaseItem, String> temp2 = new TableColumn<PurchaseItem, String>(name);
@@ -304,8 +305,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 					temp2.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("newcol" + i));
 					String fname = name.split("\\s")[0].toLowerCase(Locale.ROOT)+"_col";
 					temp2.setId(fname);
-					if(i>5)
-					purchasetv.setPrefWidth(purchasetv.getPrefWidth()+100);
+
 
 					purchasetv.getColumns().add(temp2);
 
