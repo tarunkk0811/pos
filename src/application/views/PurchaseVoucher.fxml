@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PurchaseVoucherController">
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PurchaseVoucherController">
    <children>
       <VBox layoutX="24.0" layoutY="16.41796875">
          <children>
@@ -188,7 +188,7 @@
                               <Insets top="1.0" />
                            </HBox.margin>
                         </Line>
-                        <HBox>
+                        <HBox fx:id="qty_col_total">
                            <children>
                               <Text fx:id="qty_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
                                  <font>
@@ -201,20 +201,7 @@
                               <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
                            </children>
                         </HBox>
-                        <HBox layoutX="210.0" layoutY="10.0">
-                           <children>
-                              <Text fx:id="gross_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets top="5.0" />
-                                 </HBox.margin>
-                              </Text>
-                              <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
-                           </children>
-                        </HBox>
-                        <HBox layoutX="310.0" layoutY="10.0">
+                        <HBox id="rate_col_total" fx:id="rate_col_total" layoutX="210.0" layoutY="10.0">
                            <children>
                               <Text fx:id="rate_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
                                  <font>
@@ -227,7 +214,20 @@
                               <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
                            </children>
                         </HBox>
-                        <HBox layoutX="410.0" layoutY="10.0">
+                        <HBox id="gross_col_total" fx:id="rate_col_total" layoutX="310.0" layoutY="10.0">
+                           <children>
+                              <Text fx:id="gross_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
+                           </children>
+                        </HBox>
+                        <HBox id="disc_col_total" fx:id="disc_col_total" layoutX="410.0" layoutY="10.0">
                            <children>
                               <Text fx:id="discount_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
                                  <font>
@@ -240,7 +240,7 @@
                               <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
                            </children>
                         </HBox>
-                        <HBox layoutX="510.0" layoutY="10.0">
+                        <HBox fx:id="cgst_col_total" layoutX="510.0" layoutY="10.0">
                            <children>
                               <Text fx:id="cgst_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
                                  <font>
@@ -253,7 +253,7 @@
                               <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
                            </children>
                         </HBox>
-                        <HBox layoutX="610.0" layoutY="10.0">
+                        <HBox fx:id="sgst_col_total" layoutX="610.0" layoutY="10.0">
                            <children>
                               <Text fx:id="sgst_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
                                  <font>
@@ -266,7 +266,7 @@
                               <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
                            </children>
                         </HBox>
-                        <HBox layoutX="710.0" layoutY="10.0">
+                        <HBox fx:id="igst_col_total" layoutX="710.0" layoutY="10.0">
                            <children>
                               <Text fx:id="igst_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
                                  <font>
@@ -279,7 +279,7 @@
                               <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
                            </children>
                         </HBox>
-                        <HBox layoutX="810.0" layoutY="10.0">
+                        <HBox fx:id="ocharges_col_total" layoutX="810.0" layoutY="10.0">
                            <children>
                               <Text fx:id="oc_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
                                  <font>
@@ -292,7 +292,7 @@
                               <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
                            </children>
                         </HBox>
-                        <HBox layoutX="910.0" layoutY="10.0">
+                        <HBox fx:id="cess_col_total" layoutX="916.0" layoutY="10.0">
                            <children>
                               <Text fx:id="cess_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
                                  <font>
@@ -305,9 +305,22 @@
                               <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
                            </children>
                         </HBox>
-                        <HBox layoutX="1010.0" layoutY="10.0">
+                        <HBox fx:id="taxable_value_col_total" layoutX="910.0" layoutY="10.0">
                            <children>
                               <Text fx:id="taxable_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
+                           </children>
+                        </HBox>
+                        <HBox fx:id="type_of_purchase_col_total" layoutX="1010.0" layoutY="10.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
                                  <font>
                                     <Font size="15.0" />
                                  </font>

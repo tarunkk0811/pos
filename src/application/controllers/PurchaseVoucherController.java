@@ -87,14 +87,6 @@ public class PurchaseVoucherController extends ApplicationMainController {
 	@FXML
 	private VBox topvbox;
 
-
-
-
-
-
-
-
-
 	@FXML
 	private TableView purchasetv;
 
@@ -128,6 +120,11 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 	@FXML
 	private Button save;
+
+	@FXML
+	private HBox qty_col_total, rate_col_total, disc_col_total, cgst_col_total,
+					sgst_col_total, igst_col_total, ocharges_col_total, cess,
+					taxable_value_col_total, type_of_purchase_col_total;
 
 
 	HashMap<Integer,Double> tot_quantity = new HashMap<>(),tot_rate = new HashMap<>(),tot_gross = new HashMap<>(),
@@ -169,6 +166,8 @@ public class PurchaseVoucherController extends ApplicationMainController {
 	}
 	 int sno=1;
 	String var1="",var2="",var3="",var4="",var5="",var6="",var7="",var8="",var9="";
+
+	private ArrayList<String> hiddenCols = new ArrayList<>();
 
 	@FXML
 	public void initialize() throws Exception {
@@ -446,7 +445,8 @@ public class PurchaseVoucherController extends ApplicationMainController {
 								item.getRate().setText(rate);
 
 								int gst = res.getInt(2);
-								item.getDiscount().setText(String.valueOf(res.getFloat(3)));
+								if(!hiddenCols.contains("Discount %"))
+									item.getDiscount().setText(String.valueOf(res.getFloat(3)));
 								if(isigst.isSelected()) {
 									item.getIgst().setText(String.valueOf(gst));
 									item.getCgst().setText("");
@@ -868,6 +868,14 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 	public TableView getTV() {
 		return  this.purchasetv;
+	}
+
+	public ScrollPane getSpane(){
+		return  spane;
+	}
+
+	public ArrayList<String> getHiddenCols(){
+		return hiddenCols;
 	}
 
 

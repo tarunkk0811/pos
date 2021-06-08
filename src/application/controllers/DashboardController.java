@@ -7,12 +7,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Border;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import application.*;
@@ -128,6 +131,8 @@ public class DashboardController extends  ApplicationMainController{
 
 	public void hideTableColumns(PurchaseVoucherController pv) throws IOException, ParseException {
 		TableView tv = pv.getTV();
+		ScrollPane spane = pv.getSpane();
+		ArrayList<String> hiddenCols = pv.getHiddenCols();
 		ObservableList<TableColumn> columns = tv.getColumns();
 		JSONObject settings = getJson();
 		JSONObject purchasev = (JSONObject) settings.get("purchasevoucher");
@@ -138,7 +143,14 @@ public class DashboardController extends  ApplicationMainController{
 			String key = (String) keys.next();
 			for (TableColumn e : columns) {
 				if (e.getId().equalsIgnoreCase(key)) {
+					HBox hideHbox = (HBox) spane.lookup("#"+key+"_total");
+					hideHbox.setMinWidth(0);
+					hideHbox.setPrefWidth(0);
+					hideHbox.setVisible(false);
 					e.setVisible(false);
+
+					hiddenCols.add(e.getText());
+					System.out.println(hiddenCols);
 					break;
 				}
 			}
