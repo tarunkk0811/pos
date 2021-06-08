@@ -1,1 +1,135 @@
-{"purchasevoucher":{"columns":{"newcolumn":[{"default":"","name":"Coolie","add_to":"Net Value"},{"default":"","name":"Freight","add_to":"Taxable Value"},{"default":"","name":"Newcol1","add_to":"None"},{"default":"","name":"Newcol2","add_to":"None"},{"default":"","name":"Newcol3","add_to":"None"},{"default":"","name":"Newcol4","add_to":"None"},{"default":"","name":"Newcol5","add_to":"None"},{"default":"","name":"Newcol6","add_to":"None"},{"default":"","name":"Newcol7","add_to":"None"}],"unhiddencolumns":{"item_col":"Item","sgst_col":"SGST","cgst_col":"CGST","gross_col":"Gross","newcol3_col":"Newcol3","igst_col":"IGST","cess_col":"Cess","newcol7_col":"Newcol7","ocharges_col":"Other charges","taxable_value_col":"Taxable Value","newcol5_col":"Newcol5","newcol6_col":"Newcol6","rate_col":"Rate","newcol1_col":"Newcol1","freight_col":"Freight","type_of_purchase_col":"Type of purchase","disc_col":"Discount","coolie_col":"Coolie","newcol2_col":"Newcol2","qty_col":"Quantity","sno_col":"S no","newcol4_col":"Newcol4"},"hiddencolumns":{}},"fields":{"unhiddenfields":{"vendorhbox":"Vendor","placehbox":"Place","pahbox":"Purchase Account","descriptionhbox":"Description","billdatehbox":"Bill Date","datehbox":"Date","isigsthbox":"Is IGST","dropdownhbox":"Dropdown","billnohbox":"Bill No","vnohbox":"Voucher Number"},"hiddenfields":{},"newfield":[{"default":"","rno":"2","combobox_list":"","name":"Description","type":"Text","add_to":""},{"default":"","rno":"2","combobox_list":"item 1,item 2,item 3","name":"Dropdown","type":"Dropdown","add_to":""}]}},"salesinvoice":{}}
+{"purchasevoucher":{"columns": {
+  "hiddencolumns": {},
+  "newcolumn": [
+    {
+      "default": "",
+      "name": "Coolie",
+      "add_to": "Net Value"
+    },
+    {
+      "default": "",
+      "name": "Freight",
+      "add_to": "Taxable Value"
+    },
+    {
+      "default": "",
+      "name": "Newcol1",
+      "add_to": "None"
+    },
+    {
+      "default": "",
+      "name": "Newcol2",
+      "add_to": "None"
+    },
+    {
+      "default": "",
+      "name": "Newcol3",
+      "add_to": "None"
+    },
+    {
+      "default": "",
+      "name": "Newcol4",
+      "add_to": "None"
+    },
+    {
+      "default": "",
+      "name": "Newcol5",
+      "add_to": "None"
+    },
+    {
+      "default": "",
+      "name": "Newcol6",
+      "add_to": "None"
+    },
+    {
+      "default": "",
+      "name": "Newcol7",
+      "add_to": "None"
+    }
+  ],
+  "unhiddencolumns": {
+    "item_col": "Item",
+    "sgst_col": "SGST",
+    "cgst_col": "CGST",
+    "gross_col": "Gross",
+    "newcol3_col": "Newcol3",
+    "igst_col": "IGST",
+    "cess_col": "Cess",
+    "newcol7_col": "Newcol7",
+    "ocharges_col": "Other charges",
+    "taxable_value_col": "Taxable Value",
+    "newcol5_col": "Newcol5",
+    "newcol6_col": "Newcol6",
+    "rate_col": "Rate",
+    "newcol1_col": "Newcol1",
+    "freight_col": "Freight",
+    "type_of_purchase_col": "Type of purchase",
+    "disc_col": "Discount",
+    "coolie_col": "Coolie",
+    "newcol2_col": "Newcol2",
+    "qty_col": "Quantity",
+    "sno_col": "S no",
+    "newcol4_col": "Newcol4"
+  }
+},"fields": {
+  "hiddenfields": {},
+  "newfield": [
+    {
+      "default": "",
+      "rno": "2",
+      "combobox_list": "",
+      "name": "Description",
+      "type": "Text",
+      "add_to": ""
+    },
+    {
+      "default": "",
+      "rno": "2",
+      "combobox_list": "item 1,item 2,item 3",
+      "name": "Dropdown",
+      "type": "Dropdown",
+      "add_to": ""
+    }
+  ],
+  "unhiddenfields": {
+    "billdatehbox": "Bill Date",
+    "billnohbox": "Bill No",
+    "datehbox": "Date",
+    "descriptionhbox": "Description",
+    "dropdownhbox": "Dropdown",
+    "isigsthbox": "Is IGST",
+    "pahbox": "Purchase Account",
+    "placehbox": "Place",
+    "vendorhbox": "Vendor",
+    "vnohbox": "Voucher Number"
+  }
+},
+  "col_order": {
+    "1": "item",
+    "10": "cess",
+    "11": "taxable value",
+    "12": "type of purchase",
+    "13": "coolie",
+    "14": "frieght",
+    "15": "newcol1",
+    "16": "newcol2",
+    "17": "newcol3",
+    "18": "newcol4",
+    "19": "newcol5",
+    "2": "quantity",
+    "20": "newcol6",
+    "21": "newcol7",
+    "22": "",
+    "23": "",
+    "24": "",
+    "3": "rate",
+    "4": "gross",
+    "5": "discount %",
+    "6": "cgst",
+    "7": "sgst",
+    "8": "igst",
+    "9": "other charges"
+  }
+},
+  "salesinvoice":{}
+}

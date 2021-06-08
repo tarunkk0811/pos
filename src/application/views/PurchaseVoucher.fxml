@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PurchaseVoucherController">
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PurchaseVoucherController">
    <children>
       <VBox layoutX="24.0" layoutY="16.41796875">
          <children>
@@ -188,168 +188,142 @@
                               <Insets top="1.0" />
                            </HBox.margin>
                         </Line>
-                        <Text layoutX="10.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets top="5.0" />
-                           </HBox.margin>
-                        </Text>
-                        <Line endX="-99.58580017089844" endY="25.0" layoutX="259.0" layoutY="12.0" startX="-100.0" />
-                        <Text layoutX="160.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets top="5.0" />
-                           </HBox.margin>
-                        </Text>
-                        <Line endX="-99.58580017089844" endY="25.0" layoutX="360.0" layoutY="11.0" startX="-100.0" />
-                        <Text layoutX="261.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets top="5.0" />
-                           </HBox.margin>
-                        </Text>
-                        <Line endX="-99.58580017089844" endY="25.0" layoutX="460.0" layoutY="11.0" startX="-100.0" />
-                        <Text layoutX="362.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets top="4.0" />
-                           </HBox.margin>
-                        </Text>
-                        <Line endX="-99.58580017089844" endY="25.0" layoutX="561.0" layoutY="11.0" startX="-100.0" />
-                        <Text layoutX="463.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets top="5.0" />
-                           </HBox.margin>
-                        </Text>
-                        <Line endX="-99.58580017089844" endY="25.0" layoutX="662.0" layoutY="11.0" startX="-100.0" />
-                        <Text layoutX="564.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets top="5.0" />
-                           </HBox.margin>
-                        </Text>
-                        <Line endX="-99.58580017089844" endY="25.0" layoutX="763.0" layoutY="11.0" startX="-100.0" />
-                        <Text layoutX="664.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets top="5.0" />
-                           </HBox.margin>
-                        </Text>
-                        <Line endX="-99.58580017089844" endY="25.0" layoutX="864.0" layoutY="11.0" startX="-100.0" />
-                        <Text layoutX="715.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Text>
-                        <Line endX="-99.58580017089844" endY="25.0" layoutX="1017.0" layoutY="11.0" startX="-100.0" />
-                        <Text layoutX="919.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Text>
-                        <Line endX="-99.58580017089844" endY="25.0" layoutX="1118.0" layoutY="11.0" startX="-100.0" />
-                        <Text layoutX="1020.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Text>
-                        <Line endX="-99.58580017089844" endY="25.0" layoutX="1216.0" layoutY="11.0" startX="-100.0" />
-                        <Text layoutX="1118.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Text>
-                        <Line endX="-99.58580017089844" endY="25.0" layoutX="1317.0" layoutY="11.0" startX="-100.0" />
+                        <HBox>
+                           <children>
+                              <Text fx:id="qty_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="210.0" layoutY="10.0">
+                           <children>
+                              <Text fx:id="gross_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="310.0" layoutY="10.0">
+                           <children>
+                              <Text fx:id="rate_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="410.0" layoutY="10.0">
+                           <children>
+                              <Text fx:id="discount_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="510.0" layoutY="10.0">
+                           <children>
+                              <Text fx:id="cgst_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="610.0" layoutY="10.0">
+                           <children>
+                              <Text fx:id="sgst_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="710.0" layoutY="10.0">
+                           <children>
+                              <Text fx:id="igst_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="810.0" layoutY="10.0">
+                           <children>
+                              <Text fx:id="oc_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="910.0" layoutY="10.0">
+                           <children>
+                              <Text fx:id="cess_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="1010.0" layoutY="10.0">
+                           <children>
+                              <Text fx:id="taxable_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
                </children>
             </VBox>
          </content>
       </ScrollPane>
-      <Text layoutX="61.0" layoutY="716.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total :" translateY="-55.0" visible="false">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Text>
-
-      <Text fx:id="qty_total" layoutX="190.0" layoutY="717.0" stroke="BLACK" strokeLineCap="ROUND" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" translateY="-55.0" visible="false" wrappingWidth="80.32809448242188">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Text>
-      <Text fx:id="gross_total" layoutX="388.0" layoutY="717.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" translateY="-55.0" visible="false" wrappingWidth="107.12814331054688">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Text>
-      <Text fx:id="rate_total" layoutX="285.0" layoutY="716.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" translateY="-55.0" visible="false" wrappingWidth="99.52813720703125">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Text>
-      <Text fx:id="discount_total" layoutX="485.0" layoutY="717.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" translateY="-55.0" visible="false" wrappingWidth="97.52813720703125">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Text>
-      <Text fx:id="cgst_total" layoutX="588.0" layoutY="715.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" translateY="-55.0" visible="false" wrappingWidth="91.47460937500006">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Text>
-      <Text fx:id="sgst_total" layoutX="697.0" layoutY="718.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" translateY="-55.0" visible="false" wrappingWidth="76.328125">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Text>
-      <Text fx:id="igst_total" layoutX="786.0" layoutY="717.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" translateY="-55.0" visible="false" wrappingWidth="91.474609375">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Text>
-      <Text fx:id="oc_total" layoutX="891.0" layoutY="715.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" translateY="-55.0" visible="false" wrappingWidth="85.128173828125">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Text>
-      <Text fx:id="cess_total" layoutX="988.0" layoutY="714.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" translateY="-55.0" visible="false" wrappingWidth="77.128173828125">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Text>
-      <Text fx:id="taxable_total" layoutX="1086.0" layoutY="716.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" translateY="-55.0" visible="false" wrappingWidth="108.72802734375">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Text>
-      <Line endX="1116.0" endY="-6.103515625E-5" layoutX="164.0" layoutY="728.0" startX="-116.50715637207031" startY="-6.103515625E-5" translateY="-55.0" visible="false" />
-      <Line endX="129.2332763671875" endY="-21.3333740234375" layoutX="255.0" layoutY="748.0" startX="129.2332763671875" startY="-54.4000244140625" translateY="-55.0" visible="false" />
-      <Line endX="129.2332763671875" endY="-21.3333740234375" layoutX="156.0" layoutY="747.0" startX="129.2332763671875" startY="-54.4000244140625" translateY="-55.0" visible="false" />
-      <Line endX="129.2332763671875" endY="-21.3333740234375" layoutX="53.0" layoutY="749.0" startX="129.2332763671875" startY="-54.4000244140625" translateY="-55.0" visible="false" />
-      <Line endX="129.2332763671875" endY="-20.50006103515625" layoutX="365.0" layoutY="747.0" startX="129.2332763671875" startY="-54.4000244140625" translateY="-55.0" visible="false" />
-      <Line endX="129.2332763671875" endY="-20.50006103515625" layoutX="460.0" layoutY="746.0" startX="129.2332763671875" startY="-54.4000244140625" translateY="-55.0" visible="false" />
-      <Line endX="129.2332763671875" endY="-20.50006103515625" layoutX="560.0" layoutY="748.0" startX="129.2332763671875" startY="-54.4000244140625" translateY="-55.0" visible="false" />
-      <Line endX="129.2332763671875" endY="-20.50006103515625" layoutX="656.0" layoutY="749.0" startX="129.2332763671875" startY="-54.4000244140625" translateY="-55.0" visible="false" />
-      <Line endX="129.2332763671875" endY="-20.50006103515625" layoutX="754.0" layoutY="749.0" startX="129.2332763671875" startY="-54.4000244140625" translateY="-55.0" visible="false" />
-      <Line endX="129.2332763671875" endY="-20.50006103515625" layoutX="846.0" layoutY="748.0" startX="129.2332763671875" startY="-54.4000244140625" translateY="-55.0" visible="false" />
-      <Line endX="129.2332763671875" endY="-20.50006103515625" layoutX="956.0" layoutY="749.0" startX="129.2332763671875" startY="-54.4000244140625" translateY="-55.0" visible="false" />
-      <Line endX="129.2332763671875" endY="-20.50006103515625" layoutX="1066.0" layoutY="749.0" startX="129.2332763671875" startY="-54.4000244140625" translateY="-55.0" visible="false" />
-      <Line endX="129.2332763671875" endY="-21.3333740234375" layoutX="-82.0" layoutY="749.0" startX="129.2332763671875" startY="-54.4000244140625" translateY="-55.0" visible="false" />
       <Text fill="#5c85d1" layoutX="872.0" layoutY="728.0" stroke="#340303" strokeType="OUTSIDE" strokeWidth="0.0" text="Net Amount :  ">
          <font>
             <Font name="System Bold" size="25.0" />
@@ -360,7 +334,6 @@
             <Font name="System Bold" size="25.0" />
          </font>
       </Text>
-      <Line endX="14.5001220703125" endY="13.49993896484375" layoutX="1266.0" layoutY="657.0" startX="14.5001220703125" startY="-18.0" />
       <Button layoutX="217.0" layoutY="726.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="107.0" text="Edit Next" />
       <Button layoutX="61.0" layoutY="726.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="122.0" text="Edit Previous" />
       <Button layoutX="364.0" layoutY="727.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="107.0" text="Delete" />

@@ -365,8 +365,13 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 	@FXML
 	public void printData(){
-
-
+		ObservableList<TableColumn> cols =purchasetv.getColumns();
+		for(TableColumn column:cols){
+			if(column.getText().equalsIgnoreCase("taxable value")){
+				purchasetv.getColumns().remove(column);
+				purchasetv.getColumns().add(column);
+			}
+		}
 	}
 
 	private void addNewFields() throws IOException, ParseException {

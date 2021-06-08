@@ -122,6 +122,8 @@ public class DashboardController extends  ApplicationMainController{
 		stage.show();
 		PurchaseVoucherController pv = loader.getController();
 		hideTableColumns(pv);
+
+
 	}
 
 	public void hideTableColumns(PurchaseVoucherController pv) throws IOException, ParseException {
