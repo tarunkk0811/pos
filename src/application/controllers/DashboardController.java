@@ -143,6 +143,7 @@ public class DashboardController extends  ApplicationMainController{
 			String key = (String) keys.next();
 			for (TableColumn e : columns) {
 				if (e.getId().equalsIgnoreCase(key)) {
+					System.out.println("key:" + key);
 					HBox hideHbox = (HBox) spane.lookup("#"+key+"_total");
 					hideHbox.setMinWidth(0);
 					hideHbox.setPrefWidth(0);

@@ -91,14 +91,14 @@ public class PurchaseVoucherController extends ApplicationMainController {
 	private TableView purchasetv;
 
 	@FXML
-	private Text qty_total,gross_total,rate_total,discount_total,cgst_total, sgst_total, igst_total, oc_total,cess_total, taxable_total,net_amount,vno;
+	private Text qty_total,gross_total,rate_total,discount_total,discount_in_rs_total,cgst_total, sgst_total, igst_total, oc_total,cess_total, taxable_total,net_amount,vno;
 
 
 	@FXML
 	private TableColumn<PurchaseItem, String> sno_col;
 
 	@FXML
-	private TableColumn<PurchaseItem, String> qty_col, rate_col, gross_col, disc_col, cgst_col, sgst_col, igst_col, ocharges_col, cess_col, taxable_value_col;
+	private TableColumn<PurchaseItem, String> qty_col, rate_col, gross_col, disc_col, discount_in_rs_col, cgst_col, sgst_col, igst_col, ocharges_col, cess_col, taxable_value_col;
 
 	@FXML
 	private TableColumn<PurchaseItem, ComboBox> item_col, type_of_purchase_col;
@@ -122,15 +122,15 @@ public class PurchaseVoucherController extends ApplicationMainController {
 	private Button save;
 
 	@FXML
-	private HBox qty_col_total, rate_col_total, disc_col_total, cgst_col_total,
+	private HBox qty_col_total, rate_col_total, disc_col_total,discount_in_rs_col_total, cgst_col_total,
 					sgst_col_total, igst_col_total, ocharges_col_total, cess,
 					taxable_value_col_total, type_of_purchase_col_total;
 
 
 	HashMap<Integer,Double> tot_quantity = new HashMap<>(),tot_rate = new HashMap<>(),tot_gross = new HashMap<>(),
-						tot_taxable_value = new HashMap<>() ,tot_discount = new HashMap<>(),tot_sgst = new HashMap<>(),
-						tot_cgst = new HashMap<>(),tot_igst = new HashMap<>(),tot_other_charges = new HashMap<>(),
-						tot_cess = new HashMap<>(),tot_new_col1 = new HashMap<>(),tot_new_col2 = new HashMap<>(),
+						tot_taxable_value = new HashMap<>() ,tot_discount = new HashMap<>(),tot_discount_in_rs = new HashMap<>(),
+						tot_sgst = new HashMap<>(),tot_cgst = new HashMap<>(),tot_igst = new HashMap<>(),
+						tot_other_charges = new HashMap<>(),tot_cess = new HashMap<>(),tot_new_col1 = new HashMap<>(),tot_new_col2 = new HashMap<>(),
 						tot_new_col3 = new HashMap<>(),tot_new_col4 = new HashMap<>(),tot_new_col5 = new HashMap<>(),
 						tot_net_value = new HashMap<>();
 
@@ -230,6 +230,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		rate_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("rate"));
 		gross_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("gross"));
 		disc_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("discount"));
+		discount_in_rs_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("discount_in_rs"));
 		cgst_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("cgst"));
 		sgst_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("sgst"));
 		igst_col.setCellValueFactory(new PropertyValueFactory<PurchaseItem, String>("igst"));
@@ -443,18 +444,21 @@ public class PurchaseVoucherController extends ApplicationMainController {
 								String rate = doubleToStringF((double)res.getFloat(1));
 
 								item.getRate().setText(rate);
-
 								int gst = res.getInt(2);
 								if(!hiddenCols.contains("Discount %"))
 									item.getDiscount().setText(String.valueOf(res.getFloat(3)));
 								if(isigst.isSelected()) {
-									item.getIgst().setText(String.valueOf(gst));
+									if(!hiddenCols.contains("IGST"))
+										item.getIgst().setText(String.valueOf(gst));
 									item.getCgst().setText("");
 									item.getSgst().setText("");
 								}
 								else{
-									item.getCgst().setText(String.valueOf(gst/2));
-									item.getSgst().setText(String.valueOf(gst/2));
+									if(!(hiddenCols.contains("CGST") || (hiddenCols.contains("SGST")))) {
+										System.out.println("in if");
+										item.getCgst().setText(String.valueOf(gst / 2));
+										item.getSgst().setText(String.valueOf(gst / 2));
+									}
 									item.getIgst().setText("");
 								}
 							}
@@ -506,6 +510,15 @@ public class PurchaseVoucherController extends ApplicationMainController {
 						calculate(item);
 				}
 			});
+
+			item.getDiscount_in_rs().focusedProperty().addListener((observableValue, wasFocussed, isNowFocussed) -> {
+				if(!isNowFocussed){
+					if(isDiff(tot_discount_in_rs,item.getDiscountInRsValue(),parseToInt(item.getSno())))
+						calculate(item);
+				}
+			});
+
+
 
 			item.getSgst().focusedProperty().addListener((observableValue, wasFocussed, isNowFocussed) -> {
 				if(!isNowFocussed){
@@ -631,6 +644,11 @@ public class PurchaseVoucherController extends ApplicationMainController {
 		tot_discount.put(item_sno, discount_in_rs);
 		discount_total.setText(calculateSum(tot_discount));
 
+		double disc_in_rs = item.getDiscountInRsValue();
+		tot_discount_in_rs.put(item_sno, disc_in_rs);
+		discount_in_rs_total.setText(calculateSum(tot_discount_in_rs));
+
+
 		// new cols
 		if (!var1.equalsIgnoreCase("none") && !var1.isEmpty()) {
 			if(var1.equalsIgnoreCase("taxable value"))
@@ -674,7 +692,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 		// taxable
 		// calculate taxable value of an item
-		taxable += gross-discount_in_rs;
+		taxable += gross-discount_in_rs-disc_in_rs;
 		item_net_value += taxable;
 		item.getTaxable_value().setText(doubleToStringF(taxable));
 		tot_taxable_value.put(item_sno,item.getTaxableValue());
@@ -788,7 +806,7 @@ public class PurchaseVoucherController extends ApplicationMainController {
 
 		for(temp=sno;temp<sno+n;temp++) {
 			ObservableList<String> items = FXCollections.observableArrayList(item_names);
-			extrarowslist.add(new PurchaseItem(temp, items, type_of_purchase, "", "", "", "", "", "", "", "", "", "","","","","","","","","",""));
+			extrarowslist.add(new PurchaseItem(temp, items, type_of_purchase, "", "", "", "","", "", "", "", "", "", "","","","","","","","","",""));
 		}
 
 		purchasetv.getItems().addAll(extrarowslist);

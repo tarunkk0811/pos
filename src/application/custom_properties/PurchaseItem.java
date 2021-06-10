@@ -14,6 +14,7 @@ public class PurchaseItem {
 	private TextField rate;
 	private TextField gross;
 	private TextField discount;
+	private TextField discount_in_rs;
 	private TextField cgst;
 	private TextField sgst;
 	private TextField igst;
@@ -30,6 +31,52 @@ public class PurchaseItem {
 	private TextField newcol8;
 	private TextField newcol9;
 
+	public PurchaseItem(int sno, ObservableList items, ObservableList type_of_purchase, String quantity,
+						String rate, String gross, String discount,String discount_in_rs, String cgst, String sgst, String igst, String other_charges,
+						String cess, String taxable_value, String ncol1,String ncol2,String ncol3,String ncol4,String ncol5,String ncol6,String ncol7,String ncol8,String ncol9) {
+		super();
+		this.sno = String.valueOf(sno);
+		this.items = new ComboBox<String>(items);
+		this.type_of_purchase = new ComboBox(type_of_purchase);
+		this.quantity = new TextField(quantity);
+		this.rate = new TextField(rate);
+		this.gross = new TextField(gross);
+		this.discount = new TextField(discount);
+		this.discount_in_rs = new TextField(discount_in_rs);
+		this.cgst = new TextField(cgst);
+		this.sgst = new TextField(sgst);
+		this.igst = new TextField(igst);
+		this.other_charges = new TextField(other_charges);
+		this.cess = new TextField(cess);
+		this.taxable_value = new TextField(taxable_value);
+		this.items.setEditable(true);
+		this.prop_rate = new SimpleDoubleProperty();
+		this.prop_goss = new SimpleDoubleProperty();
+		this.prop_qty = new SimpleDoubleProperty();
+		//newly added
+		this.newcol1 = new TextField(ncol1);
+		this.newcol2=new TextField(ncol2);
+		this.newcol3 = new TextField(ncol3);
+		this.newcol4 = new TextField(ncol4);
+		this.newcol5 = new TextField(ncol5);
+		this.newcol6 = new TextField(ncol6);
+		this.newcol7 = new TextField(ncol7);
+		this.newcol8 = new TextField(ncol8);
+		this.newcol9 = new TextField(ncol9);
+		// focus
+		this.items.focusedProperty().addListener(e -> {
+			this.items.show();
+		});
+
+		this.type_of_purchase.focusedProperty().addListener(e -> {
+			this.type_of_purchase.show();
+		});
+		this.type_of_purchase.getSelectionModel().select(0);
+
+		//this.rate.textProperty().bindBidirectional();
+
+	}
+
 	public TextField getNewcol6() {
 		return newcol6;
 	}
@@ -37,6 +84,10 @@ public class PurchaseItem {
 	public void setNewcol6(TextField newcol6) {
 		this.newcol6 = newcol6;
 	}
+
+	public TextField getDiscount_in_rs() {	return discount_in_rs;}
+
+	public void setDiscount_in_rs(TextField discount_in_rs) { this.discount_in_rs = discount_in_rs;}
 
 	public TextField getNewcol7() {
 		return newcol7;
@@ -192,51 +243,6 @@ public class PurchaseItem {
 		this.newcol1 = newcol1;
 	}
 
-	public PurchaseItem(int sno, ObservableList items, ObservableList type_of_purchase, String quantity,
-						String rate, String gross, String discount, String cgst, String sgst, String igst, String other_charges,
-						String cess, String taxable_value, String ncol1,String ncol2,String ncol3,String ncol4,String ncol5,String ncol6,String ncol7,String ncol8,String ncol9) {
-		super();
-		this.sno = String.valueOf(sno);
-		this.items = new ComboBox<String>(items);
-		this.type_of_purchase = new ComboBox(type_of_purchase);
-		this.quantity = new TextField(quantity);
-		this.rate = new TextField(rate);
-		this.gross = new TextField(gross);
-		this.discount = new TextField(discount);
-		this.cgst = new TextField(cgst);
-		this.sgst = new TextField(sgst);
-		this.igst = new TextField(igst);
-		this.other_charges = new TextField(other_charges);
-		this.cess = new TextField(cess);
-		this.taxable_value = new TextField(taxable_value);
-		this.items.setEditable(true);
-		this.prop_rate = new SimpleDoubleProperty();
-		this.prop_goss = new SimpleDoubleProperty();
-		this.prop_qty = new SimpleDoubleProperty();
-		//newly added
-		this.newcol1 = new TextField(ncol1);
-		this.newcol2=new TextField(ncol2);
-		this.newcol3 = new TextField(ncol3);
-		this.newcol4 = new TextField(ncol4);
-		this.newcol5 = new TextField(ncol5);
-		this.newcol6 = new TextField(ncol6);
-		this.newcol7 = new TextField(ncol7);
-		this.newcol8 = new TextField(ncol8);
-		this.newcol9 = new TextField(ncol9);
-		// focus
-		this.items.focusedProperty().addListener(e -> {
-			this.items.show();
-		});
-		
-		this.type_of_purchase.focusedProperty().addListener(e -> {
-			this.type_of_purchase.show();
-		});
-		this.type_of_purchase.getSelectionModel().select(0);
-
-		//this.rate.textProperty().bindBidirectional();
-		
-	}
-
 	public String getSno() {
 		return sno;
 	}
@@ -337,6 +343,8 @@ public class PurchaseItem {
 		return taxable_value;
 	}
 
+	// get values
+
 	public void setTaxable_value(TextField taxable_value) {
 		this.taxable_value = taxable_value;
 	}
@@ -373,7 +381,24 @@ public class PurchaseItem {
 		return this.getNewcol4().getText().isEmpty() ? 0 : Double.parseDouble(this.getNewcol4().getText());
 	}
 	public double getNewCol5Value(){
-		return this.getNewcol5().getText().isEmpty() ? 0 : Double.parseDouble(this.getNewcol5().getText());
+		return this.getNewcol5().getText().isEmpty() ? 0 : Double.parseDouble(this.getNewcol4().getText());
+	}
+	public double getNewCol6Value(){
+		return this.getNewcol6().getText().isEmpty() ? 0 : Double.parseDouble(this.getNewcol4().getText());
 	}
 
+	public double getNewCol7Value(){
+		return this.getNewcol7().getText().isEmpty() ? 0 : Double.parseDouble(this.getNewcol5().getText());
+	}
+
+	public double getNewCol8Value(){
+		return this.getNewcol8().getText().isEmpty() ? 0 : Double.parseDouble(this.getNewcol5().getText());
+	}
+	public double getNewCol9Value(){
+		return this.getNewcol9().getText().isEmpty() ? 0 : Double.parseDouble(this.getNewcol5().getText());
+	}
+
+	public  double getDiscountInRsValue(){
+		return  this.getDiscount_in_rs().getText().isEmpty() ? 0 : Double.parseDouble(this.getDiscount_in_rs().getText());
+	}
 }

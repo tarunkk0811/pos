@@ -152,11 +152,11 @@
             </VBox>
          </children>
       </VBox>
-      <ScrollPane fx:id="spane" layoutY="179.0" prefHeight="499.0" prefWidth="925.0" vbarPolicy="NEVER" vmax="0.0">
+      <ScrollPane fx:id="spane" layoutY="179.0" prefHeight="499.0" prefWidth="905.0" vbarPolicy="NEVER" vmax="0.0">
          <content>
             <VBox>
                <children>
-                  <TableView fx:id="purchasetv" prefHeight="450.0" prefWidth="1400.0">
+                  <TableView fx:id="purchasetv" minWidth="-Infinity" prefHeight="450.0" prefWidth="1400.0">
                      <columns>
                         <TableColumn fx:id="sno_col" editable="false" prefWidth="50.0" resizable="false" sortable="false" text="S no" />
                         <TableColumn fx:id="item_col" prefWidth="150.0" resizable="false" sortable="false" text="Item" />
@@ -164,6 +164,7 @@
                         <TableColumn fx:id="rate_col" prefWidth="100.0" resizable="false" sortable="false" text="Rate" />
                         <TableColumn fx:id="gross_col" prefWidth="100.0" resizable="false" sortable="false" text="Gross" />
                         <TableColumn fx:id="disc_col" prefWidth="100.0" resizable="false" sortable="false" text="Discount %" />
+                        <TableColumn fx:id="discount_in_rs_col" prefWidth="100.0" resizable="false" sortable="false" text="Discount (in Rs.)" />
                         <TableColumn fx:id="cgst_col" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="CGST" />
                         <TableColumn fx:id="sgst_col" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="SGST" />
                         <TableColumn fx:id="igst_col" prefWidth="100.0" resizable="false" sortable="false" text="IGST" />
@@ -240,15 +241,25 @@
                               <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
                            </children>
                         </HBox>
-                        <HBox fx:id="cgst_col_total" layoutX="510.0" layoutY="10.0">
+                        <HBox id="disc_col_total" fx:id="discount_in_rs_col_total" layoutX="513.0" layoutY="10.0">
                            <children>
-                              <Text fx:id="cgst_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
+                              <Text fx:id="discount_in_rs_total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin>
+                              </Text>
+                              <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
+                           </children>
+                        </HBox>
+                        <HBox fx:id="cgst_col_total" layoutX="510.0" layoutY="10.0">
+                           <children>
+                              <Text fx:id="cgst_total" layoutX="10.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" textAlignment="CENTER" wrappingWidth="98.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
                               </Text>
                               <Line endX="-99.58580017089844" endY="25.0" startX="-100.0" />
                            </children>
